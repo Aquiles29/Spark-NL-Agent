@@ -38,7 +38,11 @@ def get_llm(
     elif provider == Provider.OPENAI.value:
         if model is None:
             model = DEFAULT_MODELS[Provider.OPENAI]
-        llm = ChatOpenAI(model=model, temperature=temperature)
+        # Reasoning models (o1, o3-mini) don't support temperature
+        if model.startswith("o1") or model.startswith("o3"):
+            llm = ChatOpenAI(model=model)
+        else:
+            llm = ChatOpenAI(model=model, temperature=temperature)
     elif provider == Provider.NVIDIA.value:
         if model is None:
             model = DEFAULT_MODELS[Provider.NVIDIA]

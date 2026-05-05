@@ -32,6 +32,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
     def __init__(self):
         self.count = 0
         self.chain_of_thought = []
+        self.agent_thoughts = []  # Agent thoughts: textual LLM responses without metadata
         self.input_tokens = 0
         self.output_tokens = 0
         # token_details aggregated across ALL LLM calls
@@ -84,11 +85,11 @@ class AgentMonitoringCallback(BaseCallbackHandler):
         s = message_id
         if s.startswith("lc_run--"):
             s = s.replace("lc_run--", "", 1)
-        # remove trailing "-0" 
+        # remove trailing "-0"
         if "-" in s:
             s = s.rsplit("-", 1)[0]
         return s
-    
+
     def _span_start(self, span_type: str, run_id: str, parent_run_id: str | None, name: str, meta: dict | None = None):
         if not run_id:
             return
@@ -117,7 +118,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
             s["meta"].update(extra_meta)
 
         return duration
-    
+
     # -------------------------
     # LLM callbacks
     # -------------------------
@@ -147,23 +148,30 @@ class AgentMonitoringCallback(BaseCallbackHandler):
         run_id = self._as_str(kwargs.get("run_id"))
         duration = self._span_end(run_id)
 
-        # data to get the active run 
+        # data to get the active run
         parent_run_id = self._as_str(kwargs.get("parent_run_id"))
         active = self.active_llm_runs.pop(run_id, None) if run_id else None
-        
+
         if hasattr(response, "generations"):
             for g in response.generations:
+                thought = ""
                 for gen in g:
                     if hasattr(gen, "text"):
                         self.last_answer = gen.text
-                    
+                        thought += gen.text + "\n"
+
                     gen_dict = getattr(gen, "__dict__", {}) or {}
                     message = gen_dict.get("message", None)
                     if message is None:
                         continue
                     message_dict = getattr(message, "__dict__", {}) or {}
 
-                # identifier to map token usage (given here) to the tool calls (given in on_tool_start) 
+                # Print and store agent thought (LLM textual response without metadata)
+                if thought.strip():
+                    self.agent_thoughts.append(thought.strip())
+                    print(f"\n[Agent Thought] {thought.strip()}")
+
+                # identifier to map token usage (given here) to the tool calls (given in on_tool_start)
                 lc_run_identifier = self._parse_lc_run_identifier(message_dict.get("id"))
 
                 usage = message_dict.get("usage_metadata", {}) or {}
@@ -190,7 +198,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
                         "type": tc.get("type"),
                     })
 
-                # store per-LLM-call stats                
+                # store per-LLM-call stats
                 if active:
                     self.llm_calls[run_id] = {
                         "prompt": active["prompt"],
@@ -203,6 +211,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
                         "output_tokens": output_tokens,
                         "output_token_details": output_details,
                         "tool_calls": parsed_tool_calls,
+                        "thought": thought
                     }
 
     # -------------------------
@@ -211,7 +220,21 @@ class AgentMonitoringCallback(BaseCallbackHandler):
     def on_agent_action(self, action, **kwargs):
         log_message = action.log
         self.chain_of_thought.append(log_message)
-        print(f"\n[Real-time CoT] {log_message}")
+        print(f"\n[Real-time CoT - Agent Response] {log_message}")
+
+        # Extract thought from action.log (text before "Action:")
+        if log_message:
+            # Split on "Action:" to get the thought part
+            thought_text = log_message
+            if "Action:" in log_message:
+                parts = log_message.split("Action:", 1)
+                thought_text = parts[0].strip()
+                # Remove "Thought:" prefix if present
+                if thought_text.startswith("Thought:"):
+                    thought_text = thought_text[8:].strip()
+            if thought_text:
+                self.agent_thoughts.append(thought_text)
+                print(f"\n[Agent Thought] {thought_text}")
 
         if action.tool == "schema_sql_db":
             self.schema_sql_db_count += 1
@@ -221,12 +244,12 @@ class AgentMonitoringCallback(BaseCallbackHandler):
     def on_agent_finish(self, finish, **kwargs):
         log_message = finish.log
         self.chain_of_thought.append(log_message)
-        print(f"\n[Real-time CoT] {log_message}")
-    
+        print(f"\n[Real-time CoT - Agent Finish] {log_message}")
+
     # -------------------------
     # Tool callbacks
     # -------------------------
-        
+
     def on_tool_start(self, serialized, input_str, **kwargs):
         run_id = self._as_str(kwargs.get("run_id"))
         parent_run_id = self._as_str(kwargs.get("parent_run_id"))
@@ -244,7 +267,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
 
         message = f"Action: {tool_name}\nAction Input: {input_str}"
         self.chain_of_thought.append(message)
-        print(f"\n[Real-time CoT] {message}")
+        print(f"\n[Real-time CoT - TOOL Call] {message}")
 
         self._span_start(
             span_type="tool",
@@ -253,7 +276,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
             name=tool_name,
             meta={"input_len": len(input_str or "")},
         )
-        
+
         if tool_name == "schema_sql_db":
             self.schema_sql_db_count += 1
             if self.schema_sql_db_count > config.SCHEMA_LOOP_COUNT:
@@ -274,10 +297,10 @@ class AgentMonitoringCallback(BaseCallbackHandler):
         tool = self._ensure_tool(tool_name)
         call = self._ensure_tool_call(tool_name, run_id or f"tool_call_{tool['call_count']}")
 
-        tool["total_duration"] += duration
+        tool["total_duration"] += duration if duration is not None else 0.0
         call["duration"] = duration
 
-        # cast output to str for json serializable storage 
+        # cast output to str for json serializable storage
         if hasattr(output, "content"):
             clean_output = output.content
         else:
@@ -286,7 +309,7 @@ class AgentMonitoringCallback(BaseCallbackHandler):
 
         message = f"Observation: {output}"
         self.chain_of_thought.append(message)
-        print(f"\n[Real-time CoT] {message}")
+        print(f"\n[Real-time CoT - TOOL Result] {message}")
 
 def parsing_error_handler(error: Exception):
     str_error = str(error)
@@ -303,11 +326,11 @@ def get_spark_session(extra_configs=None, benchmark="bird"):
         .appName("SparkSQLAgentTimer") \
         .config("spark.sql.warehouse.dir", "/tmp/spark-warehouse") \
         .config("spark.driver.memory", "2g")
-    
+
     if extra_configs:
         for key, value in extra_configs.items():
             builder = builder.config(key, value)
-            
+
     spark = builder.getOrCreate()
     return spark
 
@@ -346,7 +369,7 @@ def run_sparksql_query(spark_session, query):
     error = None
     result_df = None
     result_obj = None
-    
+
     try:
         # without .collect() we would only measure the Query Parsing Time
         result_df = spark_session.sql(query)
@@ -354,10 +377,10 @@ def run_sparksql_query(spark_session, query):
     except Exception as e:
         error = str(e)
         print(f"[Spark Error] Query failed: {error}")
-    
+
     end_t = time.time()
     duration = end_t - start_t
-    
+
     return result_df, result_obj, duration
 
 
@@ -366,7 +389,7 @@ def get_spark_agent(spark_sql, llm):
     original_run = spark_sql.run
 
     def timed_run(self, command, fetch="all", _no_early_exit=False):
-        
+
         # Log to chain of thought if callback is attached
         if hasattr(self, 'cb') and self.cb:
             self.cb.chain_of_thought.append(f"Spark Query Executed: {command}")
@@ -421,10 +444,20 @@ def get_spark_agent(spark_sql, llm):
 
     spark_sql.run = types.MethodType(timed_run, spark_sql)
     toolkit = SparkSQLToolkit(db=spark_sql, llm=llm)
+    
+    # Choose prompt based on config
+    if config.FORCE_THOUGHT_GENERATION:
+        from spark_toolkit.prompt import SQL_PREFIX_WITH_THOUGHTS
+        prefix = SQL_PREFIX_WITH_THOUGHTS
+    else:
+        from spark_toolkit.prompt import SQL_PREFIX
+        prefix = SQL_PREFIX
+    
     agent = create_spark_sql_agent(
         llm=llm,
         toolkit=toolkit, verbose=True,
-        handle_parsing_errors=parsing_error_handler
+        handle_parsing_errors=parsing_error_handler,
+        prefix=prefix
     )
 
     return agent
@@ -553,9 +586,9 @@ def run_nl_query(agent, nl_query, llm=None):
 
     print("--- Starting Agent ---")
     total_start = time.time()
-    
+
     cb = AgentMonitoringCallback()
-    
+
     # Attach callback to the db object so timed_run can access it
     # agent.tools is a list of tools. We need to find the one with the db.
     # Usually SparkSQLToolkit adds tools that share the same db instance.
@@ -609,9 +642,9 @@ def run_nl_query(agent, nl_query, llm=None):
     elif isinstance(llm, ChatOpenAI):
         llm_name = "openai"
     else:
-        llm_name = "unknown" 
+        llm_name = "unknown"
 
-    config.metrics["llm"] = llm_name  
+    config.metrics["llm"] = llm_name
     config.metrics["answer"] = final_answer
     total_time = total_end - total_start
     config.metrics["total_time"] = total_time
@@ -619,6 +652,7 @@ def run_nl_query(agent, nl_query, llm=None):
     config.metrics["translation_time"] = total_time - spark_time
     config.metrics["llm_requests"] = cb.count
     config.metrics["chain_of_thought"] = cb.chain_of_thought
+    config.metrics["agent_thoughts"] = cb.agent_thoughts
     config.metrics["input_tokens"] = cb.input_tokens
     config.metrics["input_token_details"] = cb.input_token_details_total
     config.metrics["output_tokens"] = cb.output_tokens
@@ -649,7 +683,7 @@ def run_nl_query(agent, nl_query, llm=None):
         config.metrics[f"tokens_{tool_name}"] = tool_dict["total_tokens"]
 
     ############################################################################
-    #               TIME COMPUTATION 
+    #               TIME COMPUTATION
     ############################################################################
     # Problem: QueryCheckerTool internally calls LLM too, so total_time_tools includes some LLM time as well
     # total times per tool (LangChain tools)
@@ -705,7 +739,7 @@ def process_result():
     result = config.metrics.get("result", None)
     result = result_to_obj(result)
     error = config.metrics.get("spark_error", None)
-    
+
     json_result = {
         "llm": config.metrics.get("llm", None),
         "sparksql_query": config.metrics.get("query", None),
@@ -726,6 +760,7 @@ def process_result():
         "orchestration_time": config.metrics.get("orchestration_time", -1),
         "llm_requests": config.metrics.get("llm_requests", 0),
         "chain_of_thought": config.metrics.get("chain_of_thought", []),
+        "agent_thoughts": config.metrics.get("agent_thoughts", []),
         "total_tokens": config.metrics.get("input_tokens", 0) + config.metrics.get("output_tokens", 0),
         "input_tokens": config.metrics.get("input_tokens", 0),
         "input_token_details": config.metrics.get("input_token_details", {}),
@@ -737,7 +772,7 @@ def process_result():
         "llm_calls": config.metrics.get("llm_calls", {}),
         "tool_metrics": config.metrics.get("tool_metrics", {}),
     }
-    
+
     return json_result
 
 
@@ -745,11 +780,11 @@ def print_results(json_result, print_result=False):
     print("\n" + "="*40)
     print(" PERFORMANCE METRICS")
     print("="*40)
-    
+
     total_time = json_result.get("total_time")
     spark_time = json_result.get("spark_time")
     translation_time = json_result.get("translation_time")
-    
+
     status = json_result.get('execution_status')
     color_start = ""
     color_end = "\033[0m"
@@ -768,17 +803,17 @@ def print_results(json_result, print_result=False):
     print(f"4. LLM Requests             : {json_result.get('llm_requests')}")
     print(f"5. Input Tokens             : {json_result.get('input_tokens')}")
     print(f"6. Output Tokens            : {json_result.get('output_tokens')}")
-    
+
     neurons = json_result.get('cloudflare_neurons')
     if neurons is not None:
         print(f"7. Cloudflare Neurons       : {neurons:.2f}")
-    
+
     print(f"Spark Query: {color_start}{json_result.get('sparksql_query')}{color_end}")
-    
+
     error = json_result.get("spark_error")
     print(f"Spark Error (first 50 chars): {error[:50] if error else 'None'}")
     print("="*40)
-    
+
     if json_result.get('execution_status') == "VALID" and print_result:
         print(f"Query Result: {json_result.get('query_result')}")
 
@@ -787,7 +822,7 @@ def pretty_print_cot(json_result):
     print("\n" + "="*40)
     print(" CHAIN OF THOUGHT")
     print("="*40)
-    
+
     cot = json_result.get("chain_of_thought", [])
     if not cot:
         print("No Chain of Thought available.")
@@ -805,7 +840,7 @@ def save_results(results, output_file=None, query_id=None, iteration=1, addition
         random_suffix = str(uuid.uuid4())[:8]
         output_file = f"{current_date}_ID_{query_id}_ITER_{iteration}_{random_suffix}.json"
     print(f"[Internal Log] Saving results to {output_file}")
-        
+
     if additional_data:
         results.update(additional_data)
 

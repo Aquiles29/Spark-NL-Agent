@@ -57,7 +57,11 @@ def create_spark_sql_agent(
     from langgraph.prebuilt import create_react_agent
 
     tools = toolkit.get_tools()
-    prefix = prefix.format(top_k=top_k)
+    try:
+        prefix = prefix.format(top_k=top_k)
+    except (KeyError, IndexError):
+        # Prefix doesn't have {top_k} placeholder, use as-is
+        pass
     
     agent = create_react_agent(llm, tools, prompt=prefix)
     return agent
