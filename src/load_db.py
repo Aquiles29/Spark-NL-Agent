@@ -26,6 +26,8 @@ def _get_column_overrides(db_path, table):
     overrides = []
     for row in cursor.fetchall():
         col_name = row[1]
+        if " " in col_name:
+            col_name = f"`{col_name}`"
         col_type = row[2].upper() if row[2] else "TEXT"
         sqlite_type = col_type.split("(")[0]
         if sqlite_type in SQLITE_DATE_TYPES:
@@ -59,6 +61,7 @@ def load_bird_tables(spark_session, db_name):
         }
         if custom_schema:
             read_options["customSchema"] = custom_schema
+
         df = spark_session.read.format("jdbc").options(**read_options).load()
 
         df.createOrReplaceTempView(table)
