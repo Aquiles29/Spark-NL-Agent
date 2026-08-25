@@ -411,6 +411,14 @@ def get_spark_agent(spark_sql, llm):
         config.metrics["result"] = result if error is None else None
         config.metrics["spark_error"] = error
 
+        # Keep a history of every SQL query executed by the agent
+        config.metrics.setdefault("executed_queries", [])
+        config.metrics["executed_queries"].append({
+            "query": command,
+            "error": error,
+            "duration": duration
+        })
+
         # manually create a time span for spark execution
         span_entry = {
             "type": "spark",
@@ -431,6 +439,12 @@ def get_spark_agent(spark_sql, llm):
         print("Query:", command)
         print("Result/Error:", result if error is None else error)
 
+        # Allow the agent to continue after SQL execution when early exit is disabled
+        if not config.STOP_AFTER_FIRST_SQL:
+            if error:
+                raise RuntimeError(error)
+            return result
+        
         # FORCE EARLY EXIT IMMEDIATELY AFTER FIRST SPARK QUERY
         # but only for the model, not for the golden query execution
         if error:
@@ -743,6 +757,7 @@ def process_result():
     json_result = {
         "llm": config.metrics.get("llm", None),
         "sparksql_query": config.metrics.get("query", None),
+        "executed_queries": config.metrics.get("executed_queries", []),
         "query_id": config.metrics.get("query_id", None),
         "iteration": config.metrics.get("iteration", None),
         "difficulty": config.metrics.get("difficulty", None),

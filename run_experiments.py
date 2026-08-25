@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 import config
 from config import Provider
-from evaluation import execution_accuracy
+from evaluation import execution_accuracy, convert_to_dataframe
 from llm import get_llm
 from load_db import load_tables
 from spark_nl import (
@@ -42,6 +42,38 @@ import argparse
 BENCHMARK_SPEC_FILE = "db/bird-1/dev.json"
 MAX_QUERIES = 5
 
+def dataframe_preview(df, max_rows=20):
+    """
+    Convert the first rows of a DataFrame into JSON-serializable records.
+    Used only for debugging/analysis, not for evaluation.
+    """
+    if df is None:
+        return []
+
+    return json.loads(
+        df.head(max_rows).to_json(orient="records")
+    )
+
+def detect_api_error(message):
+    if not message:
+        return None
+
+    message = str(message)
+
+    if "RESOURCE_EXHAUSTED" in message or "429" in message:
+        return "RATE_LIMIT"
+
+    if "NOT_FOUND" in message or "404" in message:
+        return "MODEL_NOT_FOUND"
+
+    if "UNAUTHENTICATED" in message or "401" in message:
+        return "AUTH_ERROR"
+
+    if "PERMISSION_DENIED" in message or "403" in message:
+        return "PERMISSION_ERROR"
+
+    return None
+
 def main(provider, force_thoughts=False, model=None):
 
     if force_thoughts:
@@ -50,7 +82,7 @@ def main(provider, force_thoughts=False, model=None):
     with open(BENCHMARK_SPEC_FILE, "r", encoding="utf-8") as f:
         benchmark_spec = json.load(f)
 
-    benchmark_subset = benchmark_spec[:MAX_QUERIES]
+    benchmark_subset = benchmark_spec[1:2]
 
     results = []
 
@@ -64,7 +96,8 @@ def main(provider, force_thoughts=False, model=None):
             "spark_exec_time": -1,
             "translation_time": -1,
             "sparksql_query": None,
-            "answer": None
+            "answer": None,
+            "executed_queries": []
         })
 
         question_id = item["question_id"]
@@ -98,37 +131,122 @@ def main(provider, force_thoughts=False, model=None):
 
         execution_acc = 0.0
 
-        if json_result.get("execution_status") == "VALID":
+        agent_message = config.metrics.get("answer", "")
+        api_error = detect_api_error(agent_message)
+
+        execution_acc = None
+        experiment_status = None
+        inferred_df = None
+
+        if api_error:
+            # Infrastructure/API failure: do NOT count as an incorrect model prediction
+            experiment_status = "API_ERROR"
+
+        elif json_result.get("execution_status") == "VALID":
             inferred_result = json_result.get("query_result")
+            inferred_df = convert_to_dataframe(inferred_result)
 
             execution_acc = execution_accuracy(
                 ground_truth,
                 inferred_result
             )
 
+            experiment_status = "COMPLETED"
+
+        elif json_result.get("execution_status") == "ERROR":
+            # The model produced SQL but Spark could not execute it.
+            # This is a genuine Text-to-SQL failure.
+            execution_acc = 0.0
+            experiment_status = "SQL_ERROR"
+
+        else:
+            # The model failed to produce an executable query.
+            execution_acc = 0.0
+            experiment_status = "MODEL_ERROR"
+
+        ground_truth_preview = dataframe_preview(ground_truth)
+
+        ground_truth_rows = len(ground_truth)
+        ground_truth_columns = ground_truth.shape[1]
+
+        if inferred_df is not None:
+            generated_result_preview = dataframe_preview(inferred_df)
+            generated_result_rows = len(inferred_df)
+            generated_result_columns = inferred_df.shape[1]
+        else:
+            generated_result_preview = []
+            generated_result_rows = None
+            generated_result_columns = None
+
         results.append({
             "question_id": question_id,
             "db_id": db_name,
             "question": nl_query,
+
             "gold_sql": golden_query,
             "generated_sql": json_result.get("sparksql_query"),
+
+            "executed_queries": json_result.get("executed_queries", []),
+
+            "experiment_status": experiment_status,
+            "api_error": api_error,
             "execution_status": json_result.get("execution_status"),
             "execution_accuracy": execution_acc,
+
+            "ground_truth_rows": ground_truth_rows,
+            "ground_truth_columns": ground_truth_columns,
+            "ground_truth_preview": ground_truth_preview,
+
+            "generated_result_rows": generated_result_rows,
+            "generated_result_columns": generated_result_columns,
+            "generated_result_preview": generated_result_preview,
+
             "total_time": json_result.get("total_time"),
             "llm_requests": json_result.get("llm_requests"),
             "input_tokens": json_result.get("input_tokens"),
             "output_tokens": json_result.get("output_tokens"),
+
             "spark_error": json_result.get("spark_error"),
-        })
+            "agent_error": agent_message if experiment_status == "API_ERROR" else None
+        }) 
+
+        with open(
+            "baseline_bird_results_checkpoint.json",
+            "w",
+            encoding="utf-8"
+        ) as f:
+            json.dump(results, f, indent=4, ensure_ascii=False)
 
         print(f"\nGenerated SQL: {json_result.get('sparksql_query')}")
-        print(f"Execution Accuracy: {execution_acc:.0%}")
+        if execution_acc is not None:
+            print(f"Execution Accuracy: {execution_acc:.0%}")
+        else:
+            print("Execution Accuracy: N/A")
 
         spark.stop()
 
     df_results = pd.DataFrame(results)
 
-    df_results.to_csv(
+    csv_columns = [
+        "question_id",
+        "db_id",
+        "question",
+        "gold_sql",
+        "generated_sql",
+        "experiment_status",
+        "api_error",
+        "execution_status",
+        "execution_accuracy",
+        "ground_truth_rows",
+        "generated_result_rows",
+        "total_time",
+        "llm_requests",
+        "input_tokens",
+        "output_tokens",
+        "spark_error"
+    ]
+
+    df_results[csv_columns].to_csv(
         "baseline_bird_results.csv",
         index=False,
         encoding="utf-8"
@@ -141,13 +259,30 @@ def main(provider, force_thoughts=False, model=None):
         force_ascii=False
     )
 
-    overall_ea = df_results["execution_accuracy"].mean()
+    completed_attempts = df_results[
+    df_results["experiment_status"] != "API_ERROR"
+]
+
+    api_errors = df_results[
+        df_results["experiment_status"] == "API_ERROR"
+    ]
+
+    if len(completed_attempts) > 0:
+        overall_ea = completed_attempts["execution_accuracy"].mean()
+    else:
+        overall_ea = None
 
     print("\n" + "=" * 60)
     print("BASELINE SUMMARY")
     print("=" * 60)
-    print(f"Queries evaluated: {len(df_results)}")
-    print(f"Execution Accuracy: {overall_ea:.2%}")
+    print(f"Queries selected: {len(df_results)}")
+    print(f"Valid benchmark attempts: {len(completed_attempts)}")
+    print(f"API/infrastructure failures: {len(api_errors)}")
+
+    if overall_ea is not None:
+        print(f"Execution Accuracy: {overall_ea:.2%}")
+    else:
+        print("Execution Accuracy: N/A")
 
 
 if __name__ == "__main__":
