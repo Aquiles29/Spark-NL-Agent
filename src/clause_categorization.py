@@ -26,7 +26,7 @@ def categorize_sql(sql):
     }
 
     try:
-        tree = sqlglot.parse_one(sql)
+        tree = sqlglot.parse_one(sql, read="sqlite")
 
     except Exception as e:
         result["parse_error"] = str(e)

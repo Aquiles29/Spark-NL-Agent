@@ -27,7 +27,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 import config
 from config import Provider
-from evaluation import execution_accuracy, convert_to_dataframe
+from evaluation import (
+    execution_accuracy,
+    convert_to_dataframe,
+    exact_match_sql,
+    normalize_sql
+)
 from llm import get_llm
 from load_db import load_tables
 from spark_nl import (
@@ -212,11 +217,23 @@ def main(provider, force_thoughts=False, model=None):
 
         last_executed_sql = json_result.get("sparksql_query")
 
-        if experiment_status in {"API_ERROR", "ITERATION_LIMIT"}:
+        if experiment_status == "API_ERROR":
             generated_sql = None
         else:
             generated_sql = last_executed_sql
-        
+
+        if experiment_status == "API_ERROR":
+            exact_match = None
+
+        elif generated_sql:
+            exact_match = exact_match_sql(
+                golden_query,
+                generated_sql
+            )
+
+        else:
+            exact_match = 0.0
+                
         results.append({
             "question_id": question_id,
             "db_id": db_name,
@@ -226,6 +243,16 @@ def main(provider, force_thoughts=False, model=None):
             "generated_sql": generated_sql,
             "last_executed_sql": last_executed_sql,
 
+            "exact_match": exact_match,
+            "gold_sql_normalized": normalize_sql(
+                golden_query,
+                "sqlite"
+            ),
+            "generated_sql_normalized": (
+                normalize_sql(generated_sql, "spark")
+                if generated_sql
+                else None
+            ),
             "executed_queries": json_result.get("executed_queries", []),
             "iteration_limit_reached": iteration_limit,
 
@@ -264,6 +291,10 @@ def main(provider, force_thoughts=False, model=None):
         else:
             print("Execution Accuracy: N/A")
 
+        if exact_match is not None:
+            print(f"Exact Match: {exact_match:.0%}")
+        else:
+            print("Exact Match: N/A")
         spark.stop()
 
     df_results = pd.DataFrame(results)
@@ -278,6 +309,7 @@ def main(provider, force_thoughts=False, model=None):
         "api_error",
         "execution_status",
         "execution_accuracy",
+        "exact_match",
         "ground_truth_rows",
         "generated_result_rows",
         "total_time",
@@ -301,8 +333,8 @@ def main(provider, force_thoughts=False, model=None):
     )
 
     completed_attempts = df_results[
-    df_results["experiment_status"] != "API_ERROR"
-]
+        df_results["experiment_status"] != "API_ERROR"
+    ]
 
     api_errors = df_results[
         df_results["experiment_status"] == "API_ERROR"
@@ -310,8 +342,10 @@ def main(provider, force_thoughts=False, model=None):
 
     if len(completed_attempts) > 0:
         overall_ea = completed_attempts["execution_accuracy"].mean()
+        overall_em = completed_attempts["exact_match"].mean()
     else:
         overall_ea = None
+        overall_em = None
 
     print("\n" + "=" * 60)
     print("BASELINE SUMMARY")
@@ -322,8 +356,10 @@ def main(provider, force_thoughts=False, model=None):
 
     if overall_ea is not None:
         print(f"Execution Accuracy: {overall_ea:.2%}")
+        print(f"Exact Match:        {overall_em:.2%}")
     else:
         print("Execution Accuracy: N/A")
+        print("Exact Match:        N/A")
 
 
 if __name__ == "__main__":

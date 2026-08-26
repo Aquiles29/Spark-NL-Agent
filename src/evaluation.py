@@ -160,3 +160,62 @@ def execution_accuracy(df_gt, df_inf):
             return 0.0
 
     return 1.0
+
+def normalize_sql(sql, dialect="sqlite"):
+    """
+    Parse and normalize SQL for structural Exact Match comparison.
+
+    Returns:
+        Normalized SQL string, or None if parsing fails.
+    """
+
+    if not sql or not isinstance(sql, str):
+        return None
+
+    try:
+        tree = sqlglot.parse_one(
+            sql.strip().rstrip(";"),
+            read=dialect
+        )
+
+        return tree.sql(
+            dialect="sqlite",
+            pretty=False,
+            normalize=True
+        )
+
+    except Exception:
+        return None
+
+
+def exact_match_sql(gold_sql, generated_sql):
+    """
+    Compute normalized SQL Exact Match.
+
+    Gold BIRD SQL is parsed as SQLite.
+    Generated agent SQL is parsed as Spark SQL.
+
+    Returns:
+        1.0 if normalized SQL is identical
+        0.0 otherwise
+    """
+
+    if not gold_sql or not generated_sql:
+        return 0.0
+
+    gold_normalized = normalize_sql(
+        gold_sql,
+        dialect="sqlite"
+    )
+
+    generated_normalized = normalize_sql(
+        generated_sql,
+        dialect="spark"
+    )
+
+    if gold_normalized is None or generated_normalized is None:
+        return 0.0
+
+    return float(
+        gold_normalized == generated_normalized
+    )

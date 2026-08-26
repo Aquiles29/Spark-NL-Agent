@@ -1,2 +1,7 @@
-question_id,db_id,question,gold_sql,generated_sql,experiment_status,api_error,execution_status,execution_accuracy,ground_truth_rows,generated_result_rows,total_time,llm_requests,input_tokens,output_tokens,spark_error
-1,california_schools,Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.,SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = 'Continuation School' AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3,,API_ERROR,RATE_LIMIT,NOT_EXECUTED,,3,,47.951669692993164,1,0,0,
+question_id,db_id,question,gold_sql,generated_sql,experiment_status,api_error,execution_status,execution_accuracy,exact_match,ground_truth_rows,generated_result_rows,total_time,llm_requests,input_tokens,output_tokens,spark_error
+1,california_schools,Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.,SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = 'Continuation School' AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3,"SELECT f.`Percent (%) Eligible Free (Ages 5-17)` 
+FROM frpm f 
+WHERE f.`Educational Option Type` = 'Continuation School' 
+  AND f.`Percent (%) Eligible Free (Ages 5-17)` IS NOT NULL 
+ORDER BY f.`Percent (%) Eligible Free (Ages 5-17)` ASC 
+LIMIT 3",COMPLETED,,VALID,0.0,0.0,3,3,272.2853808403015,13,28831,3809,

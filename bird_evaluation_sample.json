@@ -1,0 +1,372 @@
+[
+    {
+        "question_id": 49,
+        "db_id": "california_schools",
+        "question": "Which different county has the most number of closed schools? Please provide the name of each school as well as the closure date.",
+        "gold_sql": "SELECT DISTINCT County, School, ClosedDate FROM schools WHERE County = ( SELECT County FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY COUNT(School) DESC LIMIT 1 ) AND StatusType = 'Closed' AND school IS NOT NULL",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "GROUP_BY"
+        ],
+        "category_signature": "GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 68,
+        "db_id": "california_schools",
+        "question": "Which county reported the most number of school closure in the 1980s with school wonership code belonging to Youth Authority Facilities (CEA)?",
+        "gold_sql": "SELECT County FROM schools WHERE strftime('%Y', ClosedDate) BETWEEN '1980' AND '1989' AND StatusType = 'Closed' AND SOC = 11 GROUP BY County ORDER BY COUNT(School) DESC LIMIT 1",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "GROUP_BY"
+        ],
+        "category_signature": "GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 488,
+        "db_id": "card_games",
+        "question": "What's the code for the set which was released on 2017/7/14?",
+        "gold_sql": "SELECT code FROM sets WHERE releaseDate = '2017-07-14' GROUP BY releaseDate, code",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "GROUP_BY"
+        ],
+        "category_signature": "GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 1196,
+        "db_id": "thrombosis_prediction",
+        "question": "What is the most common sign of patients with SLE disease?",
+        "gold_sql": "SELECT Symptoms FROM Examination WHERE Diagnosis = 'SLE' GROUP BY Symptoms ORDER BY COUNT(Symptoms) DESC LIMIT 1",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "GROUP_BY"
+        ],
+        "category_signature": "GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 1491,
+        "db_id": "debit_card_specializing",
+        "question": "Which country has more \"value for money\" gas stations? Please give a total number of \"value for money\" gas stations in each country.",
+        "gold_sql": "SELECT Country , ( SELECT COUNT(GasStationID) FROM gasstations WHERE Segment = 'Value for money' ) FROM gasstations WHERE Segment = 'Value for money' GROUP BY Country ORDER BY COUNT(GasStationID) DESC LIMIT 1",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "GROUP_BY"
+        ],
+        "category_signature": "GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 1444,
+        "db_id": "student_club",
+        "question": "List the expenses that spend more than fifty dollars on average.",
+        "gold_sql": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "JOIN": false,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 766,
+        "db_id": "superhero",
+        "question": "What is the hero's full name with the highest attribute in strength?",
+        "gold_sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T3.attribute_name = 'Strength' ORDER BY T2.attribute_value DESC LIMIT 1",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 825,
+        "db_id": "superhero",
+        "question": "Identify the gender of the superhero who has the ability of Phoenix Force.",
+        "gold_sql": "SELECT T4.gender FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id INNER JOIN gender AS T4 ON T1.gender_id = T4.id WHERE T3.power_name = 'Phoenix Force'",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 1265,
+        "db_id": "thrombosis_prediction",
+        "question": "How many patients have a normal level of anti-ribonuclear protein and have been admitted to the hospital?",
+        "gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RNP = 'negative' OR T2.RNP = '0' AND T1.Admission = '+'",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 1308,
+        "db_id": "thrombosis_prediction",
+        "question": "Among the patients who have a normal platelet level, how many of them have other symptoms observed?",
+        "gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.PLT > 100 AND T2.PLT < 400 AND T1.Diagnosis IS NOT NULL",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 1469,
+        "db_id": "student_club",
+        "question": "Which student has the hometown of Lincolnton, North Carolina with the zip code of 28092? List their full name and position.",
+        "gold_sql": "SELECT T1.first_name, T1.last_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 30,
+        "db_id": "california_schools",
+        "question": "Which cities have the top 5 lowest enrollment number for students in grades 1 through 12?",
+        "gold_sql": "SELECT T2.City FROM frpm AS T1 INNER JOIN schools AS T2 ON T1.CDSCode = T2.CDSCode GROUP BY T2.City ORDER BY SUM(T1.`Enrollment (K-12)`) ASC LIMIT 5",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "category_signature": "JOIN+GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 197,
+        "db_id": "toxicology",
+        "question": "Calculate the average number of oxygen atoms in single-bonded molecules.",
+        "gold_sql": "SELECT AVG(oxygen_count) FROM (SELECT T1.molecule_id, COUNT(T1.element) AS oxygen_count FROM atom AS T1 INNER JOIN bond AS T2 ON T1.molecule_id = T2.molecule_id  WHERE T2.bond_type = '-' AND T1.element = 'o'  GROUP BY T1.molecule_id) AS oxygen_counts",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "category_signature": "JOIN+GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 208,
+        "db_id": "toxicology",
+        "question": "Which type of label is the most numerous in atoms with hydrogen?",
+        "gold_sql": "SELECT T.label FROM ( SELECT T2.label, COUNT(T2.molecule_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.element = 'h' GROUP BY T2.label ORDER BY COUNT(T2.molecule_id) DESC LIMIT 1 ) t",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "category_signature": "JOIN+GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 583,
+        "db_id": "codebase_community",
+        "question": "What is the total score of the posts edited by Yevgeny and include the user's website URL.",
+        "gold_sql": "SELECT SUM(T1.Score), T2.WebsiteUrl FROM posts AS T1 INNER JOIN users AS T2 ON T1.LastEditorUserId = T2.Id WHERE T2.DisplayName = 'Yevgeny' GROUP BY T2.WebsiteUrl",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "category_signature": "JOIN+GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 587,
+        "db_id": "codebase_community",
+        "question": "Calculate the average view count of each post tagged as 'humor' and list the title and the comment of each post.",
+        "gold_sql": "SELECT AVG(T2.ViewCount), T2.Title, T1.Text FROM comments AS T1 INNER JOIN posts AS T2 ON T2.Id = T1.PostId  WHERE T2.Tags = '<humor>' GROUP BY T2.Title, T1.Text ",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": false,
+        "categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "category_signature": "JOIN+GROUP_BY",
+        "parse_error": null
+    },
+    {
+        "question_id": 25,
+        "db_id": "california_schools",
+        "question": "Name schools in Riverside which the average of average math score for SAT is grater than 400, what is the funding type of these schools?",
+        "gold_sql": "SELECT T1.sname, T2.`Charter Funding Type` FROM satscores AS T1 INNER JOIN frpm AS T2 ON T1.cds = T2.CDSCode WHERE T2.`District Name` LIKE 'Riverside%' GROUP BY T1.sname, T2.`Charter Funding Type` HAVING CAST(SUM(T1.AvgScrMath) AS REAL) / COUNT(T1.cds) > 400",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 141,
+        "db_id": "financial",
+        "question": "Which districts have transactions greater than USS$10,000 in 1997?",
+        "gold_sql": "SELECT T1.district_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T1.account_id = T3.account_id WHERE STRFTIME('%Y', T3.date) = '1997' GROUP BY T1.district_id HAVING SUM(T3.amount) > 10000",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 899,
+        "db_id": "formula_1",
+        "question": "List circuits which host 4 f1 races from year 1990 to 2000.",
+        "gold_sql": "SELECT DISTINCT T1.name FROM circuits AS T1 INNER JOIN races AS T2 ON T2.circuitID = T1.circuitId WHERE STRFTIME('%Y', T2.date) BETWEEN '1990' AND '2000' GROUP BY T1.name HAVING COUNT(T2.raceId) = 4",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 1322,
+        "db_id": "student_club",
+        "question": "Among the events attended by more than 10 members of the Student_Club, how many of them are meetings?",
+        "gold_sql": "SELECT T1.event_name FROM event AS T1  INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_id  HAVING COUNT(T2.link_to_event) > 10 EXCEPT SELECT T1.event_name  FROM event AS T1  WHERE T1.type = 'Meeting'",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 1381,
+        "db_id": "student_club",
+        "question": "List the name of students that have attended more than 7 events.",
+        "gold_sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member GROUP BY T2.link_to_member HAVING COUNT(T2.link_to_event) > 7",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 63,
+        "db_id": "california_schools",
+        "question": "In chartered schools with charter number 00D2, what are the names of all the administrators? Include the name of the school and the city to which it belongs",
+        "gold_sql": "SELECT AdmFName1, AdmLName1, School, City FROM schools WHERE Charter = 1 AND CharterNum = '00D2'",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 172,
+        "db_id": "financial",
+        "question": "How many owner and disponent dispositions are there from account number 1 to account number 10?",
+        "gold_sql": "SELECT SUM(type = 'OWNER') , SUM(type = 'DISPONENT') FROM disp WHERE account_id BETWEEN 1 AND 10",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 275,
+        "db_id": "toxicology",
+        "question": "Give me the molecule ID of the double bond type.",
+        "gold_sql": "SELECT DISTINCT T.molecule_id FROM bond AS T WHERE T.bond_type = '='",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 1186,
+        "db_id": "thrombosis_prediction",
+        "question": "Lists all patients by ID who were diagnosed with Behcet's and had their exams between 01/01/197 and 12/31/1997.",
+        "gold_sql": "SELECT ID FROM Examination WHERE `Examination Date` BETWEEN '1997-01-01' AND '1997-12-31' AND Diagnosis = 'Behcet'",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 1290,
+        "db_id": "thrombosis_prediction",
+        "question": "What is the examination date of the patient whose albumin is the highest in the normal range?",
+        "gold_sql": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    }
+]
