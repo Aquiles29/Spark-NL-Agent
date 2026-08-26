@@ -5,6 +5,7 @@ DEFAULT_PROMPT_SUFIX = ""
 SCHEMA_LOOP_COUNT = 3
 FORCE_THOUGHT_GENERATION = False  # If True, agent generates text thoughts before tool calls
 STOP_AFTER_FIRST_SQL = False
+MAX_AGENT_ITERATIONS = 10
 
 from enum import Enum
 

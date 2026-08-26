@@ -471,7 +471,8 @@ def get_spark_agent(spark_sql, llm):
         llm=llm,
         toolkit=toolkit, verbose=True,
         handle_parsing_errors=parsing_error_handler,
-        prefix=prefix
+        prefix=prefix,
+        max_iterations=config.MAX_AGENT_ITERATIONS,
     )
 
     return agent

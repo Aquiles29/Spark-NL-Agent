@@ -5,13 +5,20 @@ from langchain_anthropic import ChatAnthropic
 from langchain_cloudflare import ChatCloudflareWorkersAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
+from langchain_core.rate_limiters import InMemoryRateLimiter
 
 from config import (
     DEFAULT_MODELS,
     DEFAULT_TEMPERATURE,
     Provider
 )
+import config
 
+GEMINI_RATE_LIMITER = InMemoryRateLimiter(
+    requests_per_second=1 / 13,
+    check_every_n_seconds=0.1,
+    max_bucket_size=1
+)
 
 def get_llm(
     provider=Provider.GOOGLE.value,
@@ -21,7 +28,7 @@ def get_llm(
     if provider == Provider.GOOGLE.value:
         if model is None:
             model = DEFAULT_MODELS[Provider.GOOGLE]
-        llm = ChatGoogleGenerativeAI(model=model, temperature=temperature)
+        llm = ChatGoogleGenerativeAI(model=model, temperature=config.DEFAULT_TEMPERATURE, rate_limiter=GEMINI_RATE_LIMITER)
     elif provider == Provider.CLOUDFLARE.value:
         if model is None:
             model = DEFAULT_MODELS[Provider.CLOUDFLARE]

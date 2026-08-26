@@ -58,21 +58,52 @@ def detect_api_error(message):
     if not message:
         return None
 
-    message = str(message)
+    message = str(message).upper()
 
+    # Rate / quota limits
     if "RESOURCE_EXHAUSTED" in message or "429" in message:
         return "RATE_LIMIT"
 
+    # Temporary provider/server availability problems
+    if (
+        "UNAVAILABLE" in message
+        or "503" in message
+        or "HIGH DEMAND" in message
+    ):
+        return "SERVICE_UNAVAILABLE"
+
+    # Temporary server-side failures
+    if "INTERNAL" in message or "500" in message:
+        return "SERVER_ERROR"
+
+    # Timeout / gateway failures
+    if "DEADLINE_EXCEEDED" in message or "504" in message:
+        return "TIMEOUT"
+
+    # Invalid/retired model
     if "NOT_FOUND" in message or "404" in message:
         return "MODEL_NOT_FOUND"
 
+    # Authentication
     if "UNAUTHENTICATED" in message or "401" in message:
         return "AUTH_ERROR"
 
+    # Permissions
     if "PERMISSION_DENIED" in message or "403" in message:
         return "PERMISSION_ERROR"
 
     return None
+
+def detect_iteration_limit(message):
+    if not message:
+        return False
+
+    message = str(message).lower()
+
+    return (
+        "iteration limit" in message
+        or "stopped due to iteration" in message
+    )
 
 def main(provider, force_thoughts=False, model=None):
 
@@ -133,6 +164,7 @@ def main(provider, force_thoughts=False, model=None):
 
         agent_message = config.metrics.get("answer", "")
         api_error = detect_api_error(agent_message)
+        iteration_limit = detect_iteration_limit(agent_message)
 
         execution_acc = None
         experiment_status = None
@@ -178,15 +210,24 @@ def main(provider, force_thoughts=False, model=None):
             generated_result_rows = None
             generated_result_columns = None
 
+        last_executed_sql = json_result.get("sparksql_query")
+
+        if experiment_status in {"API_ERROR", "ITERATION_LIMIT"}:
+            generated_sql = None
+        else:
+            generated_sql = last_executed_sql
+        
         results.append({
             "question_id": question_id,
             "db_id": db_name,
             "question": nl_query,
 
             "gold_sql": golden_query,
-            "generated_sql": json_result.get("sparksql_query"),
+            "generated_sql": generated_sql,
+            "last_executed_sql": last_executed_sql,
 
             "executed_queries": json_result.get("executed_queries", []),
+            "iteration_limit_reached": iteration_limit,
 
             "experiment_status": experiment_status,
             "api_error": api_error,
