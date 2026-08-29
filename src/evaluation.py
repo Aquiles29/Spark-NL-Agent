@@ -8,6 +8,47 @@ import numpy as np
 
 NULL_TOKEN = "__NULL__"
 
+def columns_equal(series_a, series_b, rtol=1e-8, atol=1e-10):
+    """
+    Compare two result columns.
+
+    Numeric values are compared with floating-point tolerance.
+    Non-numeric values are compared as normalized strings.
+    """
+
+    if len(series_a) != len(series_b):
+        return False
+
+    numeric_a = pd.to_numeric(series_a, errors="coerce")
+    numeric_b = pd.to_numeric(series_b, errors="coerce")
+
+    # If both complete columns are numeric, compare numerically
+    if numeric_a.notna().all() and numeric_b.notna().all():
+        return np.allclose(
+            numeric_a.to_numpy(dtype=float),
+            numeric_b.to_numpy(dtype=float),
+            rtol=rtol,
+            atol=atol,
+            equal_nan=True
+        )
+
+    # Otherwise compare as strings
+    normalized_a = (
+        series_a
+        .astype(str)
+        .str.strip()
+        .tolist()
+    )
+
+    normalized_b = (
+        series_b
+        .astype(str)
+        .str.strip()
+        .tolist()
+    )
+
+    return normalized_a == normalized_b
+
 def result_to_obj(s):
     if s and isinstance(s, str):
         try:
@@ -117,6 +158,56 @@ def _get_column_values(df, col_idx):
     """Return a tuple of normalized values for the given column index."""
     return tuple(_normalize_value(v) for v in df.iloc[:, col_idx])
 
+import math
+
+
+def _values_equal(a, b, rtol=1e-8, atol=1e-10):
+    """
+    Compare two normalized result values.
+
+    Numeric values are compared with floating-point tolerance.
+    Non-numeric values are compared exactly.
+    """
+
+    # Handle None
+    if a is None or b is None:
+        return a is None and b is None
+
+    # Try numeric comparison
+    try:
+        a_num = float(a)
+        b_num = float(b)
+
+        # Handle NaN
+        if math.isnan(a_num) and math.isnan(b_num):
+            return True
+
+        return math.isclose(
+            a_num,
+            b_num,
+            rel_tol=rtol,
+            abs_tol=atol
+        )
+
+    except (ValueError, TypeError):
+        pass
+
+    # Non-numeric values remain exact
+    return a == b
+
+
+def _columns_equal(col_a, col_b):
+    """
+    Compare two normalized result columns value by value.
+    """
+
+    if len(col_a) != len(col_b):
+        return False
+
+    return all(
+        _values_equal(a, b)
+        for a, b in zip(col_a, col_b)
+    )
 
 def execution_accuracy(df_gt, df_inf):
     """Compute execution accuracy based on the Spider 2.0-lite definition.
@@ -152,7 +243,7 @@ def execution_accuracy(df_gt, df_inf):
         gt_col_values = _get_column_values(df_gt, col_idx)
         found = False
         for i in range(len(inf_cols)):
-            if not used[i] and inf_cols[i] == gt_col_values:
+            if not used[i] and _columns_equal(inf_cols[i], gt_col_values):
                 used[i] = True
                 found = True
                 break

@@ -1,43 +1,13 @@
-from src.clause_categorization import categorize_sql
+from src.schema_utils import get_database_schema
 
 
-queries = [
-    "SELECT name FROM students",
+schema = get_database_schema(
+    "california_schools"
+)
 
-    """
-    SELECT s.name, c.name
-    FROM students s
-    JOIN classes c ON s.class_id = c.id
-    """,
+for table, columns in schema.items():
 
-    """
-    SELECT department, COUNT(*)
-    FROM employees
-    GROUP BY department
-    """,
+    print("\nTABLE:", table)
 
-    """
-    SELECT department, COUNT(*)
-    FROM employees
-    GROUP BY department
-    HAVING COUNT(*) > 5
-    """,
-
-    """
-    SELECT d.name, COUNT(e.id)
-    FROM departments d
-    JOIN employees e ON d.id = e.department_id
-    GROUP BY d.name
-    HAVING COUNT(e.id) > 5
-    """
-]
-
-
-for sql in queries:
-    result = categorize_sql(sql)
-
-    print("\nSQL:")
-    print(sql.strip())
-
-    print("Categories:", result["categories"])
-    print("Parse error:", result["parse_error"])
+    for column in columns:
+        print("  -", column)

@@ -1,0 +1,687 @@
+question_id,db_id,question,gold_JOIN,gold_GROUP_BY,gold_HAVING,question_pred_JOIN,question_pred_GROUP_BY,question_pred_HAVING,schema_pred_JOIN,schema_pred_GROUP_BY,schema_pred_HAVING,gold_signature,question_pred_signature,schema_pred_signature
+0,california_schools,What is the highest eligible free rate for K-12 students in the schools in Alameda County?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1,california_schools,Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+2,california_schools,Please list the zip code of all the charter schools in Fresno County Office of Education.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+3,california_schools,What is the unabbreviated mailing street address of the school with the highest FRPM count for K-12 students?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+4,california_schools,Please list the phone numbers of the direct charter-funded schools that are opened after 2000/1/1.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+5,california_schools,How many schools with an average score in Math greater than 400 in the SAT test are exclusively virtual?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+6,california_schools,"Among the schools with the SAT test takers of over 500, please list the schools that are magnet schools or offer a magnet program.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+7,california_schools,What is the phone number of the school that has the highest number of test takers with an SAT score of over 1500?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+8,california_schools,What is the number of SAT test takers of the schools with the highest FRPM count for K-12 students?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+9,california_schools,"Among the schools with the average score in Math over 560 in the SAT test, how many schools are directly charter-funded?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+10,california_schools,"For the school with the highest average score in Reading in the SAT test, what is its FRPM count for students aged 5-17?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+11,california_schools,Please list the codes of the schools with a total enrollment of over 500.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+12,california_schools,"Among the schools with an SAT excellence rate of over 0.3, what is the highest eligible free rate for students aged 5-17?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+13,california_schools,Please list the phone numbers of the schools with the top 3 SAT excellence rate.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+14,california_schools,"List the top five schools, by descending order, from the highest to the lowest, the most number of Enrollment (Ages 5-17). Please give their NCES school identification number.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+15,california_schools,Which active district has the highest average score in Reading?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+16,california_schools,How many schools in merged Alameda have number of test takers less than 100?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+17,california_schools,"Rank schools by their average score in Writing where the score is greater than 499, showing their charter numbers.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+18,california_schools,How many schools in Fresno (directly funded) have number of test takers not more than 250?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+19,california_schools,What is the phone number of the school that has the highest average score in Math?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+20,california_schools,How many schools in Amador which the Low Grade is 9 and the High Grade is 12?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+21,california_schools,In Los Angeles how many schools have more than 500 free meals but less than 700 free or reduced price meals for K-12?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+22,california_schools,Which school in Contra Costa has the highest number of test takers?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+23,california_schools,List the names of schools with more than 30 difference in enrollements between K-12 and ages 5-17? Please also give the full street adress of the schools.,True,False,False,False,False,True,True,False,True,JOIN,HAVING,JOIN+HAVING
+24,california_schools,Give the names of the schools with the percent eligible for free meals in K-12 is more than 0.1 and test takers whose test score is greater than or equal to 1500?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+25,california_schools,"Name schools in Riverside which the average of average math score for SAT is grater than 400, what is the funding type of these schools?",True,True,True,False,False,False,False,False,False,JOIN+GROUP_BY+HAVING,NONE,NONE
+26,california_schools,State the names and full communication address of high schools in Monterey which has more than 800 free or reduced price meals for ages 15-17?,True,False,False,False,False,True,True,False,True,JOIN,HAVING,JOIN+HAVING
+27,california_schools,"What is the average score in writing for the schools that were opened after 1991 or closed before 2000? List the school names along with the score. Also, list the communication number of the schools if there is any.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+28,california_schools,"Consider the average difference between K-12 enrollment and 15-17 enrollment of schools that are locally funded, list the names and DOC type of schools which has a difference above this average.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+29,california_schools,When did the first-through-twelfth-grade school with the largest enrollment open?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+30,california_schools,Which cities have the top 5 lowest enrollment number for students in grades 1 through 12?,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+31,california_schools,What is the eligible free rate of the 10th and 11th schools with the highest enrolment for students in grades 1 through 12?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+32,california_schools,What is the eligible free or reduced price meal rate for the top 5 schools in grades 1-12 with the highest free or reduced price meal count of the schools with the ownership code 66?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+33,california_schools,"If there are any, what are the websites address of the schools with a free meal count of 1,900-2,000 to students aged 5-17? Include the name of the school.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+34,california_schools,What is the free rate for students between the ages of 5 and 17 at the school run by Kacey Gibson?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+35,california_schools,What is the administrator's email address of the chartered school with the fewest students enrolled in grades 1 through 12?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+36,california_schools,Under whose administration is the school with the highest number of students scoring 1500 or more on the SAT? Indicate their full names.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+37,california_schools,"What is the complete address of the school with the lowest excellence rate? Indicate the Street, City, Zip and State.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+38,california_schools,"What are the webpages for the Los Angeles County school that has between 2,000 and 3,000 test takers?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+39,california_schools,What is the average number of test takers from Fresno schools that opened between 1/1/1980 and 12/31/1980?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+40,california_schools,What is the telephone number for the school with the lowest average score in reading in Fresno Unified?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+41,california_schools,List the names of virtual schools that are among the top 5 in their respective counties based on average reading scores.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+42,california_schools,What is the type of education offered in the school who scored the highest average in Math?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+43,california_schools,"What is the average math score of the school with the lowest average score for all subjects, and in which county is it located?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+44,california_schools,What is the average writing score of the school who has the highest number of test takers whose total SAT sscores are greater or equal to 1500? Indicate the city to where the school is situated.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+45,california_schools,What is the average writing score of each of the schools managed by Ricci Ulrich? List the schools and the corresponding average writing scores.,True,False,False,True,True,False,True,True,False,JOIN,JOIN+GROUP_BY,JOIN+GROUP_BY
+46,california_schools,Which state special schools have the highest number of enrollees from grades 1 through 12?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+47,california_schools,What is the monthly average number of schools that opened in Alameda County under the jurisdiction of the Elementary School District in 1980?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+48,california_schools,What is the ratio of merged Unified School District schools in Orange County to merged Elementary School District schools?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+49,california_schools,Which different county has the most number of closed schools? Please provide the name of each school as well as the closure date.,False,True,False,False,True,False,True,True,False,GROUP_BY,GROUP_BY,JOIN+GROUP_BY
+50,california_schools,What is the postal street address for the school with the 7th highest Math average? Indicate the school's name.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+51,california_schools,In which mailing street address can you find the school that has the lowest average score in reading? Also give the school's name.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+52,california_schools,What is the total number of schools whose total SAT scores are greater or equal to 1500 whose mailing city is Lakeport?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+53,california_schools,How many test takers are there at the school/s whose mailing city address is in Fresno?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+54,california_schools,Please specify all of the schools and their related mailing zip codes that are under Avetik Atoian's administration.,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+55,california_schools,"Of the schools with a mailing state address in California, what is the ratio of the schools located in the county of Colusa against the school located in the county of Humboldt?",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+56,california_schools,"Of all the schools with a mailing state address in California, how many are active in San Joaquin city?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+57,california_schools,What is the phone number and extension number for the school that had the 333rd highest average writing score?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+58,california_schools,What is the phone number and extension number for the school with the zip code 95203-3704? Indicate the school's name.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+59,california_schools,What is the website for the schools under the administrations of Mike Larson and Dante Alvarez?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+60,california_schools,What are the websites for all the partially virtual chartered schools located in San Joaquin?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+61,california_schools,How many chartered schools located in the city of Hickman are owned by the Elementary School District?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+62,california_schools,What is the total number of non-chartered schools in the county of Los Angeles with a percent (%) of eligible free meals for grades 1 through 12 that is less than 0.18%?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+63,california_schools,"In chartered schools with charter number 00D2, what are the names of all the administrators? Include the name of the school and the city to which it belongs",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+64,california_schools,What is the total number of schools with a mailing city in Hickman belonging to the charter number 00D4?,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+65,california_schools,What is the ratio in percentage of Santa Clara County schools that are locally funded compared to all other types of charter school funding?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+66,california_schools,"Between 1/1/2000 to 12/31/2005, how many directly funded schools opened in the county of Stanislaus?",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+67,california_schools,What is the total amount of Community College District closure in 1989 in the city of San Francisco?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+68,california_schools,Which county reported the most number of school closure in the 1980s with school wonership code belonging to Youth Authority Facilities (CEA)?,False,True,False,True,False,False,True,False,False,GROUP_BY,JOIN,JOIN
+69,california_schools,Please provide the National Center for Educational Statistics school district identification number for all schools with a School Ownership Code that are part of the State Special Schools.,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+70,california_schools,How many active and closed District Community Day Schools are there in the county of Alpine?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+71,california_schools,What is the district code for the School that does not offer a magnet program in the city of Fresno?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+72,california_schools,How many students from the ages of 5 to 17 are enrolled at the State Special School school in Fremont for the 2014-2015 academic year?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+73,california_schools,What is the free or reduced price meal count for ages 5 to 17 in the Youth Authority School with a mailing street address of PO Box 1040?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+74,california_schools,What is the lowest grade for the District Special Education Consortia School with National Center for Educational Statistics school district identification number of 0613360?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+75,california_schools,What is the educational level name for the schools with Breakfast Provision 2 in county code 37? Indicate the name of the school.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+76,california_schools,What is the city location of the high school level school with Lunch Provision 2 whose lowest grade is 9 and the highest grade is 12 in the county of Merced?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+77,california_schools,Which schools served a grade span of Kindergarten to 9th grade in the county of Los Angeles and what is its Percent (%) Eligible FRPM (Ages 5-17)?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+78,california_schools,What is the most common type of grade span served in the city of Adelanto?,False,True,False,False,False,False,True,False,False,GROUP_BY,NONE,JOIN
+79,california_schools,"Between San Diego and Santa Barbara, which county offers the most number of schools that does not offer physical building? Indicate the amount.",False,True,False,False,False,False,False,False,False,GROUP_BY,NONE,NONE
+80,california_schools,What is the school type of the school with the highest latitude? Indicate the name of the school as well as the latitude coordinates.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+81,california_schools,In which city can you find the school in the state of California with the lowest latitude coordinates and what is its lowest grade? Indicate the school name.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+82,california_schools,What is the grade span offered in the school with the highest longitude?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+83,california_schools,"Of the schools that offers a magnet program serving a grade span of Kindergarten to 8th grade, how many offers Multiple Provision Types? List the number of cities that offers a Kindergarten to 8th grade span and indicate how many schools are there serving such grade span for each city.",True,True,False,False,True,False,True,True,False,JOIN+GROUP_BY,GROUP_BY,JOIN+GROUP_BY
+84,california_schools,What are the two most common first names among the school administrators? Indicate the district to which they administer.,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+85,california_schools,What is the Percent (%) Eligible Free (K-12) in the school administered by an administrator whose first name is Alusine. List the district code of the school.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+86,california_schools,"What is the administrator's last name that oversees the school with Charter number 40? Indicate the district, the county where the school is situated, and the name of the school.",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+87,california_schools,"What are the valid e-mail addresses of the administrator of the school located in the San Bernardino county, City of San Bernardino City Unified that opened between 1/1/2009 to 12/31/2010 whose school types are public Intermediate/Middle Schools and Unified Schools?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+88,california_schools,What is the administrator's email address for the school with the highest number of test takers who received SAT scores of at least 1500?Provide the name of the school.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+195,toxicology,What is the most common bond type?,False,True,False,False,False,False,False,False,False,GROUP_BY,NONE,NONE
+196,toxicology,"In the non-carcinogenic molecules, how many contain chlorine atoms?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+197,toxicology,Calculate the average number of oxygen atoms in single-bonded molecules.,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+198,toxicology,On average how many carcinogenic molecules are single bonded?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+199,toxicology,"In the molecule containing sodium atoms, how many are non-carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+200,toxicology,Find the triple-bonded molecules which are carcinogenic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+201,toxicology,What is the percentage of carbon in double-bond molecules?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+202,toxicology,How many triple type bonds are there?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+203,toxicology,In how many atoms is there no bromine?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+204,toxicology,"Of the first 100 molecules in number order, how many are carcinogenic?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+205,toxicology,Identify by their ID the molecules in which there is carbon.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+206,toxicology,What elements are in the TR004_8_9 bond atoms?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+207,toxicology,What elements are in a double type bond?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+208,toxicology,Which type of label is the most numerous in atoms with hydrogen?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+209,toxicology,Chlorine is in what type of bond?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+210,toxicology,What atoms are connected in single type bonds?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+211,toxicology,Indicate which atoms are connected in non-carcinogenic type molecules.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+212,toxicology,Which element is the least numerous in non-carcinogenic molecules?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+213,toxicology,What type of bond is there between the atoms TR004_8 and TR004_20?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+214,toxicology,What type of label is not on molecules with atoms with tin?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+215,toxicology,How many atoms with iodine and with sulfur type elements are there in single bond molecules?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+216,toxicology,Identify all connected atoms with a triple bond.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+217,toxicology,Identify all the atoms that are connected to the atoms of the TR181 molecule.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+218,toxicology,What percentage of carcinogenic-type molecules does not contain fluorine?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+219,toxicology,What is the percentage of carcinogenic molecules in triple type bonds?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+220,toxicology,Please list top three elements of the toxicology of the molecule TR000 in alphabetical order.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+221,toxicology,What are the atoms that are bonded in the molecule TR001 with the bond ID of TR001_2_6?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+222,toxicology,What is the difference between the number of molecules that are carcinogenic and those that are not?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+223,toxicology,What are the atom IDs of the bond TR000_2_5?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+224,toxicology,What are the bond IDs that have the same atom ID 2 of TR000_2?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+225,toxicology,Please list top five molecules that have double bonds in alphabetical order.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+226,toxicology,What is the percentage of double bonds in the molecule TR008? Please provide your answer as a percentage with five decimal places.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+227,toxicology,What is the percentage of molecules that are carcinogenic? Please provide your answer as a percentage with three decimal places.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+228,toxicology,How much of the hydrogen in molecule TR206 is accounted for? Please provide your answer as a percentage with four decimal places.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+229,toxicology,What is the type of bond that molecule TR000 has when involved in any bonds?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+230,toxicology,What are the elements of the toxicology and label of molecule TR060?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+231,toxicology,Which bond type accounted for the majority of the bonds found in molecule TR010 and state whether or not this molecule is carcinogenic?,False,True,False,False,False,False,False,False,False,GROUP_BY,NONE,NONE
+232,toxicology,Please list top three molecules that have single bonds between two atoms and are not carcinogenic in alphabetical order.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+233,toxicology,Please list top two bonds that happened with the molecule TR006 in alphabetical order.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+234,toxicology,How many bonds which involved atom 12 does molecule TR009 have?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+235,toxicology,How many molecules are carcinogenic and have the bromine element?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+236,toxicology,What are the bond type and the atoms of the bond ID of TR001_6_9?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+237,toxicology,Which molecule does the atom TR001_10 belong to? Please state whether this molecule is carcinogenic or not.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+238,toxicology,How many molecules have a triple bond type?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+239,toxicology,How many connections does the atom 19 have?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+240,toxicology,"List all the elements of the toxicology of the molecule ""TR004"".",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+241,toxicology,How many of the molecules are not carcinogenic?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+242,toxicology,"Among all the atoms from 21 to 25, list all the molecules that are carcinogenic.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+243,toxicology,What are the bonds that have phosphorus and nitrogen as their atom elements?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+244,toxicology,Is the molecule with the most double bonds carcinogenic?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+245,toxicology,What is the average number of bonds the atoms with the element iodine have?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+246,toxicology,List the bond type and the bond ID of the atom 45.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+247,toxicology,List all the elements of atoms that can not bond with any other atoms.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+248,toxicology,"What are the atoms of the triple bond with the molecule ""TR041""?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+249,toxicology,What are the elements of the atoms of TR144_8_19?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+250,toxicology,"Of all the carcinogenic molecules, which one has the most double bonds?",True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+251,toxicology,What is the least common element of all carcinogenic molecules?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+252,toxicology,What are the atoms that can bond with the atom that has the element lead?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+253,toxicology,List the elements of all the triple bonds.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+254,toxicology,What percentage of bonds have the most common combination of atoms' elements?,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+255,toxicology,What proportion of single bonds are carcinogenic? Please provide your answer as a percentage with five decimal places.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+256,toxicology,Calculate the total atoms consisting of the element carbon and hydrogen.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+257,toxicology,List down atom id2 for atoms with element sulfur.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+258,toxicology,What are the bond type for atoms with element Tin?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+259,toxicology,How many elements are there for single bond molecules?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+260,toxicology,Calculate the total atoms with triple-bond molecules containing the element phosphorus or bromine.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+261,toxicology,Write down bond id for molecules that are carcinogenic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+262,toxicology,"Among the single bond molecule id, which molecules are not carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+263,toxicology,What is the composition of element chlorine in percentage among the single bond molecules?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+264,toxicology,"What are the labels for TR000, TR001 and TR002?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+265,toxicology,List down the molecule id for non carcinogenic molecules.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+266,toxicology,Calculate the total carcinogenic molecules for molecule id from TR000 to TR030.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+267,toxicology,List down the bond type for molecules from molecule id TR000 to TR050.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+268,toxicology,What are the elements for bond id TR001_10_11?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+269,toxicology,How many bond id have element iodine?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+270,toxicology,"Among the molecules with element Calcium, are they mostly carcinogenic or non carcinogenic?",True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+271,toxicology,Does bond id TR001_1_8 have both element of chlorine and carbon?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+272,toxicology,List down two molecule id of triple bond non carcinogenic molecules with element carbon.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+273,toxicology,What is the percentage of element chlorine in carcinogenic molecules?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+274,toxicology,List the toxicology elements associated with molecule TR001.,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+275,toxicology,Give me the molecule ID of the double bond type.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+276,toxicology,Write down the atom IDs of the first and second atoms of triple bond type molecules.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+277,toxicology,What are the toxicology elements associated with bond ID TR000_1_2?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+278,toxicology,How many of the single bond type molecules are non-carcinogenic?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+279,toxicology,What is the label for bond ID TR001_10_11?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+280,toxicology,Enumerate the bond ID of triple bond type molecules and tell me if they are carcinogenic or not.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+281,toxicology,Tally the toxicology element of the 4th atom of each molecule that was carcinogenic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+282,toxicology,What is the ratio of Hydrogen elements in molecule ID TR006? List the ratio with its label.,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+283,toxicology,Identify whether the chemical compound that contains Calcium is carcinogenic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+284,toxicology,Determine the bond type that is formed in the chemical compound containing element Carbon.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+285,toxicology,Name chemical elements that form a bond TR001_10_11.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+286,toxicology,"Among all chemical compounds identified in the database, what percent of compounds form a triple-bond.",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+287,toxicology,"Among all chemical compounds that contain molecule TR047, identify the percent that form a double-bond.",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+288,toxicology,Identify whether the molecule that contains atom TR001_1 is carcinogenic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+289,toxicology,Is molecule TR151 carcinogenic?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+290,toxicology,Which toxic element can be found in the molecule TR151?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+291,toxicology,How many chemical compounds in the database are identified as carcinogenic.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+292,toxicology,Identify the atoms belong to the molecule with ID between TR010 to TR050 that contain the element carbon.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+293,toxicology,How many atoms belong to the molecule labeled with carcinogenic compounds?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+294,toxicology,Which bond ids are double-bond with carcinogenic compound?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+295,toxicology,How many atoms belong to the molecule that element is hydrogen and labeled with carcinogenic compound?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+296,toxicology,Indicate the molecule id is belonging to the TR000_1_2 bond that has the first atom named TR000_1.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+297,toxicology,"Among the atoms that contain element carbon, which one does not contain compound carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+298,toxicology,Calculate the percentage of molecules containing carcinogenic compounds that element is hydrogen.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+299,toxicology,Is molecule TR124 carcinogenic?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+300,toxicology,What atoms comprise TR186?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+301,toxicology,What is the bond type of TR007_4_19?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+302,toxicology,Name the elements that comprise the atoms of bond TR001_2_4.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+303,toxicology,How many double bonds does TR006 have and is it carcinogenic?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+304,toxicology,List all carcinogenic molecules and their elements.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+305,toxicology,Name all bonds with single bond types and what atoms are connected to the molecules.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+306,toxicology,Which molecules have triple bonds and list all the elements they contain.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+307,toxicology,Name the atoms' elements that form bond TR000_2_3.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+308,toxicology,How many bonds are created by bonding atoms with chlorine element?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+309,toxicology,List out the atom id that belongs to the TR346 molecule and how many bond type can be created by this molecule?,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+310,toxicology,"How many molecules have a double bond type and among these molecule, how many are labeled as carcinogenic compound?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+311,toxicology,How many molecules without sulphur element is not having double bond?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+312,toxicology,What is the carcinogenic label for bond TR001_2_4?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+313,toxicology,How many atoms belong to molecule id TR001?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+314,toxicology,How many single bonds are there in the list?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+315,toxicology,"Among the molecules which contain ""cl"" element, which of them are carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+316,toxicology,"Among the molecules which contain ""c"" element, which of them are not carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+317,toxicology,Calculate the percentage of carcinogenic molecules which contain the Chlorine element.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+318,toxicology,What is the molecule id of bond id TR001_1_7?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+319,toxicology,How many elements are contained in bond_id TR001_3_4?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+320,toxicology,What is the type of the bond which is presenting the connection between two atoms TR000_1 and TR000_2?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+321,toxicology,"What is the molecule of atom id ""TR000_2"" and atom id 2 ""TR000_4""?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+322,toxicology,What is the element of toxicology for the atom with the ID of TR000_1?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+323,toxicology,Is molecule TR000 is carcinogenic or not?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+324,toxicology,Find the percentage of atoms with single bond.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+325,toxicology,How many carcinogenic molecules that consisted of Nitrogen?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+326,toxicology,Which molecule consisted of Sulphur atom with double bond?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+327,toxicology,Which non-carcinogenic molecules consisted more than 5 atoms?,True,True,True,False,False,True,False,False,True,JOIN+GROUP_BY+HAVING,HAVING,HAVING
+328,toxicology,"List all the elements with double bond, consisted in molecule TR024.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+329,toxicology,Which carcinogenic molecule have the highest number of atoms consisted in it?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+330,toxicology,Calculate the percentage of carcinogenic molecules with triple bonded Hidrogen atoms.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+331,toxicology,How many of the molecules are carcinogenic?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+332,toxicology,"Among the molecules between TR004 to TR010, how many of them has single bonds?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+333,toxicology,"In the molecule TR008, how many carbons are present?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+334,toxicology,What is the element with the atom ID of TR004_7 in molecule that is not carcinogenic?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+335,toxicology,What is the total number of molecules with double bonded oxygen?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+336,toxicology,"in molecules with triple bonds, how many of them are not carcinogenic?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+337,toxicology,List the element and bond type included in the molecule with molecule ID of TR002.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+338,toxicology,What is the atom ID of double bonded carbon in TR012 molecule?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+339,toxicology,List the atom ID of the carcinogenic molecule that contains oxygen?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+717,superhero,Please list all the superpowers of 3-D Man.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+718,superhero,"How many superheroes have the super power of ""Super Strength""?",True,False,False,False,True,False,False,True,False,JOIN,GROUP_BY,GROUP_BY
+719,superhero,"Among the superheroes with the super power of ""Super Strength"", how many of them have a height of over 200cm?",True,False,False,False,True,False,False,True,False,JOIN,GROUP_BY,GROUP_BY
+720,superhero,Please list the full names of all the superheroes with over 15 super powers.,True,True,True,False,False,False,False,False,False,JOIN+GROUP_BY+HAVING,NONE,NONE
+721,superhero,How many superheroes have blue eyes?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+722,superhero,What is the colour of Apocalypse's skin?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+723,superhero,"Among the superheroes with blue eyes, how many of them have the super power of ""Agility""?",True,False,False,False,True,False,False,True,False,JOIN,GROUP_BY,GROUP_BY
+724,superhero,Please list the superhero names of all the superheroes that have blue eyes and blond hair.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+725,superhero,How many superheroes are published by Marvel Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+726,superhero,Rank heroes published by Marvel Comics by their height in descending order.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+727,superhero,Who is the publisher of Sauron?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+728,superhero,"Rank superheroes from Marvel Comics by their eye color popularity, starting with the most common color.",True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+729,superhero,What is the average height of the superheroes from Marvel Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+730,superhero,List the superheroes from Marvel Comics who have the super power of 'Super Strength'.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+731,superhero,How many superheroes did DC Comics publish?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+732,superhero,Which publisher published the slowest superhero?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+733,superhero,How many gold-eyed superheroes did Marvel Comics publish?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+734,superhero,What is the publisher's name of Blue Beetle II?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+735,superhero,How many superheroes with blonde hair are there?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+736,superhero,Who is the dumbest superhero?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+737,superhero,What is Copycat's race?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+738,superhero,Which superheroes have a durability attribute value of less than 50?,True,False,False,False,False,True,False,False,True,JOIN,HAVING,HAVING
+739,superhero,What are the names of the superheroes with the power of death touch?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+740,superhero,How many female superheroes have a strength value of 100?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+741,superhero,What is the name of the superhero that has the most powers?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+742,superhero,How many vampire superheroes are there?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+743,superhero,What is the percentage of superheroes who act in their own self-interest or make decisions based on their own moral code? Indicate how many of the said superheroes were published by Marvel Comics.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+744,superhero,"Between DC and Marvel Comics, which publisher has published more superheroes? Find the difference in the number of superheroes they have published.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+745,superhero,Give the publisher ID of Star Trek.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+746,superhero,Calculate the average attribute value of all superheroes.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+747,superhero,What is the total number of superheroes without full name?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+748,superhero,What is the eye colour of superhero with superhero ID 75?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+749,superhero,Provide the superpowers of the superhero called Deathlok.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+750,superhero,What is the average weight of all female superheroes?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+751,superhero,List down at least five superpowers of male superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+752,superhero,Give the name of the alien superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+753,superhero,"Among the superheroes with height from 170 to 190, list the names of the superheroes with no eye color.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+754,superhero,What is the superpower of hero ID 56?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+755,superhero,List down at least five full name of Demi-God superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+756,superhero,How many bad superheroes are there?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+757,superhero,Identify the race of the superhero who weighed 169 kg.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+758,superhero,Provide the hair colour of the human superhero who is 185 cm tall.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+759,superhero,What is the eye clolour of the heaviest superhero?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+760,superhero,"In superheroes with height between 150 to 180, what is the percentage of heroes published by Marvel Comics?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+761,superhero,"Among the male superheroes, list the super hero names of superheroes with weight greater than the 79% average weight of all superheroes.",True,False,False,False,True,False,False,True,False,JOIN,GROUP_BY,GROUP_BY
+762,superhero,Which power do superheroes have the most of?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+763,superhero,Indicate the attribute value of superhero Abomination.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+764,superhero,What are the superpowers of heroes with ID 1?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+765,superhero,How many heroes have stealth power?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+766,superhero,What is the hero's full name with the highest attribute in strength?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+767,superhero,What is the average of superheroes with no skin colour?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+768,superhero,How many superheroes were published by Dark Horse Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+769,superhero,Which superhero has the most durability published by Dark Horse Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+770,superhero,What is the eyes colour of Abraham Sapien?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+771,superhero,List the name of superheroes with flight power.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+772,superhero,"List the eyes, hair and skin colour of all female superheroes published by Dark Horse Comics.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+773,superhero,"Which superhero has the same eyes, hair and skin colour? Indicate the publisher of the superhero.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+774,superhero,Which group does superhero A-Bomb belong to?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+775,superhero,What is the percentage of blue female superheroes among all female superheroes?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+776,superhero,Provide the hero name and race of Charles Chandler.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+777,superhero,What is the gender of Agent 13 hero?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+778,superhero,Provide superheroes' names who have the adaptation power.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+779,superhero,How many powers does Amazo hero have?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+780,superhero,List the powers of Hunter Zolomon.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+781,superhero,Provide the heights of the heroes whose eye colours are amber.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+782,superhero,List the heroes' names whose eyes and hair colours are both black.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+783,superhero,Provide the eye colours of the heroes whose skin colours are gold.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+784,superhero,Provide the full names of vampire heroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+785,superhero,Describe the names of neutral alignment superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+786,superhero,How many heroes have the highest attribute value in strength?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+787,superhero,What are the race and alignment of Cameron Hicks?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+788,superhero,How many percent of female heroes were published by Marvel Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+789,superhero,Find the average weight of the heroes who are aliens.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+790,superhero,Calculate the difference between Emil Blonsky's weight and Charles Chandler's weight.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+791,superhero,Calculate the average height for each superhero.,False,False,False,False,True,False,False,True,False,NONE,GROUP_BY,GROUP_BY
+792,superhero,What is Abomination's superpower?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+793,superhero,"Among the superheroes with the race of god/eternal, how many of them are male",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+794,superhero,Which hero was the fastest?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+795,superhero,How many superheroes have a neutral alignment?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+796,superhero,State all of 3-D Man's attributes along with their values.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+797,superhero,Which superheroes have blue eyes with brown hair?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+798,superhero,"What is the publisher for Hawkman, Karate Kid and Speedy?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+799,superhero,How many superheroes didn't have any publisher?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+800,superhero,Calculate the percentage of superheroes with blue eyes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+801,superhero,Find the ratio between male superheroes and female superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+802,superhero,Who is the tallest superhero?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+803,superhero,What is the power ID of cryokinesis?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+804,superhero,Provide the name of superhero with superhero ID 294.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+805,superhero,List the full names of superheroes with missing weight.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+806,superhero,Provide the eye colour of the superhero who has Karen Beecher-Duncan as their full name.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+807,superhero,What is the superpowers of the superhero has Helen Parr as their full name?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+808,superhero,Find the race of the superhero who weighs 108kg and is 188cm tall.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+809,superhero,What is the publisher name of the superhero ID 38?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+810,superhero,What is the race of the superhero with maximum attribute value?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+811,superhero,Give the alignment and superpowers of the superhero named Atom IV.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+812,superhero,List down at least five full names of superheroes with blue eyes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+813,superhero,Calculate the average attribute value of all neutral superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+814,superhero,List the skin colour of the superheroes with 100 attribute value.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+815,superhero,Count the good female superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+816,superhero,Provide the names of superheroes with attribute value between 75 to 80.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+817,superhero,Give the race of the blue-haired male superhero.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+818,superhero,"Among the bad superheroes, what is the percentage of female superheroes?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+819,superhero,"In superheroes with missing weight data, calculate the difference between the number of superheroes with blue eyes and no eye color.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+820,superhero,How strong is the Hulk?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+821,superhero,List down Ajax's superpowers.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+822,superhero,How many green-skinned villains are there in the superhero universe?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+823,superhero,How many female superheroes are in Marvel Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+824,superhero,Identify superheroes who can control wind and list their names in alphabetical order.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+825,superhero,Identify the gender of the superhero who has the ability of Phoenix Force.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+826,superhero,Identify the heaviest superhero in DC Comics.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+827,superhero,What is the average height of a non-human superhero in Dark Horse Comics?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+828,superhero,Count the fastest superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+829,superhero,Which publisher created more superheroes: DC or Marvel Comics? Find the difference in the number of superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+830,superhero,Identify the weakest attribute of the Black Panther.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+831,superhero,What is Abomination's eye colour?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+832,superhero,Name the tallest superhero.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+833,superhero,"Name the superhero, otherwise known as Charles Chandler.",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+834,superhero,"Among all superheroes created by George Lucas, identify the percentage of female superheroes.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+835,superhero,"Among all superheroes in Marvel Comics, identify the percentage of 'good' superheroes.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+836,superhero,What is the total number of superheroes that have John as their first name?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+837,superhero,Give the hero ID of superhero with the lowest attribute value.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+838,superhero,Provide the full name of the superhero named Alien.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+839,superhero,"In superheroes with weight less than 100, list the full name of the superheroes with brown eyes.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+840,superhero,List the attribute value of the superhero named Aquababy.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+841,superhero,Provide the weight and race of the superhero with superhero ID 40.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+842,superhero,Calculate the average height of all neutral superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+843,superhero,List the hero ID of superheroes have intellegence as their power.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+844,superhero,Give the eye colour of Blackwulf.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+845,superhero,List the power of superheroes with height greater than 80% of the average height of all superheroes.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1149,thrombosis_prediction,Are there more in-patient or outpatient who were male? What is the deviation in percentage?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1150,thrombosis_prediction,What is the percentage of female patient were born after 1930?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1151,thrombosis_prediction,"For patient born between Year 1930 to 1940, how many percent of them were inpatient?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1152,thrombosis_prediction,What is the ratio of outpatient to inpatient followed up treatment among all the 'SLE' diagnosed patient?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1153,thrombosis_prediction,What is the disease patient '30609' diagnosed with. List all the date of laboratory tests done for this patient.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1154,thrombosis_prediction,State the sex and birthday of patient ID '163109'. When was the examination taken and what symptom does the patient had.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1155,thrombosis_prediction,"List the patient ID, sex and birthday of patient with LDH beyond normal range.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1156,thrombosis_prediction,State the ID and age of patient with positive degree of coagulation.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1157,thrombosis_prediction,"For patients with severe degree of thrombosis, list their ID, sex and disease the patient is diagnosed with.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1158,thrombosis_prediction,List all patients who were born in 1937 whose total cholesterol was beyond the normal range.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1159,thrombosis_prediction,"For patient with albumin level lower than 3.5, list their ID, sex and diagnosis.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1160,thrombosis_prediction,What is the percentage of female patient had total protein not within the normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1161,thrombosis_prediction,"For in-patient age 50 and above, what is their average anti-cardiolipin antibody (IgG) concentration?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1162,thrombosis_prediction,How many female patients who came at the hospital in 1997 was immediately followed at the outpatient clinic?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1163,thrombosis_prediction,What was the age of the youngest patient when they initially arrived at the hospital?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1164,thrombosis_prediction,How many of the patients with the most serious thrombosis cases examined in 1997 are women?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1165,thrombosis_prediction,What is the age gap between the youngest and oldest patient with a normal triglyceride recorded?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1166,thrombosis_prediction,What are the symptoms observed by the youngest patient to ever did a medical examination? Identify their diagnosis.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1167,thrombosis_prediction,"For the year that concluded on December 31, 1998, how many male patients on average were tested in the lab each month?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1168,thrombosis_prediction,"The oldest SJS patient's medical laboratory work was completed on what date, and what age was the patient when they initially arrived at the hospital?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1169,thrombosis_prediction,What is the ratio of male to female patients among all those with abnormal uric acid counts?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1170,thrombosis_prediction,How many patients hadn't undergone a medical examination until at least a year following their initial hospital visit?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1171,thrombosis_prediction,How many underage patients were examined during the course of the three-year period from 1990 to 1993?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1172,thrombosis_prediction,How many male patients have elevated total bilirubin count?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1173,thrombosis_prediction,"What is the most common illness that doctors identified among the patients whose lab work was done between 1/1/1985, and 12/31/1995?",True,True,False,True,False,False,True,False,False,JOIN+GROUP_BY,JOIN,JOIN
+1174,thrombosis_prediction,What is the average age of patients as of year 1999 examined in the laboratory for the October of the year 1991?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1175,thrombosis_prediction,"How old was the patient who had the highest hemoglobin count at the time of the examination, and what is the doctor's diagnosis?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1176,thrombosis_prediction,What was the anti-nucleus antibody concentration level for the patient id 3605340 on 1996/12/2?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1177,thrombosis_prediction,Was the total cholesterol status for the patient id 2927464 on 1995-9-4 at the normal level?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1178,thrombosis_prediction,What was the gender of the first AORTITIS diagnosed patient?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1179,thrombosis_prediction,"For the patient who was diagnosed with SLE on 1994/2/19, what was his/her anti-Cardiolipin antibody concentration status on 1993/11/12?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1180,thrombosis_prediction,Was the patient a man or a women whose ALT glutamic pylvic transaminase status got 9 on 1992-6-12?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1181,thrombosis_prediction,"For the patient who got the laboratory test of uric acid level as 8.4 on 1991-10-21, how old was he/she at that time?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1182,thrombosis_prediction,"For the patient who first came to the hospital on 1991/6/13 who was diagnosed with SJS, what is the total number of his/her Laboratory tests in 1995?",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1183,thrombosis_prediction,"For the patient who was diagnosed SLE on 1997/1/27, what was his/her original diagnose when he/she came to the hospital for the first time?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1184,thrombosis_prediction,"For the patient whose birthday was 1959/3/1, what symptoms did he/she have during the examination on 1993/9/27?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1185,thrombosis_prediction,"For the patient who was born on 1959/2/18, what is the decrease rate for his/her total cholesterol from November to December in 1981?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1186,thrombosis_prediction,Lists all patients by ID who were diagnosed with Behcet's and had their exams between 01/01/197 and 12/31/1997.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1187,thrombosis_prediction,How many patients who were examined between 1987/7/6 and 1996/1/31 had a GPT level greater than 30 and an ALB level less than 4? List them by their ID.,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1188,thrombosis_prediction,How many female patients born in 1964 were admitted to the hospital? List them by ID.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1189,thrombosis_prediction,"What number of patients with a degree of thrombosis level 2 and ANA pattern of only S, have a level of anti-Cardiolip in antibody (IgM) 20% higher than average?",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1190,thrombosis_prediction,What percentage of patients with a proteinuria level within the normal range have a uric acid level below the normal range?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1191,thrombosis_prediction,What percentage of male patients who first presented to the hospital in 1981 were diagnosed with BEHCET?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1192,thrombosis_prediction,List all patients who were followed up at the outpatient clinic who underwent a laboratory test in October 1991 and had a total blood bilirubin level within the normal range.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1193,thrombosis_prediction,"Excluding all P only ANA Pattern patients, how many of the remainder are women born between 1980 and 1989?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1194,thrombosis_prediction,"What sex is the patient who in a medical examination was diagnosed with PSS and in a laboratory examination had a blood level of C-reactive protein de 2+, createnine 1 and LDH 123?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1195,thrombosis_prediction,What is the average blood albumin level for female patients with a PLT greater than 400 who have been diagnosed with SLE?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1196,thrombosis_prediction,What is the most common sign of patients with SLE disease?,False,True,False,False,False,False,False,False,False,GROUP_BY,NONE,NONE
+1197,thrombosis_prediction,"When was the medical information on patient number 48473 first documented, and what disease did she have?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1198,thrombosis_prediction,How many female patients were given an APS diagnosis?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1199,thrombosis_prediction,How many patients who underwent testing in 1997 had protein levels outside the normal range?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1200,thrombosis_prediction,What proportion of patients who had signs of thrombocytopenia had SLE diagnosed?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1201,thrombosis_prediction,What percentage of patients who were born in 1980 and were diagnosed with RA are women?,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1202,thrombosis_prediction,How many male patients who underwent testing between 1995 and 1997 and were subsequently diagnosed with Behcet disease did not stay in the hospital for treatment?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1203,thrombosis_prediction,How many patients who were female got white blood cells that were below 3.5?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1204,thrombosis_prediction,How long did it take after patient number 821298 arrived at the hospital for the first time before her evaluation began?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1205,thrombosis_prediction,Was the patient with the number 57266's uric acid within a normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1206,thrombosis_prediction,When is the laboratory examination of patient '48473' where his/her AST glutamic oxaloacetic transaminase (GOT) index is above the normal range.,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1207,thrombosis_prediction,"List all patients with their sex and date of birthday, whose AST glutamic oxaloacetic transaminase (GOT) index is within normal range for loboratory examination in 1994.",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1208,thrombosis_prediction,Provide IDs for male patients with ALT glutamic pylvic transaminase (GPT) that have history of ALT glutamic pylvic transaminase (GPT) exceed the normal range.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1209,thrombosis_prediction,Please provide the diagnosis of patients with ALT glutamic pylvic transaminase beyond the normal range by ascending order of their date of birth.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1210,thrombosis_prediction,What is the average index of the lactate dehydrogenase (LDH) for all patients with lactate dehydrogenase (LDH) within the normal range.,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1211,thrombosis_prediction,Provide the ID and age of patient with lactate dehydrogenase (LDH) between 100-300 index above the normal range.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1212,thrombosis_prediction,"For patients with alkaliphophatase (ALP) within normal range, were they treated as inpatient or outpatient?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1213,thrombosis_prediction,"Name the ID of the patient who is born on the April 1st, 1982. Is his/her alkaliphophatase (ALP) within normal range?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1214,thrombosis_prediction,"List ID, sex and date of birth of patient whose total protein (TP) below the lower range of the normal index.",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1215,thrombosis_prediction,"For all female patient with total protein (TP) beyond the normal index, what is the deviation of their TP idex from the normal.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1216,thrombosis_prediction,Sort in descending order all patients by birthday for male patient with albumin not within range.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1217,thrombosis_prediction,"For all patient born in 1982, state if their albumin is within normal range.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1218,thrombosis_prediction,What is the percentage of the female patient whose uric acid (UA) beyond the normal range?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1219,thrombosis_prediction,"For all patients with normal uric acid (UA), what is the average UA index based on their latest laboratory examination result?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1220,thrombosis_prediction,"Provide all ID, sex and birthday of patients whose urea nitrogen (UN) just within the borderline of passing?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1221,thrombosis_prediction,"Provide the ID, sex, birthday of all patients diagnosed with 'RA' that are within the UN normal index.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1222,thrombosis_prediction,How many male patients are are with creatinine index out of the normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1223,thrombosis_prediction,Are there more male patients with creatinine not within the normal range than female? True or False?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1224,thrombosis_prediction,"What is the highest total bilirubin level recorded? List out the patient details with ID, sex and birthday with that index.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1225,thrombosis_prediction,List and group all patients by sex for total bilirubin (T-BIL) level not within the normal range.,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+1226,thrombosis_prediction,Who is the oldest patient with the highest total cholesterol (T-CHO). State the patient ID and T-CHO index.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1227,thrombosis_prediction,What is the average age of the male patient with high cholesterol?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1228,thrombosis_prediction,Provide list of patients and their diagnosis with triglyceride (TG) index greater than 100 of the normal range?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1229,thrombosis_prediction,"For all patients with triglyceride (TG) level beyond the normal range, how many are age more than 50 years?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1230,thrombosis_prediction,List all outpatient within normal range of creatinine phosphokinase. Give me the distinct ids.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1231,thrombosis_prediction,"For patient born between 1936-1956, how many male patients have creatinine phosphokinase beyond the normal range?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1232,thrombosis_prediction,"Provide ID, sex and age of patient who has blood glucose (GLU) not within normal range but with total cholesterol(T-CHO) within normal range.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1233,thrombosis_prediction,List each patient's ID and blood glucose (GLU) index that were within normal range for patient's whose data was first recorded in 1991.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1234,thrombosis_prediction,"List the patient ID, sex and birthday who has abnormal white blood cell count. Group them by sex and list the patient by age in ascending order.",True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+1235,thrombosis_prediction,What are the patient's diagnosis for those who has lower red blood blood cell? State their ID and age.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1236,thrombosis_prediction,"For all the female patient age 50 and above, who has abnormal red blood cell count. State if they were admitted to hospital.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1237,thrombosis_prediction,"Among all outpatients, list out those have low hemoglobin level. State the different IDs and their sex.",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1238,thrombosis_prediction,"Among the patients who were diagnosed with SLE, who is the oldest with normal hemoglobin level. Provide the ID and sex.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1239,thrombosis_prediction,Name the ID and age of patient with two or more laboratory examinations which show their hematoclit level exceeded the normal range.,True,True,True,False,False,False,True,False,False,JOIN+GROUP_BY+HAVING,NONE,JOIN
+1240,thrombosis_prediction,"From laboratory examinations in 1991, what is the average hematoclit level that is lower than the normal range.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1241,thrombosis_prediction,"For patients with abnormal platelet level, state the number of patients with lower than normal range. How is it compare to the number of patients with higher than normal range?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1242,thrombosis_prediction,"For laboratory examinations take in 1984, list all patients below 50 years old with normal platelet level.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1243,thrombosis_prediction,"For all patients who are older than 55 years old, what is the percentage of female who has abnormal prothrombin time (PT)?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1244,thrombosis_prediction,List all patients who first came to the hospital after year 1992 with prothrombin time (PT) level that are normal.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1245,thrombosis_prediction,"For the examinations done after 1997/1/1, how many of them have the result of an inactivated partial prothrom bin time?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1246,thrombosis_prediction,"For the patients with an abnormal activated partial prothrom bin time, how many of them does not have thrombosis?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1247,thrombosis_prediction,"Among the male patients who have a normal level of white blood cells, how many of them have an abnormal fibrinogen level?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1248,thrombosis_prediction,How many patients born after 1980/1/1 have an abnormal fibrinogen level?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1249,thrombosis_prediction,Please list the disease names of the patients that have a proteinuria level higher than normal.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1250,thrombosis_prediction,Which patient has a normal proteinuria level and is diagnosed with SLE? Please give his or her patient ID.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1251,thrombosis_prediction,How many patients with an Ig G higher than normal?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1252,thrombosis_prediction,"Among the patients with a normal Ig G level, how many of them have symptoms?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1253,thrombosis_prediction,"For the patient who has the highest Ig A within the normal range, what is his or her diagnosis?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1254,thrombosis_prediction,How many patients with a normal Ig A level came to the hospital after 1990/1/1?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1255,thrombosis_prediction,"For the patients with an abnormal Ig M level, what is the most common disease they are diagnosed with?",True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+1256,thrombosis_prediction,How many patients with a abnormal C-reactive protein don't have their data recorded?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1257,thrombosis_prediction,"Among the patients whose creatinine level is abnormal, how many of them aren't 70 yet?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1258,thrombosis_prediction,How many patients with a normal Rhuematoid Factor has a positive measure of degree of coagulation?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1259,thrombosis_prediction,Please list the diseases of the patients born after 1985-1-1 and have a normal Rhuematoid Factor.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1260,thrombosis_prediction,Please list the ID of the patient whose RF is normal and who is older than 60.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1261,thrombosis_prediction,How many patients with a normal RF don't have thrombosis?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1262,thrombosis_prediction,How many patients with a normal level of complement 3 have a P pattern observed in the sheet of ANA examination?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1263,thrombosis_prediction,"Among the patients whose level of Hematoclit isn't normal, which patient has the highest anti-Cardiolipin antibody concentration? Please list his or her ID.",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1264,thrombosis_prediction,"Among the patients have blood clots in veins, how many of them have a normal level of complement 4?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1265,thrombosis_prediction,How many patients have a normal level of anti-ribonuclear protein and have been admitted to the hospital?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1266,thrombosis_prediction,Which is the youngest patient with an abnormal anti-ribonuclear protein level? Please list his or her date of birth.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1267,thrombosis_prediction,"Among the patients with normal anti-SM, how many of them does not have thrombosis?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1268,thrombosis_prediction,"For the patients with an abnormal anti-SM, please list the IDs of the three youngest ones.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1269,thrombosis_prediction,Please list the IDs of the patients who had the examination done after 1997/1/1 and had a normal anti-scl70.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1270,thrombosis_prediction,"Among the patients who has a normal anti-scl70, how many of them are female and does not have any symptom?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1271,thrombosis_prediction,How many patients with a normal anti-SSA came to the hospital before 2000?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1272,thrombosis_prediction,Which patient is the first patient with an abnormal anti-SSA to come to the hospital? Please give his or her ID.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1273,thrombosis_prediction,How many patients have a normal anti-SSB and are diagnosed with SLE in the examination?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1274,thrombosis_prediction,"For the patients whose anti-SSB are normal, how many of them have other symptoms observed in their examination?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1275,thrombosis_prediction,"Among the patients who has a normal level of anti-centromere and a normal level of anti-SSB, how many of them are male?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1276,thrombosis_prediction,"For the patients who have an abnormal level of anti-DNA, please list the diseases they are diagnosed with.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1277,thrombosis_prediction,"How many patients have a normal anti-DNA level, yet their data are not recorded.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1278,thrombosis_prediction,"Of the patients with an normal level of IGG, how many of them admitted to the hospital?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1279,thrombosis_prediction,"What is the percentage of patient who has a abnormal level of glutamic oxaloacetic transaminase level, yet he or she is diagnosed with SLE?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1280,thrombosis_prediction,How many male patients have their glutamic oxaloacetic transaminase in the normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1281,thrombosis_prediction,"Among the patients who have an abnormal level of glutamic oxaloacetic transaminase, when was the youngest of them born?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1282,thrombosis_prediction,Please list the top three patients' birthdays with the highest glutamic pylvic transaminase in the normal range.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1283,thrombosis_prediction,"For the patients with the normal glutamic pylvic transaminase level, how many of them are male?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1284,thrombosis_prediction,"For the patient with the highest lactate dehydrogenase in the normal range, when was his or her data first recorded?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1285,thrombosis_prediction,When is the latest patient's medical data recorded? This patient should have an abnormal level of lactate dehydrogenase.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1286,thrombosis_prediction,"For the patient with an abnormal alkaliphophatase level, how many of them are admitted to the hospital?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1287,thrombosis_prediction,"Among the patients followed at the outpatient clinic, how many of them have a normal level of alkaliphophatase?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1288,thrombosis_prediction,Please list the diagnosis of the patients whose total protein is lower than normal.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1289,thrombosis_prediction,"For the patients who are diagnosed with SJS, how many of them have a normal level of total protein?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1290,thrombosis_prediction,What is the examination date of the patient whose albumin is the highest in the normal range?,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+1291,thrombosis_prediction,How many male patients have a normal level of both albumin and total protein?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1292,thrombosis_prediction,What is the anti Cardiolipin antibody concentration of the female patient with the highest uric acid level in the normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1293,thrombosis_prediction,What is the highest anti-nucleus antibody concentration level of a patient with a normal creatinine level?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1294,thrombosis_prediction,Please list the patient's ID whose creatinine level is normal and whose anti Cardiolipin antibody concentration level is the highest.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1295,thrombosis_prediction,"Among the patients whose total bilirubin is over the normal range, how many of them have a peripheral pattern observed in the sheet of ANA examination?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1296,thrombosis_prediction,What is the anti-nucleus antibody concentration of the patient whose total bilirubin is the highest in the normal range?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1297,thrombosis_prediction,"For the patients whose total cholesterol is higher than normal, how many of them have a negative measure of degree of coagulation?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1298,thrombosis_prediction,"Among the patients whose total cholesterol is within the normal range, how many of them have a P pattern observed in the sheet of ANA examination?",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1299,thrombosis_prediction,"Among the patients with the normal level of triglyceride, how many of them have other symptoms observed?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1300,thrombosis_prediction,What is the disease name of the patient who has the highest level of triglyceride within the normal range?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1301,thrombosis_prediction,Please list the IDs of the patients with no thrombosis and an abnormal level of creatinine phosphokinase.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1302,thrombosis_prediction,"For the patients with a normal range of creatinine phosphokinase, how many of them have a positive measure of degree of coagulation?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1303,thrombosis_prediction,When is the birthday of the oldest patient whose blood glucose is abnormal?,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1304,thrombosis_prediction,"Among the patients with a normal blood glucose, how many of them don't have thrombosis?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1305,thrombosis_prediction,How many patients accepted to the hospital have a normal level of white blood cells?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1306,thrombosis_prediction,How many patients diagnosed with SLE have a normal white blood cell level?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1307,thrombosis_prediction,Please list the patient's ID if he or she has an abnormal level of red blood cell and is followed at the outpatient clinic.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1308,thrombosis_prediction,"Among the patients who have a normal platelet level, how many of them have other symptoms observed?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1309,thrombosis_prediction,Please list a patient's platelet level if it is within the normal range and if he or she is diagnosed with MCTD.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1310,thrombosis_prediction,"For the male patients that have a normal prothrombin time, what is their average prothrombin time?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1311,thrombosis_prediction,How many patients with severe thrombosis have a normal prothrombin time?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1312,student_club,What's Angela Sanders's major?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1313,student_club,How many students in the Student_Club are from the College of Engineering?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1314,student_club,Please list the full names of the students in the Student_Club that come from the Art and Design Department.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1315,student_club,"How many students of the Student_Club have attended the event ""Women's Soccer""?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1316,student_club,"Please list the phone numbers of the students from the Student_Club that has attended the event ""Women's Soccer"".",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1317,student_club,"Among the students from the Student_Club who attended the event ""Women's Soccer"", how many of them want a T-shirt that's in medium size?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1318,student_club,What is the event that has the highest attendance of the students from the Student_Club?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+1319,student_club,Which college is the vice president of the Student_Club from?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1320,student_club,Please list the event names of all the events attended by Maya Mclean.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1321,student_club,How many events of the Student_Club did Sacha Harrison attend in 2019?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1322,student_club,"Among the events attended by more than 10 members of the Student_Club, how many of them are meetings?",True,True,True,False,False,False,False,False,False,JOIN+GROUP_BY+HAVING,NONE,NONE
+1323,student_club,List all the names of events that had an attendance of over 20 students but were not fundraisers.,True,True,True,False,False,False,False,False,False,JOIN+GROUP_BY+HAVING,NONE,NONE
+1324,student_club,What is the average attendance of meetings in 2020?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1325,student_club,What is the most expensive item that was spent in support of club events?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1326,student_club,"How many members of the Student_Club have majored Environmental Engineering?
+",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1327,student_club,"List the full name of all the members of the Student_Club who attended the ""Laugh Out Loud"" event.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1328,student_club,"List the last name of all the students who majored Law and Constitutional Studies. 
+",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1329,student_club,What county did Sherri Ramsey grew up?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1330,student_club,What college offers the major that Tyler Hewitt took?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1331,student_club,What is the amount of the funds that the Vice President received?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1332,student_club,How much did the Student_Club members spend on food in September Meeting?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1333,student_club,What city and state did the President of the Student_Club grow up?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1334,student_club,List the full name of the Student_Club members that grew up in Illinois state.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1335,student_club,How much did the Student_Club members spend on advertisement in September Meeting?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1336,student_club,What department offers the major that Pierce and Guidi took?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1337,student_club,"What is the total budgeted amount for all category in ""October Speaker"" event?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1338,student_club,"Was each expense in October Meeting on October 8, 2019 approved?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1339,student_club,Calculate the total average cost that Elijah Allen spent in the events on September and October.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1340,student_club,Calculate the difference of the total amount spent in all events by the Student_Club in year 2019 and 2020.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1341,student_club,"Give the location for ""Spring Budget Review"".",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1342,student_club,"What was the cost for the ""Posters"" on 2019/9/4?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1343,student_club,"With the biggest budget for the ""Food"", what was the remaining of it?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1344,student_club,What was the notes of the fundraising on 2019/9/14?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1345,student_club,"How many majors are there in ""College of Humanities and Social Sciences""?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1346,student_club,"Tell the phone number of ""Carlo Jacobs"".",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1347,student_club,"Tell the hometown county for ""Adela O'Gallagher"".",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1348,student_club,"For all the budgets for ""November Meeting"", how many of them had exceeded the budget?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1349,student_club,"Provide the total number of the budget amount for ""September Speaker"" event.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1350,student_club,"What is the status of the event which bought ""Post Cards, Posters"" on 2019/8/20?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1351,student_club,What was Brent Thomason's major?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1352,student_club,"For all the club members from ""Business"" major, how many of them wear medium size t-shirt?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1353,student_club,What's Christof Nielson's zip code type?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1354,student_club,State the major name for the Vice President of the club.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1355,student_club,"Where is the hometown state for ""Sacha Harrison""?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1356,student_club,Which department was the President of the club in?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1357,student_club,State the date Connor Hilton paid his/her dues.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1358,student_club,Who was the first one paid his/her dues? Tell the full name.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1359,student_club,"How many times was the budget in Advertisement for ""Yearly Kickoff"" meeting more than ""October Meeting""?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1360,student_club,"What percentage was the budget for Parking to the total budget for the ""November Speaker""?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1361,student_club,What is the total cost of the pizzas for all the events?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1362,student_club,"How many cities are there in Orange County, Virginia?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1363,student_club,List all of the College of Humanities and Social Sciences' departments.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1364,student_club,Where is Amy Firth's hometown?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1365,student_club,What are the expenses of the budget with the lowest remaining?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1366,student_club,"List all the members who attended the event ""October Meeting"".",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1367,student_club,Which college do most of the members go to?,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+1368,student_club,"What does the person with the phone number ""809-555-3360"" major in?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1369,student_club,Which event has the highest budget amount?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1370,student_club,List all the expenses incurred by the vice president.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1371,student_club,"How many members attended the ""Women's Soccer"" event?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1372,student_club,"When did the member, Casey Mason, received the income?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1373,student_club,How many of the members' hometowns are from Maryland state?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1374,student_club,"How many events did the member with the phone number ""954-555-6240"" attend?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1375,student_club,"List all the members of the ""School of Applied Sciences, Technology and Education"" department.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1376,student_club,"Among all the closed events, which event has the highest spend-to-budget ratio?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1377,student_club,How many student have the position of president?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1378,student_club,What is the highest amount of budget spend for an event?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1379,student_club,How many meeting events were held in 2020?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1380,student_club,What is the total amount of money spent for food?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1381,student_club,List the name of students that have attended more than 7 events.,True,True,True,False,False,True,False,False,True,JOIN+GROUP_BY+HAVING,HAVING,HAVING
+1382,student_club,"Among the students majored in interior design, who have attended the Community Theater event?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1383,student_club,"State the name of students from Georgetown, South Carolina.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1384,student_club,How many income generated by Grant Gilmour?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1385,student_club,Which student was able to generate income more than $40?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1386,student_club,What is the total expense for the Yearly Kickoff?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1387,student_club,Which student has been entrusted to manage the budget for the Yearly Kickoff?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1388,student_club,Which students manage to generate the highest income. State his/her full name along with the income source.,True,True,False,False,False,False,True,False,False,JOIN+GROUP_BY,NONE,JOIN
+1389,student_club,Which event has the lowest cost?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1390,student_club,"Based on the total cost for all event, what is the percentage of cost for Yearly Kickoff event?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1391,student_club,What is the ratio between students majored in finance and physics?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1392,student_club,Indicate the top source of funds received in September 2019 based on their amount.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1393,student_club,Provide the full name and email address of the Student_Club's Secretary.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1394,student_club,How many members of the Student_Club have major in 'Physics Teaching'?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1395,student_club,How many members did attend the event 'Community Theater' in 2019?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1396,student_club,Provide the number of events attended by Luisa Guidi. What is her major?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1397,student_club,"On average, how much did the Student_Club spend on food for the typical event in the past?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1398,student_club,Name the event with the highest amount spent on advertisement.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1399,student_club,Did Maya Mclean attend the 'Women's Soccer' event?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1400,student_club,"Among all events hold by the Student_Club in 2019, find the percentage share of events related to 'Community Service'",False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+1401,student_club,Indicate the cost of posters for 'September Speaker' event.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1402,student_club,What is the most popular size of t-shirt ordered by the club members?,False,True,False,False,False,False,False,False,False,GROUP_BY,NONE,NONE
+1403,student_club,Indicate the name of the closed event whose cost has exceeded the budget the most.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1404,student_club,Identify the type of expenses and their total value approved for 'October Meeting' event.,True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1405,student_club,Calculate the amount budgeted for 'April Speaker' event. List all the budgeted categories for said event in an ascending order based on their amount budgeted.,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+1406,student_club,"Among the budgets for Food, which one has the highest budgeted amount?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1407,student_club,"Among the budgets for Advertising, list out top three which have the most budgeted amount?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1408,student_club,Calculate the total cost spent for Parking in the list.,False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1409,student_club,Mention the total expense used on 8/20/2019.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1410,student_club,"List out the full name and total cost that member id ""rec4BLdZHS2Blfp4v"" incurred?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1411,student_club,State what kind of expenses that Sacha Harrison incurred?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1412,student_club,What kind of expenses incurred by members who have X-Large in size of tee shirt?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1413,student_club,Mention the zip code of member who incurred less than 50USD.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1414,student_club,State the name of major that Phillip Cullen has joined.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1415,student_club,List out the position of members who joined major of Business.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1416,student_club,How many members of Business have the Medium size of tee shirt?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1417,student_club,List out the type of events which have remaining budget more than 30 USD.,True,False,False,False,False,True,False,False,True,JOIN,HAVING,HAVING
+1418,student_club,Mention the category of events which were held at MU 215.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1419,student_club,What is the category of event which was taken place in 2020-03-24T12:00:00?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1420,student_club,State the name of major that Vice President has joined.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1421,student_club,Calculate the percentage of members who are major Business in the list?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1422,student_club,State the category of events were held at MU 215.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1423,student_club,How many income are received with an amount of 50?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1424,student_club,"Among the members, how many of them have an extra large t-shirt size?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1425,student_club,"In the College of Agriculture and Applied Sciences, how many majors are under the department of School of Applied Sciences, Technology and Education?",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1426,student_club,List the last name of members with a major in environmental engineering and include its department and college name.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1427,student_club,What are the budget category of the events located at MU 215 and a guest speaker type with a 0 budget spent?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1428,student_club,List the city and state of members enrolled under electrical and computer engineering department.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1429,student_club,What is the name of the social event that was attended by the vice president of the Student_Club located at 900 E. Washington St.?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1430,student_club,What is the last name and position of the student that bought pizza on 09/10/2019?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1431,student_club,List the last name of the members of the club that attended the women's soccer event.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1432,student_club,"Among the members with t-shirt size of medium, what is the percentage of the amount 50 received by the Student_Club?",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1433,student_club,Which countries have zip codes with post office boxes?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1434,student_club,What are the zip codes that have post office boxes in the country of the country of San Juan Municipio whose state is Puerto Rico?,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+1435,student_club,"List the names of closed event as ""game"" that was closed from 3/15/2019 to 3/20/2020.",False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1436,student_club,Please provide links to events for members who have paid more than 50 dollar.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1437,student_club,Which members who were approved from 1/10/2019 to 11/19/2019? Please identify the member who attended the event and the link to their event.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1438,student_club,"Please indicate the college of the person whose first name is Katy with the link to the major ""rec1N0upiVLy5esTO"".",True,False,False,True,False,False,True,False,False,JOIN,JOIN,JOIN
+1439,student_club,Please list the phone numbers of the members who majored in business at the College of Agriculture and Applied Sciences.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1440,student_club,List emails of people who paid more than 20 dollars from 9/10/2019 to 11/19/2019.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1441,student_club,How many members have education major in the College of Education & Human Services?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1442,student_club,What is the percentage of the events that went over budget?,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1443,student_club,"Give the event ID, location, and status of events conducted from November 2019 to March 2020.",False,False,False,False,False,False,True,False,False,NONE,NONE,JOIN
+1444,student_club,List the expenses that spend more than fifty dollars on average.,False,True,True,False,False,False,False,False,False,GROUP_BY+HAVING,NONE,NONE
+1445,student_club,Find the full name of members whose t-shirt size is extra large.,False,False,False,True,False,False,True,False,False,NONE,JOIN,JOIN
+1446,student_club,Calculate the percentage of zip codes that are PO boxes.,False,False,False,False,False,False,False,False,False,NONE,NONE,NONE
+1447,student_club,List the name and location of events that underspend its budget.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1448,student_club,Find the name and date of events with expenses for pizza that were more than fifty dollars but less than a hundred dollars.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1449,student_club,What is the name and major of members who had to spend more than a hundred dollars on an expense?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1450,student_club,"In the events with more than forty incomes, list the city and country in which the event is happening.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1451,student_club,"Among the members who incurred expenses in more than one event, who paid the most amount?",True,True,True,False,False,False,True,False,False,JOIN+GROUP_BY+HAVING,NONE,JOIN
+1452,student_club,What is the average amount paid by students in a position other than a member?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1453,student_club,List the name of events with less than average parking cost.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1454,student_club,What is the percentage of the cost for the meeting events?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1455,student_club,"Which budget allowed the most money for water, chips, and cookies?",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1456,student_club,List the full name of the top five members who spend the most money in the descending order of spending.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1457,student_club,Give the full name and contact number of members who had to spend more than average on each expense.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1458,student_club,Calculate the difference in the percentage of members in New Jersey and Vermont.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1459,student_club,What is the major of Garrett Gerke and which department does it belong to?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1460,student_club,"Write the full name of the member who spent money for water, veggie tray and supplies and include the cost of it.",True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1461,student_club,List the last names of students under the Elementary Education major and include their phone numbers.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1462,student_club,What category was budgeted for the 'January Speaker' event and how much was the amount budgeted for that category?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1463,student_club,List the event names which were budgeted for the food.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1464,student_club,Write the full names of students who received funds on the date of 9/9/2019 and include the amount received.,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1465,student_club,Which budget category does the expense 'Posters' fall to?,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1466,student_club,Write the full name of the club member with the position of 'Secretary' and list which college the club member belongs to.,True,False,False,False,False,False,True,False,False,JOIN,NONE,JOIN
+1467,student_club,Calculate the total amount spent on speaker gifts and list the name of the event they were spent on.,True,True,False,False,False,False,False,False,False,JOIN+GROUP_BY,NONE,NONE
+1468,student_club,Where is the hometown of Garrett Gerke?,True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
+1469,student_club,"Which student has the hometown of Lincolnton, North Carolina with the zip code of 28092? List their full name and position.",True,False,False,False,False,False,False,False,False,JOIN,NONE,NONE
