@@ -28,10 +28,10 @@
         "parse_error": null
     },
     {
-        "question_id": 488,
-        "db_id": "card_games",
-        "question": "What's the code for the set which was released on 2017/7/14?",
-        "gold_sql": "SELECT code FROM sets WHERE releaseDate = '2017-07-14' GROUP BY releaseDate, code",
+        "question_id": 78,
+        "db_id": "california_schools",
+        "question": "What is the most common type of grade span served in the city of Adelanto?",
+        "gold_sql": "SELECT GSserved FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY COUNT(GSserved) DESC LIMIT 1",
         "JOIN": false,
         "GROUP_BY": true,
         "HAVING": false,
@@ -42,10 +42,10 @@
         "parse_error": null
     },
     {
-        "question_id": 1196,
-        "db_id": "thrombosis_prediction",
-        "question": "What is the most common sign of patients with SLE disease?",
-        "gold_sql": "SELECT Symptoms FROM Examination WHERE Diagnosis = 'SLE' GROUP BY Symptoms ORDER BY COUNT(Symptoms) DESC LIMIT 1",
+        "question_id": 231,
+        "db_id": "toxicology",
+        "question": "Which bond type accounted for the majority of the bonds found in molecule TR010 and state whether or not this molecule is carcinogenic?",
+        "gold_sql": "SELECT T.bond_type FROM ( SELECT T1.bond_type, COUNT(T1.molecule_id) FROM bond AS T1  WHERE T1.molecule_id = 'TR010' GROUP BY T1.bond_type ORDER BY COUNT(T1.molecule_id) DESC LIMIT 1 ) AS T",
         "JOIN": false,
         "GROUP_BY": true,
         "HAVING": false,
@@ -56,10 +56,10 @@
         "parse_error": null
     },
     {
-        "question_id": 1491,
-        "db_id": "debit_card_specializing",
-        "question": "Which country has more \"value for money\" gas stations? Please give a total number of \"value for money\" gas stations in each country.",
-        "gold_sql": "SELECT Country , ( SELECT COUNT(GasStationID) FROM gasstations WHERE Segment = 'Value for money' ) FROM gasstations WHERE Segment = 'Value for money' GROUP BY Country ORDER BY COUNT(GasStationID) DESC LIMIT 1",
+        "question_id": 1402,
+        "db_id": "student_club",
+        "question": "What is the most popular size of t-shirt ordered by the club members?",
+        "gold_sql": "SELECT t_shirt_size FROM member GROUP BY t_shirt_size ORDER BY COUNT(t_shirt_size) DESC LIMIT 1",
         "JOIN": false,
         "GROUP_BY": true,
         "HAVING": false,
@@ -85,10 +85,38 @@
         "parse_error": null
     },
     {
-        "question_id": 766,
+        "question_id": 230,
+        "db_id": "toxicology",
+        "question": "What are the elements of the toxicology and label of molecule TR060?",
+        "gold_sql": "SELECT DISTINCT T1.element, T2.label FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T2.molecule_id = 'TR060'",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 277,
+        "db_id": "toxicology",
+        "question": "What are the toxicology elements associated with bond ID TR000_1_2?",
+        "gold_sql": "SELECT T1.element FROM atom AS T1 INNER JOIN connected AS T2 ON T1.atom_id = T2.atom_id WHERE T2.bond_id = 'TR000_1_2'",
+        "JOIN": true,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [
+            "JOIN"
+        ],
+        "category_signature": "JOIN",
+        "parse_error": null
+    },
+    {
+        "question_id": 729,
         "db_id": "superhero",
-        "question": "What is the hero's full name with the highest attribute in strength?",
-        "gold_sql": "SELECT T1.full_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T3.attribute_name = 'Strength' ORDER BY T2.attribute_value DESC LIMIT 1",
+        "question": "What is the average height of the superheroes from Marvel Comics?",
+        "gold_sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Marvel Comics'",
         "JOIN": true,
         "GROUP_BY": false,
         "HAVING": false,
@@ -99,24 +127,10 @@
         "parse_error": null
     },
     {
-        "question_id": 825,
-        "db_id": "superhero",
-        "question": "Identify the gender of the superhero who has the ability of Phoenix Force.",
-        "gold_sql": "SELECT T4.gender FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id INNER JOIN superpower AS T3 ON T2.power_id = T3.id INNER JOIN gender AS T4 ON T1.gender_id = T4.id WHERE T3.power_name = 'Phoenix Force'",
-        "JOIN": true,
-        "GROUP_BY": false,
-        "HAVING": false,
-        "categories": [
-            "JOIN"
-        ],
-        "category_signature": "JOIN",
-        "parse_error": null
-    },
-    {
-        "question_id": 1265,
+        "question_id": 1167,
         "db_id": "thrombosis_prediction",
-        "question": "How many patients have a normal level of anti-ribonuclear protein and have been admitted to the hospital?",
-        "gold_sql": "SELECT COUNT(DISTINCT T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.RNP = 'negative' OR T2.RNP = '0' AND T1.Admission = '+'",
+        "question": "For the year that concluded on December 31, 1998, how many male patients on average were tested in the lab each month?",
+        "gold_sql": "SELECT CAST(COUNT(T1.ID) AS REAL) / 12 FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE STRFTIME('%Y', T2.Date) = '1998' AND T1.SEX = 'M'",
         "JOIN": true,
         "GROUP_BY": false,
         "HAVING": false,
@@ -127,24 +141,10 @@
         "parse_error": null
     },
     {
-        "question_id": 1308,
+        "question_id": 1207,
         "db_id": "thrombosis_prediction",
-        "question": "Among the patients who have a normal platelet level, how many of them have other symptoms observed?",
-        "gold_sql": "SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.PLT > 100 AND T2.PLT < 400 AND T1.Diagnosis IS NOT NULL",
-        "JOIN": true,
-        "GROUP_BY": false,
-        "HAVING": false,
-        "categories": [
-            "JOIN"
-        ],
-        "category_signature": "JOIN",
-        "parse_error": null
-    },
-    {
-        "question_id": 1469,
-        "db_id": "student_club",
-        "question": "Which student has the hometown of Lincolnton, North Carolina with the zip code of 28092? List their full name and position.",
-        "gold_sql": "SELECT T1.first_name, T1.last_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092",
+        "question": "List all patients with their sex and date of birthday, whose AST glutamic oxaloacetic transaminase (GOT) index is within normal range for loboratory examination in 1994.",
+        "gold_sql": "SELECT DISTINCT T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GOT < 60 AND STRFTIME('%Y', T2.Date) = '1994'",
         "JOIN": true,
         "GROUP_BY": false,
         "HAVING": false,
@@ -170,10 +170,10 @@
         "parse_error": null
     },
     {
-        "question_id": 197,
+        "question_id": 250,
         "db_id": "toxicology",
-        "question": "Calculate the average number of oxygen atoms in single-bonded molecules.",
-        "gold_sql": "SELECT AVG(oxygen_count) FROM (SELECT T1.molecule_id, COUNT(T1.element) AS oxygen_count FROM atom AS T1 INNER JOIN bond AS T2 ON T1.molecule_id = T2.molecule_id  WHERE T2.bond_type = '-' AND T1.element = 'o'  GROUP BY T1.molecule_id) AS oxygen_counts",
+        "question": "Of all the carcinogenic molecules, which one has the most double bonds?",
+        "gold_sql": "SELECT T.molecule_id FROM ( SELECT T3.molecule_id, COUNT(T1.bond_type) FROM bond AS T1 INNER JOIN molecule AS T3 ON T1.molecule_id = T3.molecule_id WHERE T3.label = '+' AND T1.bond_type = '=' GROUP BY T3.molecule_id ORDER BY COUNT(T1.bond_type) DESC LIMIT 1 ) AS T",
         "JOIN": true,
         "GROUP_BY": true,
         "HAVING": false,
@@ -185,10 +185,10 @@
         "parse_error": null
     },
     {
-        "question_id": 208,
+        "question_id": 251,
         "db_id": "toxicology",
-        "question": "Which type of label is the most numerous in atoms with hydrogen?",
-        "gold_sql": "SELECT T.label FROM ( SELECT T2.label, COUNT(T2.molecule_id) FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.element = 'h' GROUP BY T2.label ORDER BY COUNT(T2.molecule_id) DESC LIMIT 1 ) t",
+        "question": "What is the least common element of all carcinogenic molecules?",
+        "gold_sql": "SELECT T.element FROM ( SELECT T2.element, COUNT(DISTINCT T2.molecule_id) FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '+' GROUP BY T2.element ORDER BY COUNT(DISTINCT T2.molecule_id) LIMIT 1 ) t",
         "JOIN": true,
         "GROUP_BY": true,
         "HAVING": false,
@@ -200,10 +200,10 @@
         "parse_error": null
     },
     {
-        "question_id": 583,
-        "db_id": "codebase_community",
-        "question": "What is the total score of the posts edited by Yevgeny and include the user's website URL.",
-        "gold_sql": "SELECT SUM(T1.Score), T2.WebsiteUrl FROM posts AS T1 INNER JOIN users AS T2 ON T1.LastEditorUserId = T2.Id WHERE T2.DisplayName = 'Yevgeny' GROUP BY T2.WebsiteUrl",
+        "question_id": 1234,
+        "db_id": "thrombosis_prediction",
+        "question": "List the patient ID, sex and birthday who has abnormal white blood cell count. Group them by sex and list the patient by age in ascending order.",
+        "gold_sql": "SELECT DISTINCT T1.ID, T1.SEX, T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.WBC <= 3.5 OR T2.WBC >= 9.0 GROUP BY T1.SEX,T1.ID ORDER BY T1.Birthday ASC",
         "JOIN": true,
         "GROUP_BY": true,
         "HAVING": false,
@@ -215,10 +215,10 @@
         "parse_error": null
     },
     {
-        "question_id": 587,
-        "db_id": "codebase_community",
-        "question": "Calculate the average view count of each post tagged as 'humor' and list the title and the comment of each post.",
-        "gold_sql": "SELECT AVG(T2.ViewCount), T2.Title, T1.Text FROM comments AS T1 INNER JOIN posts AS T2 ON T2.Id = T1.PostId  WHERE T2.Tags = '<humor>' GROUP BY T2.Title, T1.Text ",
+        "question_id": 1388,
+        "db_id": "student_club",
+        "question": "Which students manage to generate the highest income. State his/her full name along with the income source.",
+        "gold_sql": "SELECT T1.first_name, T1.last_name, T2.source FROM member AS T1 INNER JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.first_name, T1.last_name, T2.source ORDER BY SUM(T2.amount) DESC LIMIT 1",
         "JOIN": true,
         "GROUP_BY": true,
         "HAVING": false,
@@ -246,98 +246,74 @@
         "parse_error": null
     },
     {
-        "question_id": 141,
-        "db_id": "financial",
-        "question": "Which districts have transactions greater than USS$10,000 in 1997?",
-        "gold_sql": "SELECT T1.district_id FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id INNER JOIN trans AS T3 ON T1.account_id = T3.account_id WHERE STRFTIME('%Y', T3.date) = '1997' GROUP BY T1.district_id HAVING SUM(T3.amount) > 10000",
-        "JOIN": true,
-        "GROUP_BY": true,
-        "HAVING": true,
-        "categories": [
-            "JOIN",
-            "GROUP_BY",
-            "HAVING"
-        ],
-        "category_signature": "JOIN+GROUP_BY+HAVING",
-        "parse_error": null
-    },
-    {
-        "question_id": 899,
-        "db_id": "formula_1",
-        "question": "List circuits which host 4 f1 races from year 1990 to 2000.",
-        "gold_sql": "SELECT DISTINCT T1.name FROM circuits AS T1 INNER JOIN races AS T2 ON T2.circuitID = T1.circuitId WHERE STRFTIME('%Y', T2.date) BETWEEN '1990' AND '2000' GROUP BY T1.name HAVING COUNT(T2.raceId) = 4",
-        "JOIN": true,
-        "GROUP_BY": true,
-        "HAVING": true,
-        "categories": [
-            "JOIN",
-            "GROUP_BY",
-            "HAVING"
-        ],
-        "category_signature": "JOIN+GROUP_BY+HAVING",
-        "parse_error": null
-    },
-    {
-        "question_id": 1322,
-        "db_id": "student_club",
-        "question": "Among the events attended by more than 10 members of the Student_Club, how many of them are meetings?",
-        "gold_sql": "SELECT T1.event_name FROM event AS T1  INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_id  HAVING COUNT(T2.link_to_event) > 10 EXCEPT SELECT T1.event_name  FROM event AS T1  WHERE T1.type = 'Meeting'",
-        "JOIN": true,
-        "GROUP_BY": true,
-        "HAVING": true,
-        "categories": [
-            "JOIN",
-            "GROUP_BY",
-            "HAVING"
-        ],
-        "category_signature": "JOIN+GROUP_BY+HAVING",
-        "parse_error": null
-    },
-    {
-        "question_id": 1381,
-        "db_id": "student_club",
-        "question": "List the name of students that have attended more than 7 events.",
-        "gold_sql": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member GROUP BY T2.link_to_member HAVING COUNT(T2.link_to_event) > 7",
-        "JOIN": true,
-        "GROUP_BY": true,
-        "HAVING": true,
-        "categories": [
-            "JOIN",
-            "GROUP_BY",
-            "HAVING"
-        ],
-        "category_signature": "JOIN+GROUP_BY+HAVING",
-        "parse_error": null
-    },
-    {
-        "question_id": 63,
-        "db_id": "california_schools",
-        "question": "In chartered schools with charter number 00D2, what are the names of all the administrators? Include the name of the school and the city to which it belongs",
-        "gold_sql": "SELECT AdmFName1, AdmLName1, School, City FROM schools WHERE Charter = 1 AND CharterNum = '00D2'",
-        "JOIN": false,
-        "GROUP_BY": false,
-        "HAVING": false,
-        "categories": [],
-        "category_signature": "NONE",
-        "parse_error": null
-    },
-    {
-        "question_id": 172,
-        "db_id": "financial",
-        "question": "How many owner and disponent dispositions are there from account number 1 to account number 10?",
-        "gold_sql": "SELECT SUM(type = 'OWNER') , SUM(type = 'DISPONENT') FROM disp WHERE account_id BETWEEN 1 AND 10",
-        "JOIN": false,
-        "GROUP_BY": false,
-        "HAVING": false,
-        "categories": [],
-        "category_signature": "NONE",
-        "parse_error": null
-    },
-    {
-        "question_id": 275,
+        "question_id": 327,
         "db_id": "toxicology",
-        "question": "Give me the molecule ID of the double bond type.",
-        "gold_sql": "SELECT DISTINCT T.molecule_id FROM bond AS T WHERE T.bond_type = '='",
+        "question": "Which non-carcinogenic molecules consisted more than 5 atoms?",
+        "gold_sql": "SELECT T.molecule_id FROM ( SELECT T1.molecule_id, COUNT(T2.atom_id) FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '-' GROUP BY T1.molecule_id HAVING COUNT(T2.atom_id) > 5 ) t",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 720,
+        "db_id": "superhero",
+        "question": "Please list the full names of all the superheroes with over 15 super powers.",
+        "gold_sql": "SELECT DISTINCT T1.full_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id GROUP BY T1.full_name HAVING COUNT(T2.power_id) > 15",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 1323,
+        "db_id": "student_club",
+        "question": "List all the names of events that had an attendance of over 20 students but were not fundraisers.",
+        "gold_sql": "SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event GROUP BY T1.event_id HAVING COUNT(T2.link_to_event) > 20 EXCEPT SELECT T1.event_name FROM event AS T1  WHERE T1.type = 'Fundraiser'",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 1451,
+        "db_id": "student_club",
+        "question": "Among the members who incurred expenses in more than one event, who paid the most amount?",
+        "gold_sql": "SELECT T2.member_id FROM expense AS T1 INNER JOIN member AS T2 ON T1.link_to_member = T2.member_id INNER JOIN budget AS T3 ON T1.link_to_budget = T3.budget_id INNER JOIN event AS T4 ON T3.link_to_event = T4.event_id GROUP BY T2.member_id HAVING COUNT(DISTINCT T4.event_id) > 1 ORDER BY SUM(T1.cost) DESC LIMIT 1",
+        "JOIN": true,
+        "GROUP_BY": true,
+        "HAVING": true,
+        "categories": [
+            "JOIN",
+            "GROUP_BY",
+            "HAVING"
+        ],
+        "category_signature": "JOIN+GROUP_BY+HAVING",
+        "parse_error": null
+    },
+    {
+        "question_id": 59,
+        "db_id": "california_schools",
+        "question": "What is the website for the schools under the administrations of Mike Larson and Dante Alvarez?",
+        "gold_sql": "SELECT Website FROM schools WHERE (AdmFName1 = 'Mike' AND AdmLName1 = 'Larson') OR (AdmFName1 = 'Dante' AND AdmLName1 = 'Alvarez')",
         "JOIN": false,
         "GROUP_BY": false,
         "HAVING": false,
@@ -346,10 +322,10 @@
         "parse_error": null
     },
     {
-        "question_id": 1186,
-        "db_id": "thrombosis_prediction",
-        "question": "Lists all patients by ID who were diagnosed with Behcet's and had their exams between 01/01/197 and 12/31/1997.",
-        "gold_sql": "SELECT ID FROM Examination WHERE `Examination Date` BETWEEN '1997-01-01' AND '1997-12-31' AND Diagnosis = 'Behcet'",
+        "question_id": 204,
+        "db_id": "toxicology",
+        "question": "Of the first 100 molecules in number order, how many are carcinogenic?",
+        "gold_sql": "SELECT COUNT(T.molecule_id) FROM molecule AS T WHERE molecule_id BETWEEN 'TR000' AND 'TR099' AND T.label = '+'",
         "JOIN": false,
         "GROUP_BY": false,
         "HAVING": false,
@@ -358,10 +334,34 @@
         "parse_error": null
     },
     {
-        "question_id": 1290,
-        "db_id": "thrombosis_prediction",
-        "question": "What is the examination date of the patient whose albumin is the highest in the normal range?",
-        "gold_sql": "SELECT Date FROM Laboratory WHERE ALB > 3.5 AND ALB < 5.5 ORDER BY ALB DESC LIMIT 1",
+        "question_id": 1325,
+        "db_id": "student_club",
+        "question": "What is the most expensive item that was spent in support of club events?",
+        "gold_sql": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 1341,
+        "db_id": "student_club",
+        "question": "Give the location for \"Spring Budget Review\".",
+        "gold_sql": "SELECT location FROM event WHERE event_name = 'Spring Budget Review'",
+        "JOIN": false,
+        "GROUP_BY": false,
+        "HAVING": false,
+        "categories": [],
+        "category_signature": "NONE",
+        "parse_error": null
+    },
+    {
+        "question_id": 1406,
+        "db_id": "student_club",
+        "question": "Among the budgets for Food, which one has the highest budgeted amount?",
+        "gold_sql": "SELECT budget_id FROM budget WHERE category = 'Food' AND amount = ( SELECT MAX(amount) FROM budget )",
         "JOIN": false,
         "GROUP_BY": false,
         "HAVING": false,

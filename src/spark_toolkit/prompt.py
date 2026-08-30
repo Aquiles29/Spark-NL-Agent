@@ -56,3 +56,51 @@ Double check the Spark SQL query above for common mistakes, including:
 - Using the proper columns for joins
 
 If there are any of the above mistakes, rewrite the query. If there are no mistakes, just reproduce the original query."""
+
+CLAUSE_GUIDANCE = {
+    "JOIN": """
+JOIN GUIDANCE:
+- Determine which tables contain the information required by the question.
+- Identify the appropriate key relationships between those tables before writing the query.
+- Use explicit JOIN conditions and avoid Cartesian products.
+- Verify that the JOIN keys represent the intended relationship between entities.
+""",
+
+    "GROUP_BY": """
+GROUP BY GUIDANCE:
+- If the question requires an aggregate for each entity, category, or group, identify the grouping columns explicitly.
+- Every selected non-aggregated column should be compatible with the GROUP BY.
+- Distinguish between an overall aggregate and an aggregate calculated separately for groups.
+""",
+
+    "HAVING": """
+HAVING GUIDANCE:
+- Use HAVING when a condition applies to an aggregated group rather than to individual rows.
+- Apply row-level conditions with WHERE before aggregation.
+- Apply aggregate conditions such as COUNT, AVG, SUM, MIN, or MAX with HAVING after GROUP BY.
+""",
+}
+
+
+def build_clause_guidance(categories):
+    """
+    Build query-specific guidance from predicted clause categories.
+    """
+
+    if not categories:
+        return ""
+
+    sections = [
+        CLAUSE_GUIDANCE[category]
+        for category in categories
+        if category in CLAUSE_GUIDANCE
+    ]
+
+    if not sections:
+        return ""
+
+    return (
+        "\n\nQUERY-SPECIFIC SQL GUIDANCE:\n"
+        + "\n".join(sections)
+        + "\nUse this guidance only when appropriate for the current question."
+    )

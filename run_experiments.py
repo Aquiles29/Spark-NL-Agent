@@ -17,6 +17,7 @@ Requirements:
 import sys
 import os
 import json
+import sqlite3
 import pandas as pd
 from contextlib import redirect_stdout, redirect_stderr
 
@@ -40,6 +41,17 @@ from spark_nl import (
     run_nl_query, process_result, print_results, AgentMonitoringCallback
 )
 from utils import ensure_sqlite_jdbc_driver, pretty_print_result
+from src.clause_predictor import (
+    predict_categories_schema_aware,
+)
+
+from src.schema_utils import (
+    get_database_schema,
+)
+
+from src.spark_toolkit.prompt import (
+    build_clause_guidance,
+)
 import argparse
 
 
@@ -118,9 +130,93 @@ def main(provider, force_thoughts=False, model=None):
     with open(BENCHMARK_SPEC_FILE, "r", encoding="utf-8") as f:
         benchmark_spec = json.load(f)
 
-    benchmark_subset = benchmark_spec[1:2]
+    # Load the fixed stratified evaluation sample
+    with open(
+        "bird_evaluation_sample.json",
+        "r",
+        encoding="utf-8"
+    ) as f:
+        evaluation_sample = json.load(f)
 
-    results = []
+    # Recover the original BIRD records from dev.json.
+    # This guarantees that we use the original question and gold SQL.
+    benchmark_by_id = {
+        item["question_id"]: item
+        for item in benchmark_spec
+    }
+
+    benchmark_subset = [
+        benchmark_by_id[item["question_id"]]
+        for item in evaluation_sample
+        if item["question_id"] in benchmark_by_id
+    ]
+
+    print(
+        f"Evaluation sample loaded: "
+        f"{len(benchmark_subset)} queries"
+    )
+
+    if len(benchmark_subset) != len(evaluation_sample):
+        raise RuntimeError(
+            "Some evaluation-sample questions "
+            "could not be found in BIRD dev.json."
+        )
+
+    output_csv = (
+        f"{config.EXPERIMENT_MODE}_bird_results.csv"
+    )
+
+    output_json = (
+        f"{config.EXPERIMENT_MODE}_bird_results.json"
+    )
+
+    checkpoint_file = (
+        f"{config.EXPERIMENT_MODE}_bird_results_checkpoint.json"
+    )
+
+    # Resume from checkpoint if a previous run exists
+    if os.path.exists(checkpoint_file):
+
+        with open(
+            checkpoint_file,
+            "r",
+            encoding="utf-8"
+        ) as f:
+            previous_results = json.load(f)
+
+        # Keep genuine completed/model attempts.
+        # API failures are removed so they can be retried.
+        results = [
+            result
+            for result in previous_results
+            if result.get("experiment_status") != "API_ERROR"
+        ]
+
+    else:
+        results = []
+
+
+    completed_ids = {
+        result["question_id"]
+        for result in results
+    }
+
+
+    # Do not rerun questions already completed
+    benchmark_subset = [
+        item
+        for item in benchmark_subset
+        if item["question_id"] not in completed_ids
+    ]
+
+
+    print(
+        f"Already completed: {len(completed_ids)}"
+    )
+
+    print(
+        f"Remaining queries: {len(benchmark_subset)}"
+    )
 
     jdbc_jar_path = ensure_sqlite_jdbc_driver()
 
@@ -141,12 +237,29 @@ def main(provider, force_thoughts=False, model=None):
         db_name = item["db_id"]
         golden_query = item["SQL"]
 
+        # Predict clause categories using question + schema
+        schema = get_database_schema(db_name)
+
+        prediction = predict_categories_schema_aware(
+            nl_query,
+            schema
+        )
+
+        predicted_categories = prediction["categories"]
+
+        # Build query-specific guidance only in guided mode
+        if config.EXPERIMENT_MODE == "guided":
+            prompt_suffix = build_clause_guidance(
+                predicted_categories
+            )
+        else:
+            prompt_suffix = ""
+
         print("\n" + "=" * 60)
         print(f"QUERY {question_id}")
         print("=" * 60)
         print(f"Database: {db_name}")
         print(f"Question: {nl_query}")
-
 
         spark = get_spark_session(extra_configs={
             "spark.jars": jdbc_jar_path,
@@ -158,10 +271,22 @@ def main(provider, force_thoughts=False, model=None):
         llm = get_llm(provider=provider, model=model)
         spark_sql = get_spark_sql()
 
-        ground_truth = spark.sql(golden_query).toPandas()
+        # Execute BIRD gold SQL using its native SQLite dialect
+        db_path = os.path.join(
+            "db",
+            "bird-1",
+            db_name,
+            f"{db_name}.sqlite"
+        )
+
+        with sqlite3.connect(db_path) as conn:
+            ground_truth = pd.read_sql_query(
+                golden_query,
+                conn
+            )
 
         agent = get_spark_agent(spark_sql, llm)
-        run_nl_query(agent, nl_query, llm)
+        run_nl_query(agent,nl_query,llm=llm,prompt_suffix=prompt_suffix)
 
         json_result = process_result()
 
@@ -239,6 +364,15 @@ def main(provider, force_thoughts=False, model=None):
             "db_id": db_name,
             "question": nl_query,
 
+            "experiment_mode": config.EXPERIMENT_MODE,
+
+            "predicted_categories": predicted_categories,
+            "predicted_JOIN": prediction["JOIN"],
+            "predicted_GROUP_BY": prediction["GROUP_BY"],
+            "predicted_HAVING": prediction["HAVING"],
+
+            "guidance_applied": bool(prompt_suffix),
+
             "gold_sql": golden_query,
             "generated_sql": generated_sql,
             "last_executed_sql": last_executed_sql,
@@ -279,7 +413,7 @@ def main(provider, force_thoughts=False, model=None):
         }) 
 
         with open(
-            "baseline_bird_results_checkpoint.json",
+            checkpoint_file,
             "w",
             encoding="utf-8"
         ) as f:
@@ -303,6 +437,11 @@ def main(provider, force_thoughts=False, model=None):
         "question_id",
         "db_id",
         "question",
+        "experiment_mode",
+        "predicted_JOIN",
+        "predicted_GROUP_BY",
+        "predicted_HAVING",
+        "guidance_applied",
         "gold_sql",
         "generated_sql",
         "experiment_status",
@@ -320,13 +459,13 @@ def main(provider, force_thoughts=False, model=None):
     ]
 
     df_results[csv_columns].to_csv(
-        "baseline_bird_results.csv",
+        output_csv,
         index=False,
         encoding="utf-8"
     )
 
     df_results.to_json(
-        "baseline_bird_results.json",
+        output_json,
         orient="records",
         indent=4,
         force_ascii=False
@@ -348,7 +487,9 @@ def main(provider, force_thoughts=False, model=None):
         overall_em = None
 
     print("\n" + "=" * 60)
-    print("BASELINE SUMMARY")
+    print(
+        f"{config.EXPERIMENT_MODE.upper()} SUMMARY"
+    )
     print("=" * 60)
     print(f"Queries selected: {len(df_results)}")
     print(f"Valid benchmark attempts: {len(completed_attempts)}")

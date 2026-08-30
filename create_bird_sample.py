@@ -6,6 +6,14 @@ import pandas as pd
 INPUT_FILE = "bird_clause_categories.json"
 OUTPUT_FILE = "bird_evaluation_sample.json"
 
+AVAILABLE_DATABASES = {
+    "california_schools",
+    "student_club",
+    "superhero",
+    "thrombosis_prediction",
+    "toxicology",
+}
+
 RANDOM_SEED = 42
 
 
@@ -28,6 +36,12 @@ def main():
     with open(INPUT_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    data = [
+        item
+        for item in data
+        if item["db_id"] in AVAILABLE_DATABASES
+    ]
+    
     df = pd.DataFrame(data)
 
     selected = []

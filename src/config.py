@@ -7,6 +7,8 @@ FORCE_THOUGHT_GENERATION = False  # If True, agent generates text thoughts befor
 STOP_AFTER_FIRST_SQL = False
 MAX_AGENT_ITERATIONS = 10
 
+EXPERIMENT_MODE = "baseline"
+
 from enum import Enum
 
 class Provider(Enum):

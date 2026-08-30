@@ -28,6 +28,12 @@ def predict_group_by(question):
     """
     Predict whether a SQL GROUP BY clause is likely required
     using only the natural-language question.
+
+    The rules cover:
+    - explicit grouping ("for each", "per", ...)
+    - frequency/ranking questions ("most common", "least numerous", ...)
+    - nested aggregation ("average number of ...")
+    - count-per-entity constructions ("how many X does Y have?")
     """
 
     q = question.lower().strip()
@@ -37,7 +43,7 @@ def predict_group_by(question):
         AGGREGATION_WORDS
     )
 
-    grouping_cues = [
+    explicit_grouping_cues = [
         "for each",
         "for every",
         "per ",
@@ -51,34 +57,103 @@ def predict_group_by(question):
 
     explicit_grouping = _contains_any(
         q,
-        grouping_cues
+        explicit_grouping_cues
     )
 
-    # GROUP BY is most likely when an aggregation is requested
-    # separately for different entities/categories.
-    return aggregation and explicit_grouping
+    # Questions asking which category/entity occurs most or least often
+    frequency_cues = [
+        "most common",
+        "least common",
+        "most numerous",
+        "least numerous",
+        "majority",
+        "most number of",
+        "least number of",
+        "highest number of",
+        "lowest number of",
+        "largest number of",
+        "smallest number of",
+    ]
 
+    frequency_grouping = _contains_any(
+        q,
+        frequency_cues
+    )
+
+    # Nested aggregation:
+    # count something per entity, then average those counts
+    nested_aggregation_patterns = [
+        r"\baverage number of\b",
+        r"\bon average how many\b",
+        r"\baverage count of\b",
+    ]
+
+    nested_aggregation = any(
+        re.search(pattern, q)
+        for pattern in nested_aggregation_patterns
+    )
+
+    # Example:
+    # "How many double bonds does TR006 have?"
+    #
+    # BIRD often groups these when the SQL also selects
+    # information about the parent entity.
+    count_per_entity_patterns = [
+        r"\bhow many\b.+\bdoes\b.+\bhave\b",
+        r"\bhow many\b.+\bdo\b.+\bhave\b",
+        r"\bhow many\b.+\bhas\b",
+    ]
+
+    count_per_entity = any(
+        re.search(pattern, q)
+        for pattern in count_per_entity_patterns
+    )
+
+    return (
+        (aggregation and explicit_grouping)
+        or frequency_grouping
+        or nested_aggregation
+        or count_per_entity
+    )
+
+NUMBER_PATTERN = (
+    r"(?:"
+    r"\d+(?:\.\d+)?"
+    r"|one|two|three|four|five|six|seven|eight|nine|ten"
+    r"|eleven|twelve|thirteen|fourteen|fifteen"
+    r"|sixteen|seventeen|eighteen|nineteen|twenty"
+    r"|thirty|forty|fifty|sixty|seventy|eighty|ninety"
+    r"|hundred"
+    r")"
+)
 
 def predict_having(question):
     """
     Predict whether HAVING is likely required.
 
-    Typical HAVING questions impose a condition on an aggregated
-    group, e.g.:
-        "Which departments have more than 5 employees?"
+    HAVING normally represents a condition applied after aggregation,
+    such as:
+        "superheroes with over 15 super powers"
+        "events attended by more than 10 members"
+        "expenses that spend more than fifty dollars on average"
     """
 
     q = question.lower().strip()
 
     threshold_patterns = [
-        r"\bmore than\s+\d+",
-        r"\bless than\s+\d+",
-        r"\bfewer than\s+\d+",
-        r"\bat least\s+\d+",
-        r"\bat most\s+\d+",
-        r"\bgreater than\s+\d+",
-        r"\bno more than\s+\d+",
-        r"\bno fewer than\s+\d+",
+        rf"\bmore than\s+{NUMBER_PATTERN}\b",
+        rf"\bover\s+{NUMBER_PATTERN}\b",
+        rf"\bless than\s+{NUMBER_PATTERN}\b",
+        rf"\bfewer than\s+{NUMBER_PATTERN}\b",
+        rf"\bat least\s+{NUMBER_PATTERN}\b",
+        rf"\bat most\s+{NUMBER_PATTERN}\b",
+        rf"\bgreater than\s+{NUMBER_PATTERN}\b",
+
+        # Number before comparator:
+        # "two or more", "10 or more"
+        rf"\b{NUMBER_PATTERN}\s+or more\b",
+        rf"\b{NUMBER_PATTERN}\s+or fewer\b",
+        rf"\b{NUMBER_PATTERN}\s+or less\b",
     ]
 
     threshold = any(
@@ -86,27 +161,52 @@ def predict_having(question):
         for pattern in threshold_patterns
     )
 
-    group_relation_cues = [
-        "which ",
-        "that have",
-        "that has",
-        "with more than",
-        "with less than",
-        "with fewer than",
-        "with at least",
-        "with at most",
-        "whose number",
-        "whose count",
-        "whose average",
-        "whose total",
+    if not threshold:
+        return False
+
+    # Explicit aggregation concepts
+    aggregation_condition_cues = [
+        "average",
+        "avg",
+        "mean",
+        "count",
+        "number of",
+        "total",
+        "sum",
     ]
 
-    group_relation = _contains_any(
+    aggregation_condition = _contains_any(
         q,
-        group_relation_cues
+        aggregation_condition_cues
     )
 
-    return threshold and group_relation
+    # Relational threshold constructions often describe an
+    # aggregate over related rows:
+    #
+    # "superheroes with over 15 super powers"
+    # "events attended by more than 10 members"
+    relational_threshold_patterns = [
+        rf"\bwith\s+(?:more than|over|at least|greater than)\s+{NUMBER_PATTERN}\b",
+        rf"\b(?:have|has|had|having)\b.+(?:more than|over|at least|greater than)\s+{NUMBER_PATTERN}\b",
+        rf"\battended by\s+(?:more than|over|at least)\s+{NUMBER_PATTERN}\b",
+        rf"\battendance\b.+(?:more than|over|at least)\s+{NUMBER_PATTERN}\b",
+        rf"\bincurred\b.+(?:more than|over)\s+{NUMBER_PATTERN}\b",
+    ]
+
+    relational_threshold = any(
+        re.search(pattern, q)
+        for pattern in relational_threshold_patterns
+    )
+
+    # If GROUP BY is already strongly indicated and the question
+    # contains an aggregate threshold, HAVING is a plausible clause.
+    group_by_context = predict_group_by(question)
+
+    return (
+        aggregation_condition
+        or relational_threshold
+        or group_by_context
+    )
 
 
 def predict_join(question):

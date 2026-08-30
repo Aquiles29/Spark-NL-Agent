@@ -388,6 +388,30 @@ def get_spark_agent(spark_sql, llm):
 
     original_run = spark_sql.run
 
+    def make_agent_result_preview(result, max_chars=4000):
+        """
+        Limit very large Spark results before returning them to the agent.
+
+        The complete result is still stored in config.metrics["result"]
+        and is therefore available for evaluation.
+        """
+
+        if result is None:
+            return None
+
+        result_text = str(result)
+
+        if len(result_text) <= max_chars:
+            return result
+
+        return (
+            result_text[:max_chars]
+            + "\n\n[RESULT TRUNCATED FOR AGENT CONTEXT]"
+            + "\nThe full query result contained more rows/data."
+            + "\nUse aggregate or more specific SQL queries if additional "
+            "information is required."
+        )
+    
     def timed_run(self, command, fetch="all", _no_early_exit=False):
 
         # Log to chain of thought if callback is attached
@@ -410,6 +434,12 @@ def get_spark_agent(spark_sql, llm):
         config.metrics["spark_time"] = duration
         config.metrics["result"] = result if error is None else None
         config.metrics["spark_error"] = error
+
+        agent_result = (
+            make_agent_result_preview(result)
+            if error is None
+            else None
+        )
 
         # Keep a history of every SQL query executed by the agent
         config.metrics.setdefault("executed_queries", [])
@@ -437,13 +467,16 @@ def get_spark_agent(spark_sql, llm):
 
         print(f"\n[Agent_Internal_Log] Spark Query Executed in {duration:.4f}s")
         print("Query:", command)
-        print("Result/Error:", result if error is None else error)
+        print(
+            "Result/Error:",
+            agent_result if error is None else error
+        )
 
         # Allow the agent to continue after SQL execution when early exit is disabled
         if not config.STOP_AFTER_FIRST_SQL:
             if error:
                 raise RuntimeError(error)
-            return result
+            return agent_result
         
         # FORCE EARLY EXIT IMMEDIATELY AFTER FIRST SPARK QUERY
         # but only for the model, not for the golden query execution
@@ -597,7 +630,7 @@ def compute_time_breakdown_by_overlap(cb, total_start, total_end):
         "tool_overhead_union": tool_overhead_union,
     }
 
-def run_nl_query(agent, nl_query, llm=None):
+def run_nl_query(agent, nl_query, llm=None, prompt_suffix=None):
 
     print("--- Starting Agent ---")
     total_start = time.time()
@@ -614,9 +647,27 @@ def run_nl_query(agent, nl_query, llm=None):
                 break
 
     try:
-        nl_query = nl_query + "\n\n" + config.DEFAULT_PROMPT_SUFIX
+        suffix = (
+            prompt_suffix
+            if prompt_suffix is not None
+            else config.DEFAULT_PROMPT_SUFIX
+        )
+
+        nl_query = nl_query + "\n\n" + suffix
+
         from langchain_core.messages import HumanMessage
-        response = agent.invoke({"messages": [HumanMessage(content=nl_query)]}, config={"callbacks": [cb]})
+
+        response = agent.invoke(
+            {
+                "messages": [
+                    HumanMessage(content=nl_query)
+                ]
+            },
+            config={
+                "callbacks": [cb]
+            }
+        )
+
         final_answer = response["messages"][-1].content
 
     except AgentEarlyExit as e:
