@@ -1,0 +1,525 @@
+[
+    {
+        "question_id": 78,
+        "db_id": "california_schools",
+        "question": "What is the most common type of grade span served in the city of Adelanto?",
+        "experiment_mode": "guided",
+        "predicted_categories": [
+            "JOIN",
+            "GROUP_BY"
+        ],
+        "predicted_JOIN": true,
+        "predicted_GROUP_BY": true,
+        "predicted_HAVING": false,
+        "guidance_applied": true,
+        "gold_sql": "SELECT GSserved FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY COUNT(GSserved) DESC LIMIT 1",
+        "generated_sql": "SELECT GSserved, COUNT(*) AS count FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY count DESC LIMIT 1",
+        "last_executed_sql": "SELECT GSserved, COUNT(*) AS count FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY count DESC LIMIT 1",
+        "exact_match": 0.0,
+        "gold_sql_normalized": "SELECT gsserved FROM schools WHERE city = 'Adelanto' GROUP BY gsserved ORDER BY COUNT(gsserved) DESC LIMIT 1",
+        "generated_sql_normalized": "SELECT gsserved, COUNT(*) AS count FROM schools WHERE city = 'Adelanto' GROUP BY gsserved ORDER BY count DESC LIMIT 1",
+        "executed_queries": [
+            {
+                "query": "SELECT GSserved, COUNT(*) AS count FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY count DESC LIMIT 1",
+                "error": null,
+                "duration": 0.6200118064880371
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 1.0,
+        "ground_truth_rows": 1,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "GSserved": "K-6"
+            }
+        ],
+        "generated_result_rows": 1,
+        "generated_result_columns": 2,
+        "generated_result_preview": [
+            {
+                "0": "K-6",
+                "1": "5"
+            }
+        ],
+        "total_time": 79.08776688575745,
+        "llm_requests": 6,
+        "input_tokens": 4893,
+        "output_tokens": 182,
+        "spark_error": null,
+        "agent_error": null
+    },
+    {
+        "question_id": 1444,
+        "db_id": "student_club",
+        "question": "List the expenses that spend more than fifty dollars on average.",
+        "experiment_mode": "guided",
+        "predicted_categories": [
+            "HAVING"
+        ],
+        "predicted_JOIN": false,
+        "predicted_GROUP_BY": false,
+        "predicted_HAVING": true,
+        "guidance_applied": true,
+        "gold_sql": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "generated_sql": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "last_executed_sql": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "exact_match": 1.0,
+        "gold_sql_normalized": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "generated_sql_normalized": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+        "executed_queries": [
+            {
+                "query": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
+                "error": null,
+                "duration": 0.2368619441986084
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 1.0,
+        "ground_truth_rows": 7,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "expense_description": "Bakery - Donuts, muffins"
+            },
+            {
+                "expense_description": "Club shirts"
+            },
+            {
+                "expense_description": "Pizza"
+            },
+            {
+                "expense_description": "Post Cards, Posters"
+            },
+            {
+                "expense_description": "Posters"
+            },
+            {
+                "expense_description": "Water, chips, cookies"
+            },
+            {
+                "expense_description": "Water, cookies, chips"
+            }
+        ],
+        "generated_result_rows": 7,
+        "generated_result_columns": 1,
+        "generated_result_preview": [
+            {
+                "0": "Club shirts"
+            },
+            {
+                "0": "Post Cards, Posters"
+            },
+            {
+                "0": "Water, cookies, chips"
+            },
+            {
+                "0": "Posters"
+            },
+            {
+                "0": "Pizza"
+            },
+            {
+                "0": "Water, chips, cookies"
+            },
+            {
+                "0": "Bakery - Donuts, muffins"
+            }
+        ],
+        "total_time": 76.96172022819519,
+        "llm_requests": 6,
+        "input_tokens": 4101,
+        "output_tokens": 184,
+        "spark_error": null,
+        "agent_error": null
+    },
+    {
+        "question_id": 729,
+        "db_id": "superhero",
+        "question": "What is the average height of the superheroes from Marvel Comics?",
+        "experiment_mode": "guided",
+        "predicted_categories": [],
+        "predicted_JOIN": false,
+        "predicted_GROUP_BY": false,
+        "predicted_HAVING": false,
+        "guidance_applied": false,
+        "gold_sql": "SELECT AVG(T1.height_cm) FROM superhero AS T1 INNER JOIN publisher AS T2 ON T1.publisher_id = T2.id WHERE T2.publisher_name = 'Marvel Comics'",
+        "generated_sql": "SELECT AVG(s.height_cm) FROM superhero s JOIN publisher p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
+        "last_executed_sql": "SELECT AVG(s.height_cm) FROM superhero s JOIN publisher p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
+        "exact_match": 0.0,
+        "gold_sql_normalized": "SELECT AVG(t1.height_cm) FROM superhero AS t1 INNER JOIN publisher AS t2 ON t1.publisher_id = t2.id WHERE t2.publisher_name = 'Marvel Comics'",
+        "generated_sql_normalized": "SELECT AVG(s.height_cm) FROM superhero AS s JOIN publisher AS p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
+        "executed_queries": [
+            {
+                "query": "SELECT AVG(s.height_cm) FROM superhero s JOIN publisher p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
+                "error": null,
+                "duration": 0.29528188705444336
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 1.0,
+        "ground_truth_rows": 1,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "AVG(T1.height_cm)": 347.9590163934
+            }
+        ],
+        "generated_result_rows": 1,
+        "generated_result_columns": 1,
+        "generated_result_preview": [
+            {
+                "0": "347.9590163934426"
+            }
+        ],
+        "total_time": 77.40191698074341,
+        "llm_requests": 6,
+        "input_tokens": 3935,
+        "output_tokens": 206,
+        "spark_error": null,
+        "agent_error": null
+    },
+    {
+        "question_id": 251,
+        "db_id": "toxicology",
+        "question": "What is the least common element of all carcinogenic molecules?",
+        "experiment_mode": "guided",
+        "predicted_categories": [
+            "GROUP_BY"
+        ],
+        "predicted_JOIN": false,
+        "predicted_GROUP_BY": true,
+        "predicted_HAVING": false,
+        "guidance_applied": true,
+        "gold_sql": "SELECT T.element FROM ( SELECT T2.element, COUNT(DISTINCT T2.molecule_id) FROM molecule AS T1 INNER JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '+' GROUP BY T2.element ORDER BY COUNT(DISTINCT T2.molecule_id) LIMIT 1 ) t",
+        "generated_sql": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY cnt ASC",
+        "last_executed_sql": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY cnt ASC",
+        "exact_match": 0.0,
+        "gold_sql_normalized": "SELECT t.element FROM (SELECT t2.element, COUNT(DISTINCT t2.molecule_id) FROM molecule AS t1 INNER JOIN atom AS t2 ON t1.molecule_id = t2.molecule_id WHERE t1.label = '+' GROUP BY t2.element ORDER BY COUNT(DISTINCT t2.molecule_id) LIMIT 1) AS t",
+        "generated_sql_normalized": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt FROM atom AS a JOIN molecule AS m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY cnt ASC",
+        "executed_queries": [
+            {
+                "query": "SELECT label FROM molecule LIMIT 5",
+                "error": null,
+                "duration": 0.05083942413330078
+            },
+            {
+                "query": "SELECT DISTINCT label FROM molecule",
+                "error": null,
+                "duration": 0.11281609535217285
+            },
+            {
+                "query": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt\nFROM atom a\nJOIN molecule m ON a.molecule_id = m.molecule_id\nWHERE m.label = '+'\nGROUP BY element\nORDER BY cnt ASC\nLIMIT 1",
+                "error": null,
+                "duration": 0.36869287490844727
+            },
+            {
+                "query": "SELECT element, COUNT(*) FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY COUNT(*) ASC",
+                "error": null,
+                "duration": 0.2809321880340576
+            },
+            {
+                "query": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY cnt ASC",
+                "error": null,
+                "duration": 0.22829580307006836
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 0.0,
+        "ground_truth_rows": 1,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "element": "cu"
+            }
+        ],
+        "generated_result_rows": 13,
+        "generated_result_columns": 2,
+        "generated_result_preview": [
+            {
+                "0": "f",
+                "1": "1"
+            },
+            {
+                "0": "y",
+                "1": "1"
+            },
+            {
+                "0": "cu",
+                "1": "1"
+            },
+            {
+                "0": "zn",
+                "1": "1"
+            },
+            {
+                "0": "na",
+                "1": "6"
+            },
+            {
+                "0": "p",
+                "1": "9"
+            },
+            {
+                "0": "br",
+                "1": "14"
+            },
+            {
+                "0": "s",
+                "1": "16"
+            },
+            {
+                "0": "cl",
+                "1": "44"
+            },
+            {
+                "0": "n",
+                "1": "81"
+            },
+            {
+                "0": "o",
+                "1": "94"
+            },
+            {
+                "0": "h",
+                "1": "144"
+            },
+            {
+                "0": "c",
+                "1": "151"
+            }
+        ],
+        "total_time": 234.0797781944275,
+        "llm_requests": 18,
+        "input_tokens": 15453,
+        "output_tokens": 764,
+        "spark_error": null,
+        "agent_error": null
+    },
+    {
+        "question_id": 720,
+        "db_id": "superhero",
+        "question": "Please list the full names of all the superheroes with over 15 super powers.",
+        "experiment_mode": "guided",
+        "predicted_categories": [
+            "HAVING"
+        ],
+        "predicted_JOIN": false,
+        "predicted_GROUP_BY": false,
+        "predicted_HAVING": true,
+        "guidance_applied": true,
+        "gold_sql": "SELECT DISTINCT T1.full_name FROM superhero AS T1 INNER JOIN hero_power AS T2 ON T1.id = T2.hero_id GROUP BY T1.full_name HAVING COUNT(T2.power_id) > 15",
+        "generated_sql": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
+        "last_executed_sql": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
+        "exact_match": 0.0,
+        "gold_sql_normalized": "SELECT DISTINCT t1.full_name FROM superhero AS t1 INNER JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.full_name HAVING COUNT(t2.power_id) > 15",
+        "generated_sql_normalized": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
+        "executed_queries": [
+            {
+                "query": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
+                "error": null,
+                "duration": 0.2638258934020996
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 0.0,
+        "ground_truth_rows": 71,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "full_name": null
+            },
+            {
+                "full_name": "-"
+            },
+            {
+                "full_name": "Abraham Sapien"
+            },
+            {
+                "full_name": "Al Simmons"
+            },
+            {
+                "full_name": "Alexander J. Mercer"
+            },
+            {
+                "full_name": "Anakin Skywalker"
+            },
+            {
+                "full_name": "Anthony Edward Stark"
+            },
+            {
+                "full_name": "Barbara Ann Minerva"
+            },
+            {
+                "full_name": "Bartholomew Allen II"
+            },
+            {
+                "full_name": "Bizarro"
+            },
+            {
+                "full_name": "Bruce Wayne"
+            },
+            {
+                "full_name": "Clark Joseph Kent (Kal-El)"
+            },
+            {
+                "full_name": "Cyberdyne Systems Series 1000 Terminator"
+            },
+            {
+                "full_name": "Cyberdyne Systems Series 800 Terminator Model 101"
+            },
+            {
+                "full_name": "Cyberdyne Systems Series 850 Terminator"
+            },
+            {
+                "full_name": "Cyberdyne Systems Series X Terminator"
+            },
+            {
+                "full_name": "Daniel Thomas Rand-K'ai"
+            },
+            {
+                "full_name": "Diana of Themyscira"
+            },
+            {
+                "full_name": "Doomsday"
+            },
+            {
+                "full_name": "Dr. Nathaniel Essex"
+            }
+        ],
+        "generated_result_rows": 102,
+        "generated_result_columns": 1,
+        "generated_result_preview": [
+            {
+                "0": "-"
+            },
+            {
+                "0": "-"
+            },
+            {
+                "0": "Cyberdyne Systems Series 1000 Terminator"
+            },
+            {
+                "0": "Uxas"
+            },
+            {
+                "0": "-"
+            },
+            {
+                "0": "Clark Joseph Kent (Kal-El)"
+            },
+            {
+                "0": "-"
+            },
+            {
+                "0": "Doomsday"
+            },
+            {
+                "0": "Robert Reynolds"
+            },
+            {
+                "0": "Thor Odinson"
+            },
+            {
+                "0": "Kent Nelson"
+            },
+            {
+                "0": "-"
+            },
+            {
+                "0": "Stephen Vincent Strange"
+            },
+            {
+                "0": "Onslaught"
+            },
+            {
+                "0": "-"
+            },
+            {
+                "0": "Kal-El"
+            },
+            {
+                "0": "Daniel Thomas Rand-K'ai"
+            },
+            {
+                "0": "Mortimer Toynbee"
+            },
+            {
+                "0": "Laura Kinney"
+            },
+            {
+                "0": "Faora Hu-Ul"
+            }
+        ],
+        "total_time": 77.970130443573,
+        "llm_requests": 6,
+        "input_tokens": 5096,
+        "output_tokens": 641,
+        "spark_error": null,
+        "agent_error": null
+    },
+    {
+        "question_id": 1325,
+        "db_id": "student_club",
+        "question": "What is the most expensive item that was spent in support of club events?",
+        "experiment_mode": "guided",
+        "predicted_categories": [],
+        "predicted_JOIN": false,
+        "predicted_GROUP_BY": false,
+        "predicted_HAVING": false,
+        "guidance_applied": false,
+        "gold_sql": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "generated_sql": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "last_executed_sql": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "exact_match": 1.0,
+        "gold_sql_normalized": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "generated_sql_normalized": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+        "executed_queries": [
+            {
+                "query": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
+                "error": null,
+                "duration": 0.033904075622558594
+            }
+        ],
+        "iteration_limit_reached": false,
+        "experiment_status": "COMPLETED",
+        "api_error": null,
+        "execution_status": "VALID",
+        "execution_accuracy": 1.0,
+        "ground_truth_rows": 1,
+        "ground_truth_columns": 1,
+        "ground_truth_preview": [
+            {
+                "expense_description": "Club shirts"
+            }
+        ],
+        "generated_result_rows": 1,
+        "generated_result_columns": 1,
+        "generated_result_preview": [
+            {
+                "0": "Club shirts"
+            }
+        ],
+        "total_time": 76.5720796585083,
+        "llm_requests": 6,
+        "input_tokens": 3848,
+        "output_tokens": 135,
+        "spark_error": null,
+        "agent_error": null
+    }
+]

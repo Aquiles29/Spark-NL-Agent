@@ -22,7 +22,7 @@
             {
                 "query": "SELECT County, School, ClosedDate FROM schools WHERE StatusType = 'Closed' AND County = (SELECT County FROM schools WHERE StatusType = 'Closed' GROUP BY County ORDER BY COUNT(*) DESC LIMIT 1)",
                 "error": null,
-                "duration": 0.17317771911621094
+                "duration": 0.1731777191
             }
         ],
         "iteration_limit_reached": false,
@@ -238,7 +238,7 @@
                 "2": "1989-06-30"
             }
         ],
-        "total_time": 79.74098873138428,
+        "total_time": 79.7409887314,
         "llm_requests": 6,
         "input_tokens": 5929,
         "output_tokens": 496,
@@ -268,32 +268,32 @@
             {
                 "query": "SELECT County, COUNT(*) AS closure_count FROM schools WHERE StatusType = 'Closed' AND (ClosedDate LIKE '198%') AND SOC = 'CEA' GROUP BY County ORDER BY closure_count DESC LIMIT 1",
                 "error": null,
-                "duration": 1.1896617412567139
+                "duration": 1.1896617413
             },
             {
                 "query": "SELECT DISTINCT SOC, SOCType FROM schools",
                 "error": null,
-                "duration": 0.6446423530578613
+                "duration": 0.6446423531
             },
             {
                 "query": "SELECT County, COUNT(*) AS closure_count FROM schools WHERE StatusType = 'Closed' AND ClosedDate >= '1980-01-01' AND ClosedDate <= '1989-12-31' AND SOC = '11' GROUP BY County ORDER BY closure_count DESC LIMIT 1",
                 "error": null,
-                "duration": 0.1324143409729004
+                "duration": 0.132414341
             },
             {
                 "query": "SELECT County, ClosedDate, School, SOC, SOCType FROM schools WHERE SOC = '11' AND ClosedDate LIKE '198%'",
                 "error": null,
-                "duration": 0.04799604415893555
+                "duration": 0.0479960442
             },
             {
                 "query": "SELECT County, ClosedDate, School, SOC, SOCType FROM schools WHERE SOC = '11' AND ClosedDate BETWEEN '1980-01-01' AND '1989-12-31'",
                 "error": null,
-                "duration": 0.042281389236450195
+                "duration": 0.0422813892
             },
             {
                 "query": "SELECT County, COUNT(*) AS closure_count FROM schools WHERE SOC = '11' AND ClosedDate BETWEEN '1980-01-01' AND '1989-12-31' GROUP BY County ORDER BY closure_count DESC",
                 "error": null,
-                "duration": 0.18527984619140625
+                "duration": 0.1852798462
             }
         ],
         "iteration_limit_reached": false,
@@ -324,7 +324,7 @@
                 "1": "1"
             }
         ],
-        "total_time": 274.9938323497772,
+        "total_time": 274.9938323498,
         "llm_requests": 21,
         "input_tokens": 24213,
         "output_tokens": 1120,
@@ -354,7 +354,7 @@
             {
                 "query": "SELECT GSserved, COUNT(*) as cnt FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY cnt DESC LIMIT 1",
                 "error": null,
-                "duration": 0.12539410591125488
+                "duration": 0.1253941059
             }
         ],
         "iteration_limit_reached": false,
@@ -377,7 +377,7 @@
                 "1": "5"
             }
         ],
-        "total_time": 77.25438570976257,
+        "total_time": 77.2543857098,
         "llm_requests": 6,
         "input_tokens": 4208,
         "output_tokens": 191,
@@ -406,17 +406,17 @@
             {
                 "query": "SELECT b.bond_type, COUNT(*) as count, m.label as is_carcinogenic FROM bond b JOIN molecule m ON b.molecule_id = m.molecule_id WHERE b.molecule_id = 'TR010' GROUP BY b.bond_type, m.label ORDER BY count DESC",
                 "error": null,
-                "duration": 0.359405517578125
+                "duration": 0.3594055176
             },
             {
                 "query": "SELECT label FROM molecule WHERE molecule_id = 'TR010'",
                 "error": null,
-                "duration": 0.030043601989746094
+                "duration": 0.030043602
             },
             {
                 "query": "SELECT DISTINCT label FROM molecule",
                 "error": null,
-                "duration": 0.10915517807006836
+                "duration": 0.1091551781
             }
         ],
         "iteration_limit_reached": false,
@@ -441,7 +441,7 @@
                 "0": "-"
             }
         ],
-        "total_time": 168.92118883132935,
+        "total_time": 168.9211888313,
         "llm_requests": 13,
         "input_tokens": 10020,
         "output_tokens": 568,
@@ -468,7 +468,7 @@
             {
                 "query": "SELECT t_shirt_size, COUNT(*) AS count FROM member WHERE t_shirt_size IS NOT NULL GROUP BY t_shirt_size ORDER BY count DESC LIMIT 1",
                 "error": null,
-                "duration": 0.0758523941040039
+                "duration": 0.0758523941
             }
         ],
         "iteration_limit_reached": false,
@@ -491,7 +491,7 @@
                 "1": "13"
             }
         ],
-        "total_time": 76.77442240715027,
+        "total_time": 76.7744224072,
         "llm_requests": 6,
         "input_tokens": 3801,
         "output_tokens": 207,
@@ -520,14 +520,14 @@
             {
                 "query": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
                 "error": null,
-                "duration": 0.1457962989807129
+                "duration": 0.145796299
             }
         ],
         "iteration_limit_reached": false,
         "experiment_status": "COMPLETED",
         "api_error": null,
         "execution_status": "VALID",
-        "execution_accuracy": 0.0,
+        "execution_accuracy": 1.0,
         "ground_truth_rows": 7,
         "ground_truth_columns": 1,
         "ground_truth_preview": [
@@ -578,7 +578,7 @@
                 "0": "Bakery - Donuts, muffins"
             }
         ],
-        "total_time": 77.36880803108215,
+        "total_time": 77.3688080311,
         "llm_requests": 6,
         "input_tokens": 3706,
         "output_tokens": 184,
@@ -607,39 +607,39 @@
             {
                 "query": "SHOW TABLES",
                 "error": null,
-                "duration": 0.01721477508544922
+                "duration": 0.0172147751
             },
             {
                 "query": "DESCRIBE DATABASE default",
                 "error": null,
-                "duration": 0.11625266075134277
+                "duration": 0.1162526608
             },
             {
                 "query": "SHOW TABLES IN default",
                 "error": null,
-                "duration": 0.014998197555541992
+                "duration": 0.0149981976
             },
             {
                 "query": "SELECT * FROM molecule LIMIT 5",
                 "error": null,
-                "duration": 0.04593515396118164
+                "duration": 0.045935154
             },
             {
                 "query": "SELECT a.element, m.label FROM molecule m JOIN atom a ON m.molecule_id = a.molecule_id WHERE m.molecule_id = 'TR060'",
                 "error": null,
-                "duration": 0.1150522232055664
+                "duration": 0.1150522232
             },
             {
                 "query": "SELECT DISTINCT a.element, m.label FROM molecule m JOIN atom a ON m.molecule_id = a.molecule_id WHERE m.molecule_id = 'TR060'",
                 "error": null,
-                "duration": 0.1331775188446045
+                "duration": 0.1331775188
             }
         ],
         "iteration_limit_reached": false,
         "experiment_status": "COMPLETED",
         "api_error": null,
         "execution_status": "VALID",
-        "execution_accuracy": 0.0,
+        "execution_accuracy": 1.0,
         "ground_truth_rows": 5,
         "ground_truth_columns": 2,
         "ground_truth_preview": [
@@ -688,7 +688,7 @@
                 "1": "-"
             }
         ],
-        "total_time": 182.06186723709106,
+        "total_time": 182.0618672371,
         "llm_requests": 14,
         "input_tokens": 13337,
         "output_tokens": 511,
@@ -717,14 +717,14 @@
             {
                 "query": "SELECT a1.element, a2.element FROM bond b JOIN connected c ON b.bond_id = c.bond_id JOIN atom a1 ON c.atom_id = a1.atom_id JOIN atom a2 ON c.atom_id2 = a2.atom_id WHERE b.bond_id = 'TR000_1_2'",
                 "error": null,
-                "duration": 0.2941443920135498
+                "duration": 0.294144392
             }
         ],
         "iteration_limit_reached": false,
         "experiment_status": "COMPLETED",
         "api_error": null,
         "execution_status": "VALID",
-        "execution_accuracy": 0.0,
+        "execution_accuracy": 1.0,
         "ground_truth_rows": 2,
         "ground_truth_columns": 1,
         "ground_truth_preview": [
@@ -736,7 +736,7 @@
             }
         ],
         "generated_result_rows": 2,
-        "generated_result_columns": 1,
+        "generated_result_columns": 2,
         "generated_result_preview": [
             {
                 "0": "c"
@@ -745,7 +745,7 @@
                 "0": "cl"
             }
         ],
-        "total_time": 102.8302674293518,
+        "total_time": 102.8302674294,
         "llm_requests": 8,
         "input_tokens": 5804,
         "output_tokens": 378,
@@ -772,7 +772,7 @@
             {
                 "query": "SELECT AVG(s.height_cm) FROM superhero s JOIN publisher p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
                 "error": null,
-                "duration": 0.15125823020935059
+                "duration": 0.1512582302
             }
         ],
         "iteration_limit_reached": false,
@@ -794,7 +794,7 @@
                 "0": "347.9590163934426"
             }
         ],
-        "total_time": 76.90429544448853,
+        "total_time": 76.9042954445,
         "llm_requests": 6,
         "input_tokens": 3935,
         "output_tokens": 206,
@@ -821,17 +821,17 @@
             {
                 "query": "SELECT count(*) / 12.0 AS avg_male_patients_per_month\nFROM (\n  SELECT DISTINCT month(CAST(l.Date AS timestamp)) AS m, l.ID\n  FROM laboratory l\n  JOIN patient p ON l.ID = p.ID\n  WHERE p.SEX = 'M' AND year(CAST(l.Date AS timestamp)) = 1998\n) t",
                 "error": null,
-                "duration": 0.28916049003601074
+                "duration": 0.28916049
             },
             {
                 "query": "SELECT month(CAST(Date AS timestamp)) AS month, count(DISTINCT ID) AS male_patients\nFROM laboratory\nJOIN patient ON laboratory.ID = patient.ID\nWHERE sex = 'M' AND year(CAST(Date AS timestamp)) = 1998\nGROUP BY month(CAST(Date AS timestamp))",
                 "error": "[AMBIGUOUS_REFERENCE] Reference `ID` is ambiguous, could be: [`laboratory`.`ID`, `patient`.`ID`].; line 1 pos 63",
-                "duration": 0.037928104400634766
+                "duration": 0.0379281044
             },
             {
                 "query": "SELECT month(CAST(l.Date AS timestamp)) AS month, count(DISTINCT l.ID) AS male_patients\nFROM laboratory l\nJOIN patient p ON l.ID = p.ID\nWHERE p.SEX = 'M' AND year(CAST(l.Date AS timestamp)) = 1998\nGROUP BY month(CAST(l.Date AS timestamp))",
                 "error": null,
-                "duration": 0.2003920078277588
+                "duration": 0.2003920078
             }
         ],
         "iteration_limit_reached": false,
@@ -898,7 +898,7 @@
                 "1": "5"
             }
         ],
-        "total_time": 156.0491487979889,
+        "total_time": 156.049148798,
         "llm_requests": 12,
         "input_tokens": 11976,
         "output_tokens": 947,
@@ -927,7 +927,7 @@
             {
                 "query": "SELECT DISTINCT p.ID, p.SEX, p.Birthday\nFROM patient p\nJOIN laboratory l ON p.ID = l.ID\nWHERE YEAR(CAST(l.Date AS DATE)) = 1994 \n  AND l.GOT >= 8 AND l.GOT <= 38",
                 "error": null,
-                "duration": 0.2071704864501953
+                "duration": 0.2071704865
             }
         ],
         "iteration_limit_reached": false,
@@ -1022,7 +1022,7 @@
         "generated_result_rows": null,
         "generated_result_columns": null,
         "generated_result_preview": [],
-        "total_time": 82.35424089431763,
+        "total_time": 82.3542408943,
         "llm_requests": 6,
         "input_tokens": 6946,
         "output_tokens": 3385,
@@ -1059,7 +1059,7 @@
             {
                 "query": "SELECT T1.City FROM schools AS T1 INNER JOIN frpm AS T2 ON T1.CDSCode = T2.CDSCode GROUP BY T1.City ORDER BY SUM(T2.`Enrollment (K-12)`) ASC LIMIT 5",
                 "error": null,
-                "duration": 0.3569679260253906
+                "duration": 0.356967926
             }
         ],
         "iteration_limit_reached": false,
@@ -1105,7 +1105,7 @@
                 "0": "Woody"
             }
         ],
-        "total_time": 72.0802059173584,
+        "total_time": 72.0802059174,
         "llm_requests": 6,
         "input_tokens": 5298,
         "output_tokens": 293,
@@ -1144,7 +1144,7 @@
         "generated_result_rows": null,
         "generated_result_columns": null,
         "generated_result_preview": [],
-        "total_time": 555.2236397266388,
+        "total_time": 555.2236397266,
         "llm_requests": 2,
         "input_tokens": 581,
         "output_tokens": 14,
@@ -1173,37 +1173,37 @@
             {
                 "query": "SELECT label FROM molecule LIMIT 10",
                 "error": null,
-                "duration": 0.03888106346130371
+                "duration": 0.0388810635
             },
             {
                 "query": "SELECT DISTINCT label FROM molecule",
                 "error": null,
-                "duration": 0.20063400268554688
+                "duration": 0.2006340027
             },
             {
                 "query": "SELECT element, COUNT(*) FROM atom GROUP BY element",
                 "error": null,
-                "duration": 0.1934194564819336
+                "duration": 0.1934194565
             },
             {
                 "query": "SELECT m.label, COUNT(DISTINCT m.molecule_id) FROM molecule m JOIN atom a ON m.molecule_id = a.molecule_id GROUP BY m.label",
                 "error": null,
-                "duration": 0.43431639671325684
+                "duration": 0.4343163967
             },
             {
                 "query": "SELECT element, COUNT(DISTINCT molecule_id) as cnt FROM atom WHERE molecule_id IN (SELECT molecule_id FROM molecule WHERE label = '+') GROUP BY element ORDER BY cnt ASC LIMIT 5",
                 "error": null,
-                "duration": 0.5264914035797119
+                "duration": 0.5264914036
             },
             {
                 "query": "SELECT element, COUNT(DISTINCT molecule_id) as cnt FROM atom WHERE molecule_id IN (SELECT molecule_id FROM molecule WHERE label = '+') GROUP BY element ORDER BY cnt ASC",
                 "error": null,
-                "duration": 0.4847579002380371
+                "duration": 0.4847579002
             },
             {
                 "query": "SELECT element, COUNT(DISTINCT molecule_id) as cnt FROM atom WHERE molecule_id IN (SELECT molecule_id FROM molecule WHERE label = '+') AND element IN ('f', 'y', 'cu', 'zn') GROUP BY element",
                 "error": null,
-                "duration": 0.3071465492248535
+                "duration": 0.3071465492
             }
         ],
         "iteration_limit_reached": false,
@@ -1238,7 +1238,7 @@
                 "1": "1"
             }
         ],
-        "total_time": 312.4482457637787,
+        "total_time": 312.4482457638,
         "llm_requests": 24,
         "input_tokens": 22335,
         "output_tokens": 954,
@@ -1265,17 +1265,17 @@
             {
                 "query": "SELECT l.WBC FROM laboratory l LIMIT 20",
                 "error": null,
-                "duration": 0.09192657470703125
+                "duration": 0.0919265747
             },
             {
                 "query": "SELECT DISTINCT l.WBC FROM laboratory l LIMIT 20",
                 "error": null,
-                "duration": 0.1669015884399414
+                "duration": 0.1669015884
             },
             {
                 "query": "SELECT p.ID, p.SEX, p.Birthday FROM patient p JOIN laboratory l ON p.ID = l.ID WHERE l.WBC < 4.0 OR l.WBC > 9.0 GROUP BY p.SEX, p.Birthday, p.ID ORDER BY p.SEX, p.Birthday ASC",
                 "error": null,
-                "duration": 0.3351445198059082
+                "duration": 0.3351445198
             }
         ],
         "iteration_limit_reached": false,
@@ -1491,7 +1491,7 @@
                 "2": "1935-04-19"
             }
         ],
-        "total_time": 207.45985174179077,
+        "total_time": 207.4598517418,
         "llm_requests": 16,
         "input_tokens": 18753,
         "output_tokens": 1168,
@@ -1520,17 +1520,17 @@
             {
                 "query": "SELECT T1.first_name, T1.last_name, T2.source, T2.amount FROM member AS T1 JOIN income AS T2 ON T1.member_id = T2.link_to_member ORDER BY T2.amount DESC LIMIT 5",
                 "error": null,
-                "duration": 0.1320028305053711
+                "duration": 0.1320028305
             },
             {
                 "query": "SELECT T1.first_name, T1.last_name, T2.source, MAX(T2.amount) AS max_amount FROM member AS T1 JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.first_name, T1.last_name, T2.source ORDER BY max_amount DESC",
                 "error": null,
-                "duration": 0.18098068237304688
+                "duration": 0.1809806824
             },
             {
                 "query": "SELECT T1.first_name, T1.last_name, T2.source, SUM(T2.amount) AS total_amount FROM member AS T1 JOIN income AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.first_name, T1.last_name, T2.source ORDER BY total_amount DESC",
                 "error": null,
-                "duration": 0.17801642417907715
+                "duration": 0.1780164242
             }
         ],
         "iteration_limit_reached": false,
@@ -1671,7 +1671,7 @@
                 "3": "50"
             }
         ],
-        "total_time": 155.01344442367554,
+        "total_time": 155.0134444237,
         "llm_requests": 12,
         "input_tokens": 12492,
         "output_tokens": 874,
@@ -1698,7 +1698,7 @@
             {
                 "query": "SELECT t1.School, t1.FundingType, AVG(t3.AvgScrMath) AS avg_math FROM satscores t3 JOIN schools t1 ON t3.cds = t1.CDSCode WHERE t1.City = 'Riverside' GROUP BY t1.School, t1.FundingType HAVING AVG(t3.AvgScrMath) > 400",
                 "error": null,
-                "duration": 0.22552275657653809
+                "duration": 0.2255227566
             }
         ],
         "iteration_limit_reached": false,
@@ -1778,7 +1778,7 @@
                 "2": "453.0"
             }
         ],
-        "total_time": 103.58241176605225,
+        "total_time": 103.5824117661,
         "llm_requests": 8,
         "input_tokens": 8537,
         "output_tokens": 1034,
@@ -1805,22 +1805,22 @@
             {
                 "query": "SELECT T1.molecule_id, T1.label FROM molecule AS T1 JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '0' GROUP BY T1.molecule_id, T1.label HAVING COUNT(T2.atom_id) > 5",
                 "error": null,
-                "duration": 0.03626441955566406
+                "duration": 0.0362644196
             },
             {
                 "query": "SELECT DISTINCT label FROM molecule",
                 "error": null,
-                "duration": 0.07915282249450684
+                "duration": 0.0791528225
             },
             {
                 "query": "SELECT molecule_id, label FROM molecule LIMIT 5",
                 "error": null,
-                "duration": 0.02157306671142578
+                "duration": 0.0215730667
             },
             {
                 "query": "SELECT T1.molecule_id FROM molecule AS T1 JOIN atom AS T2 ON T1.molecule_id = T2.molecule_id WHERE T1.label = '-' GROUP BY T1.molecule_id HAVING COUNT(T2.atom_id) > 5",
                 "error": null,
-                "duration": 0.1761949062347412
+                "duration": 0.1761949062
             }
         ],
         "iteration_limit_reached": false,
@@ -1895,7 +1895,7 @@
         "generated_result_rows": null,
         "generated_result_columns": null,
         "generated_result_preview": [],
-        "total_time": 196.08128595352173,
+        "total_time": 196.0812859535,
         "llm_requests": 15,
         "input_tokens": 13302,
         "output_tokens": 1596,
@@ -1932,7 +1932,7 @@
             {
                 "query": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
                 "error": null,
-                "duration": 0.1969895362854004
+                "duration": 0.1969895363
             }
         ],
         "iteration_limit_reached": false,
@@ -2068,7 +2068,7 @@
                 "0": "Faora Hu-Ul"
             }
         ],
-        "total_time": 76.09380793571472,
+        "total_time": 76.0938079357,
         "llm_requests": 6,
         "input_tokens": 4701,
         "output_tokens": 675,
@@ -2097,14 +2097,14 @@
             {
                 "query": "SELECT e.event_name \nFROM event e \nJOIN attendance a ON e.event_id = a.link_to_event \nWHERE e.type != 'fundraiser' OR e.type IS NULL\nGROUP BY e.event_id, e.event_name \nHAVING COUNT(a.link_to_member) > 20",
                 "error": null,
-                "duration": 0.12642788887023926
+                "duration": 0.1264278889
             }
         ],
         "iteration_limit_reached": false,
         "experiment_status": "COMPLETED",
         "api_error": null,
         "execution_status": "VALID",
-        "execution_accuracy": 0.0,
+        "execution_accuracy": 1.0,
         "ground_truth_rows": 8,
         "ground_truth_columns": 1,
         "ground_truth_preview": [
@@ -2161,7 +2161,7 @@
                 "0": "September Meeting"
             }
         ],
-        "total_time": 76.49177241325378,
+        "total_time": 76.4917724133,
         "llm_requests": 6,
         "input_tokens": 4139,
         "output_tokens": 367,
@@ -2191,37 +2191,37 @@
             {
                 "query": "SELECT T1.first_name, T1.last_name, SUM(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.member_id, T1.first_name, T1.last_name HAVING COUNT(DISTINCT T2.link_to_budget) > 1 ORDER BY SUM(T2.cost) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `T2`.`cost` cannot be resolved. Did you mean one of the following? [`sum(cost)`, `T1`.`last_name`, `T1`.`first_name`].; line 1 pos 237;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM('T2.cost) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066, sum(cost)#3123]\n         +- Filter (count(distinct link_to_budget#3044)#3125L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, sum(cost#3041) AS sum(cost)#3123, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3125L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias T1\n                  :  +- SubqueryAlias member\n                  :     +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :        +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias T2\n                     +- SubqueryAlias expense\n                        +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                           +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.017513513565063477
+                "duration": 0.0175135136
             },
             {
                 "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.member_id, T1.first_name, T1.last_name HAVING COUNT(DISTINCT T2.link_to_budget) > 1 ORDER BY SUM(T2.cost) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `T2`.`cost` cannot be resolved. Did you mean one of the following? [`T1`.`last_name`, `T1`.`first_name`].; line 1 pos 223;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM('T2.cost) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066]\n         +- Filter (count(distinct link_to_budget#3044)#3127L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3127L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias T1\n                  :  +- SubqueryAlias member\n                  :     +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :        +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias T2\n                     +- SubqueryAlias expense\n                        +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                           +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.019486427307128906
+                "duration": 0.0194864273
             },
             {
                 "query": "SELECT T1.first_name, T1.last_name FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member GROUP BY T1.member_id, T1.first_name, T1.last_name HAVING COUNT(DISTINCT T2.link_to_budget) > 1 ORDER BY SUM(T2.cost) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `T2`.`cost` cannot be resolved. Did you mean one of the following? [`T1`.`last_name`, `T1`.`first_name`].; line 1 pos 223;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM('T2.cost) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066]\n         +- Filter (count(distinct link_to_budget#3044)#3129L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3129L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias T1\n                  :  +- SubqueryAlias member\n                  :     +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :        +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias T2\n                     +- SubqueryAlias expense\n                        +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                           +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.009169340133666992
+                "duration": 0.0091693401
             },
             {
                 "query": "SELECT m.first_name, m.last_name FROM member m JOIN expense e ON m.member_id = e.link_to_member GROUP BY m.member_id, m.first_name, m.last_name HAVING COUNT(DISTINCT e.link_to_budget) > 1 ORDER BY SUM(e.cost) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `e`.`cost` cannot be resolved. Did you mean one of the following? [`m`.`last_name`, `m`.`first_name`].; line 1 pos 201;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM('e.cost) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066]\n         +- Filter (count(distinct link_to_budget#3044)#3131L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3131L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias m\n                  :  +- SubqueryAlias member\n                  :     +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :        +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias e\n                     +- SubqueryAlias expense\n                        +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                           +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.01100015640258789
+                "duration": 0.0110001564
             },
             {
                 "query": "SELECT cost FROM expense LIMIT 1",
                 "error": null,
-                "duration": 0.023357391357421875
+                "duration": 0.0233573914
             },
             {
                 "query": "SELECT m.first_name, m.last_name FROM member m JOIN expense e ON m.member_id = e.link_to_member GROUP BY m.member_id, m.first_name, m.last_name HAVING COUNT(DISTINCT e.link_to_budget) > 1 ORDER BY SUM(CAST(e.cost AS DOUBLE)) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `e`.`cost` cannot be resolved. Did you mean one of the following? [`m`.`last_name`, `m`.`first_name`].; line 1 pos 206;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM(cast('e.cost as double)) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066]\n         +- Filter (count(distinct link_to_budget#3044)#3141L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3141L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias m\n                  :  +- SubqueryAlias member\n                  :     +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :        +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias e\n                     +- SubqueryAlias expense\n                        +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                           +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.01399850845336914
+                "duration": 0.0139985085
             },
             {
                 "query": "SELECT first_name, last_name FROM member JOIN expense ON member_id = link_to_member GROUP BY member_id, first_name, last_name HAVING COUNT(DISTINCT link_to_budget) > 1 ORDER BY SUM(cost) DESC LIMIT 1",
                 "error": "[UNRESOLVED_COLUMN.WITH_SUGGESTION] A column or function parameter with name `cost` cannot be resolved. Did you mean one of the following? [`last_name`, `first_name`].; line 1 pos 181;\n'GlobalLimit 1\n+- 'LocalLimit 1\n   +- 'Sort ['SUM('cost) DESC NULLS LAST], true\n      +- Project [first_name#3065, last_name#3066]\n         +- Filter (count(distinct link_to_budget#3044)#3143L > cast(1 as bigint))\n            +- Aggregate [member_id#3064, first_name#3065, last_name#3066], [first_name#3065, last_name#3066, count(distinct link_to_budget#3044) AS count(distinct link_to_budget#3044)#3143L]\n               +- Join Inner, (member_id#3064 = link_to_member#3043)\n                  :- SubqueryAlias member\n                  :  +- View (`member`, [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072])\n                  :     +- Relation [member_id#3064,first_name#3065,last_name#3066,email#3067,position#3068,t_shirt_size#3069,phone#3070,zip#3071,link_to_major#3072] JDBCRelation(member) [numPartitions=1]\n                  +- SubqueryAlias expense\n                     +- View (`expense`, [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044])\n                        +- Relation [expense_id#3038,expense_description#3039,expense_date#3040,cost#3041,approved#3042,link_to_member#3043,link_to_budget#3044] JDBCRelation(expense) [numPartitions=1]\n",
-                "duration": 0.020418643951416016
+                "duration": 0.020418644
             }
         ],
         "iteration_limit_reached": false,
@@ -2239,7 +2239,7 @@
         "generated_result_rows": null,
         "generated_result_columns": null,
         "generated_result_preview": [],
-        "total_time": 1887.44132065773,
+        "total_time": 1887.4413206577,
         "llm_requests": 26,
         "input_tokens": 59657,
         "output_tokens": 1908,
@@ -2266,7 +2266,7 @@
             {
                 "query": "SELECT Website FROM schools WHERE (AdmFName1 = 'Mike' AND AdmLName1 = 'Larson') OR (AdmFName2 = 'Mike' AND AdmLName2 = 'Larson') OR (AdmFName3 = 'Mike' AND AdmLName3 = 'Larson') OR (AdmFName1 = 'Dante' AND AdmLName1 = 'Alvarez') OR (AdmFName2 = 'Dante' AND AdmLName2 = 'Alvarez') OR (AdmFName3 = 'Dante' AND AdmLName3 = 'Alvarez')",
                 "error": null,
-                "duration": 0.0599522590637207
+                "duration": 0.0599522591
             }
         ],
         "iteration_limit_reached": false,
@@ -2294,7 +2294,7 @@
                 "0": "http://ripona.ca.rse.schoolinsites.com/"
             }
         ],
-        "total_time": 78.20130610466003,
+        "total_time": 78.2013061047,
         "llm_requests": 6,
         "input_tokens": 4789,
         "output_tokens": 497,
@@ -2321,22 +2321,22 @@
             {
                 "query": "SELECT count(*) FROM molecule WHERE cast(molecule_id as int) <= 100 AND label = '1'",
                 "error": null,
-                "duration": 0.06429266929626465
+                "duration": 0.0642926693
             },
             {
                 "query": "SELECT molecule_id, label FROM molecule LIMIT 10",
                 "error": null,
-                "duration": 0.01999354362487793
+                "duration": 0.0199935436
             },
             {
                 "query": "SELECT molecule_id FROM molecule ORDER BY molecule_id LIMIT 100",
                 "error": null,
-                "duration": 0.051815032958984375
+                "duration": 0.051815033
             },
             {
                 "query": "SELECT count(*) FROM (SELECT molecule_id, label FROM molecule ORDER BY cast(substring(molecule_id, 3) as int) LIMIT 100) t WHERE t.label = '+'",
                 "error": null,
-                "duration": 0.07599806785583496
+                "duration": 0.0759980679
             }
         ],
         "iteration_limit_reached": false,
@@ -2358,7 +2358,7 @@
                 "0": "35"
             }
         ],
-        "total_time": 194.5323383808136,
+        "total_time": 194.5323383808,
         "llm_requests": 15,
         "input_tokens": 12832,
         "output_tokens": 514,
@@ -2385,7 +2385,7 @@
             {
                 "query": "SELECT T1.expense_description FROM expense AS T1 JOIN budget AS T2 ON T1.link_to_budget = T2.budget_id JOIN event AS T3 ON T2.link_to_event = T3.event_id ORDER BY T1.cost DESC LIMIT 1",
                 "error": null,
-                "duration": 0.12961721420288086
+                "duration": 0.1296172142
             }
         ],
         "iteration_limit_reached": false,
@@ -2407,7 +2407,7 @@
                 "0": "Club shirts"
             }
         ],
-        "total_time": 77.37079453468323,
+        "total_time": 77.3707945347,
         "llm_requests": 6,
         "input_tokens": 4154,
         "output_tokens": 288,
@@ -2434,7 +2434,7 @@
             {
                 "query": "SELECT location FROM event WHERE event_name = 'Spring Budget Review'",
                 "error": null,
-                "duration": 0.047492027282714844
+                "duration": 0.0474920273
             }
         ],
         "iteration_limit_reached": false,
@@ -2456,7 +2456,7 @@
                 "0": "Conference Room BA 452"
             }
         ],
-        "total_time": 77.26866960525513,
+        "total_time": 77.2686696053,
         "llm_requests": 6,
         "input_tokens": 3595,
         "output_tokens": 134,
@@ -2483,7 +2483,7 @@
             {
                 "query": "SELECT category, amount FROM budget WHERE category = 'Food' ORDER BY amount DESC LIMIT 1",
                 "error": null,
-                "duration": 0.05017971992492676
+                "duration": 0.0501797199
             }
         ],
         "iteration_limit_reached": false,
@@ -2506,7 +2506,7 @@
                 "1": "350"
             }
         ],
-        "total_time": 76.95918941497803,
+        "total_time": 76.959189415,
         "llm_requests": 6,
         "input_tokens": 3654,
         "output_tokens": 148,

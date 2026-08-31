@@ -196,20 +196,59 @@ def _values_equal(a, b, rtol=1e-8, atol=1e-10):
     return a == b
 
 
-def _columns_equal(col_a, col_b):
-    """
-    Compare two normalized result columns value by value.
-    """
-
+def _columns_equal(col_a, col_b, ignore_order=False):
     if len(col_a) != len(col_b):
         return False
 
-    return all(
-        _values_equal(a, b)
-        for a, b in zip(col_a, col_b)
-    )
+    # When ORDER BY matters, preserve row order
+    if not ignore_order:
+        return all(
+            _values_equal(a, b)
+            for a, b in zip(col_a, col_b)
+        )
 
-def execution_accuracy(df_gt, df_inf):
+    # Without ORDER BY, SQL does not guarantee row order.
+    # Compare as multisets while preserving duplicates.
+    unmatched = list(col_b)
+
+    for value_a in col_a:
+        match_index = None
+
+        for i, value_b in enumerate(unmatched):
+            if _values_equal(value_a, value_b):
+                match_index = i
+                break
+
+        if match_index is None:
+            return False
+
+        unmatched.pop(match_index)
+
+    return True
+
+def has_top_level_order_by(sql, dialect="sqlite"):
+    """
+    Return True only when the outer SQL query has ORDER BY.
+
+    ORDER BY clauses inside subqueries do not make the final
+    result order-sensitive.
+    """
+    if not sql:
+        return False
+
+    try:
+        tree = sqlglot.parse_one(
+            sql.strip().rstrip(";"),
+            read=dialect
+        )
+
+        return tree.args.get("order") is not None
+
+    except Exception:
+        # Safer fallback: treat ordering as non-significant
+        return False
+
+def execution_accuracy(df_gt, df_inf, order_sensitive=False):
     """Compute execution accuracy based on the Spider 2.0-lite definition.
 
     A predicted result is considered correct (indicator = 1) if and only if
@@ -243,7 +282,7 @@ def execution_accuracy(df_gt, df_inf):
         gt_col_values = _get_column_values(df_gt, col_idx)
         found = False
         for i in range(len(inf_cols)):
-            if not used[i] and _columns_equal(inf_cols[i], gt_col_values):
+            if not used[i] and _columns_equal(inf_cols[i], gt_col_values, ignore_order=not order_sensitive):
                 used[i] = True
                 found = True
                 break

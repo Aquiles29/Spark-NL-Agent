@@ -32,7 +32,8 @@ from evaluation import (
     execution_accuracy,
     convert_to_dataframe,
     exact_match_sql,
-    normalize_sql
+    normalize_sql,
+    has_top_level_order_by
 )
 from llm import get_llm
 from load_db import load_tables
@@ -58,6 +59,14 @@ import argparse
 # Configuration
 BENCHMARK_SPEC_FILE = "db/bird-1/dev.json"
 MAX_QUERIES = 5
+COMPARISON_QUERY_IDS = {
+    78,    # GROUP_BY
+    251,   # JOIN + GROUP_BY
+    729,   # JOIN
+    720,   # JOIN + GROUP_BY + HAVING
+    1325,  # NONE
+    1444,  # GROUP_BY + HAVING
+}
 
 def dataframe_preview(df, max_rows=20):
     """
@@ -122,6 +131,271 @@ def detect_iteration_limit(message):
         or "stopped due to iteration" in message
     )
 
+def recalculate_baseline_results():
+    """
+    Recalculate baseline Execution Accuracy offline.
+
+    No LLM is used:
+    - Gold SQL is executed in the original SQLite database.
+    - Generated SQL already stored in the baseline results is
+        executed again in Spark.
+    - EA is recalculated using the corrected order handling.
+    """
+
+    input_json = "baseline_bird_results.json"
+    output_csv = "baseline_bird_results.csv"
+    checkpoint_file = "baseline_bird_results_checkpoint.json"
+
+    if not os.path.exists(input_json):
+        raise FileNotFoundError(
+            f"Could not find {input_json}"
+        )
+
+    with open(
+        input_json,
+        "r",
+        encoding="utf-8"
+    ) as f:
+        results = json.load(f)
+
+    print(
+        f"Loaded {len(results)} baseline results."
+    )
+    print(
+        "OFFLINE recalculation only -- no LLM will be called."
+    )
+
+    jdbc_jar_path = ensure_sqlite_jdbc_driver()
+
+    changed_ids = []
+
+    # Process one database at a time so Spark does not
+    # need to restart for every individual query.
+    database_names = sorted({
+        result["db_id"]
+        for result in results
+        if result.get("experiment_status") != "API_ERROR"
+    })
+
+    for db_name in database_names:
+
+        print("\n" + "=" * 60)
+        print(f"Database: {db_name}")
+        print("=" * 60)
+
+        spark = get_spark_session(
+            extra_configs={
+                "spark.jars": jdbc_jar_path,
+                "spark.driver.extraClassPath": jdbc_jar_path,
+            }
+        )
+
+        load_tables(
+            spark,
+            db_name
+        )
+
+        db_path = os.path.join(
+            "db",
+            "bird-1",
+            db_name,
+            f"{db_name}.sqlite"
+        )
+
+        for result in results:
+
+            if result["db_id"] != db_name:
+                continue
+
+            question_id = result["question_id"]
+
+            # API failures are not model attempts and remain excluded.
+            if result.get("experiment_status") == "API_ERROR":
+                result["execution_accuracy"] = None
+                continue
+
+            gold_sql = result.get("gold_sql")
+            generated_sql = result.get("generated_sql")
+
+            old_ea = result.get("execution_accuracy")
+
+            # No executable generated SQL = genuine model failure.
+            if not generated_sql:
+                result["execution_accuracy"] = 0.0
+                continue
+
+            try:
+                # Gold result in native BIRD SQLite dialect
+                with sqlite3.connect(db_path) as conn:
+                    ground_truth = pd.read_sql_query(
+                        gold_sql,
+                        conn
+                    )
+
+                # Generated result in Spark dialect
+                generated_df = spark.sql(
+                    generated_sql
+                ).toPandas()
+
+                order_sensitive = has_top_level_order_by(
+                    gold_sql,
+                    dialect="sqlite"
+                )
+
+                new_ea = execution_accuracy(
+                    ground_truth,
+                    generated_df,
+                    order_sensitive=order_sensitive
+                )
+
+                result["execution_accuracy"] = new_ea
+
+                # Keep result metadata consistent
+                result["ground_truth_rows"] = len(
+                    ground_truth
+                )
+                result["ground_truth_columns"] = (
+                    ground_truth.shape[1]
+                )
+
+                result["generated_result_rows"] = len(
+                    generated_df
+                )
+                result["generated_result_columns"] = (
+                    generated_df.shape[1]
+                )
+
+                if old_ea != new_ea:
+                    changed_ids.append(
+                        (
+                            question_id,
+                            old_ea,
+                            new_ea
+                        )
+                    )
+
+                print(
+                    f"Query {question_id}: "
+                    f"EA {old_ea} -> {new_ea}"
+                )
+
+            except Exception as e:
+
+                # If the stored generated SQL cannot execute,
+                # it remains a genuine Text-to-SQL failure.
+                result["execution_accuracy"] = 0.0
+
+                print(
+                    f"Query {question_id}: "
+                    f"EA = 0.0 "
+                    f"(generated SQL failed: {e})"
+                )
+
+        spark.stop()
+
+    # Save corrected JSON
+    with open(
+        input_json,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            results,
+            f,
+            indent=4,
+            ensure_ascii=False
+        )
+
+    # Keep checkpoint consistent with corrected results
+    with open(
+        checkpoint_file,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            results,
+            f,
+            indent=4,
+            ensure_ascii=False
+        )
+
+    # Regenerate CSV
+    df_results = pd.DataFrame(results)
+
+    csv_columns = [
+        "question_id",
+        "db_id",
+        "question",
+        "experiment_mode",
+        "predicted_JOIN",
+        "predicted_GROUP_BY",
+        "predicted_HAVING",
+        "guidance_applied",
+        "gold_sql",
+        "generated_sql",
+        "experiment_status",
+        "api_error",
+        "execution_status",
+        "execution_accuracy",
+        "exact_match",
+        "ground_truth_rows",
+        "generated_result_rows",
+        "total_time",
+        "llm_requests",
+        "input_tokens",
+        "output_tokens",
+        "spark_error"
+    ]
+
+    df_results[csv_columns].to_csv(
+        output_csv,
+        index=False,
+        encoding="utf-8"
+    )
+
+    # Final metrics exclude API/infrastructure failures
+    completed_attempts = df_results[
+        df_results["experiment_status"] != "API_ERROR"
+    ]
+
+    overall_ea = (
+        completed_attempts["execution_accuracy"].mean()
+    )
+
+    overall_em = (
+        completed_attempts["exact_match"].mean()
+    )
+
+    print("\n" + "=" * 60)
+    print("RECALCULATED BASELINE SUMMARY")
+    print("=" * 60)
+
+    print(
+        f"Valid benchmark attempts: "
+        f"{len(completed_attempts)}"
+    )
+
+    print(
+        f"Execution Accuracy: "
+        f"{overall_ea:.2%}"
+    )
+
+    print(
+        f"Exact Match:        "
+        f"{overall_em:.2%}"
+    )
+
+    print(
+        f"EA values changed: "
+        f"{len(changed_ids)}"
+    )
+
+    for question_id, old_ea, new_ea in changed_ids:
+        print(
+            f"  Query {question_id}: "
+            f"{old_ea} -> {new_ea}"
+        )
+
 def main(provider, force_thoughts=False, model=None):
 
     if force_thoughts:
@@ -151,15 +425,33 @@ def main(provider, force_thoughts=False, model=None):
         if item["question_id"] in benchmark_by_id
     ]
 
+
+    # First verify that all 26 sampled questions exist in BIRD dev.json
+    if len(benchmark_subset) != len(evaluation_sample):
+        raise RuntimeError(
+            "Some evaluation-sample questions could not be found in BIRD dev.json."
+        )
+
+
     print(
         f"Evaluation sample loaded: "
         f"{len(benchmark_subset)} queries"
     )
 
-    if len(benchmark_subset) != len(evaluation_sample):
-        raise RuntimeError(
-            "Some evaluation-sample questions "
-            "could not be found in BIRD dev.json."
+
+    # For the paired guided comparison, use one query
+    # from each structural category.
+    if config.EXPERIMENT_MODE == "guided":
+
+        benchmark_subset = [
+            item
+            for item in benchmark_subset
+            if item["question_id"] in COMPARISON_QUERY_IDS
+        ]
+
+        print(
+            f"Guided comparison subset: "
+            f"{len(benchmark_subset)} queries"
         )
 
     output_csv = (
@@ -236,6 +528,10 @@ def main(provider, force_thoughts=False, model=None):
         nl_query = item["question"]
         db_name = item["db_id"]
         golden_query = item["SQL"]
+        order_sensitive = has_top_level_order_by(
+            golden_query,
+            dialect="sqlite"
+        )
 
         # Predict clause categories using question + schema
         schema = get_database_schema(db_name)
@@ -310,7 +606,8 @@ def main(provider, force_thoughts=False, model=None):
 
             execution_acc = execution_accuracy(
                 ground_truth,
-                inferred_result
+                inferred_result,
+                order_sensitive=order_sensitive
             )
 
             experiment_status = "COMPLETED"
@@ -509,6 +806,13 @@ if __name__ == "__main__":
     parser.add_argument("--provider", type=str, default=Provider.GOOGLE.value, help="LLM provider (default: google)")
     parser.add_argument("--model", type=str, help="Specific model name (e.g., o1, o3-mini, gpt-4)")
     parser.add_argument("--force-thoughts", action="store_true", help="Force text thought generation before tool calls")
+    parser.add_argument("--recalculate-baseline",action="store_true",help="Recalculate baseline EA offline without calling the LLM")
     args = parser.parse_args()
+
+if args.recalculate_baseline:
+
+    recalculate_baseline_results()
+
+else:
     provider = args.provider
-    main(provider, force_thoughts=args.force_thoughts, model=args.model)
+    main(provider,force_thoughts=args.force_thoughts,model=args.model)
