@@ -22,7 +22,7 @@
             {
                 "query": "SELECT GSserved, COUNT(*) AS count FROM schools WHERE City = 'Adelanto' GROUP BY GSserved ORDER BY count DESC LIMIT 1",
                 "error": null,
-                "duration": 0.6200118064880371
+                "duration": 0.6200118065
             }
         ],
         "iteration_limit_reached": false,
@@ -45,7 +45,7 @@
                 "1": "5"
             }
         ],
-        "total_time": 79.08776688575745,
+        "total_time": 79.0877668858,
         "llm_requests": 6,
         "input_tokens": 4893,
         "output_tokens": 182,
@@ -74,7 +74,7 @@
             {
                 "query": "SELECT expense_description FROM expense GROUP BY expense_description HAVING AVG(cost) > 50",
                 "error": null,
-                "duration": 0.2368619441986084
+                "duration": 0.2368619442
             }
         ],
         "iteration_limit_reached": false,
@@ -132,7 +132,7 @@
                 "0": "Bakery - Donuts, muffins"
             }
         ],
-        "total_time": 76.96172022819519,
+        "total_time": 76.9617202282,
         "llm_requests": 6,
         "input_tokens": 4101,
         "output_tokens": 184,
@@ -159,7 +159,7 @@
             {
                 "query": "SELECT AVG(s.height_cm) FROM superhero s JOIN publisher p ON s.publisher_id = p.id WHERE p.publisher_name = 'Marvel Comics'",
                 "error": null,
-                "duration": 0.29528188705444336
+                "duration": 0.2952818871
             }
         ],
         "iteration_limit_reached": false,
@@ -181,7 +181,7 @@
                 "0": "347.9590163934426"
             }
         ],
-        "total_time": 77.40191698074341,
+        "total_time": 77.4019169807,
         "llm_requests": 6,
         "input_tokens": 3935,
         "output_tokens": 206,
@@ -210,27 +210,27 @@
             {
                 "query": "SELECT label FROM molecule LIMIT 5",
                 "error": null,
-                "duration": 0.05083942413330078
+                "duration": 0.0508394241
             },
             {
                 "query": "SELECT DISTINCT label FROM molecule",
                 "error": null,
-                "duration": 0.11281609535217285
+                "duration": 0.1128160954
             },
             {
                 "query": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt\nFROM atom a\nJOIN molecule m ON a.molecule_id = m.molecule_id\nWHERE m.label = '+'\nGROUP BY element\nORDER BY cnt ASC\nLIMIT 1",
                 "error": null,
-                "duration": 0.36869287490844727
+                "duration": 0.3686928749
             },
             {
                 "query": "SELECT element, COUNT(*) FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY COUNT(*) ASC",
                 "error": null,
-                "duration": 0.2809321880340576
+                "duration": 0.280932188
             },
             {
                 "query": "SELECT element, COUNT(DISTINCT a.molecule_id) AS cnt FROM atom a JOIN molecule m ON a.molecule_id = m.molecule_id WHERE m.label = '+' GROUP BY element ORDER BY cnt ASC",
                 "error": null,
-                "duration": 0.22829580307006836
+                "duration": 0.2282958031
             }
         ],
         "iteration_limit_reached": false,
@@ -301,7 +301,7 @@
                 "1": "151"
             }
         ],
-        "total_time": 234.0797781944275,
+        "total_time": 234.0797781944,
         "llm_requests": 18,
         "input_tokens": 15453,
         "output_tokens": 764,
@@ -330,7 +330,7 @@
             {
                 "query": "SELECT t1.full_name FROM superhero AS t1 JOIN hero_power AS t2 ON t1.id = t2.hero_id GROUP BY t1.id, t1.full_name HAVING COUNT(t2.power_id) > 15",
                 "error": null,
-                "duration": 0.2638258934020996
+                "duration": 0.2638258934
             }
         ],
         "iteration_limit_reached": false,
@@ -466,7 +466,7 @@
                 "0": "Faora Hu-Ul"
             }
         ],
-        "total_time": 77.970130443573,
+        "total_time": 77.9701304436,
         "llm_requests": 6,
         "input_tokens": 5096,
         "output_tokens": 641,
@@ -493,7 +493,7 @@
             {
                 "query": "SELECT expense_description FROM expense ORDER BY cost DESC LIMIT 1",
                 "error": null,
-                "duration": 0.033904075622558594
+                "duration": 0.0339040756
             }
         ],
         "iteration_limit_reached": false,
@@ -515,7 +515,7 @@
                 "0": "Club shirts"
             }
         ],
-        "total_time": 76.5720796585083,
+        "total_time": 76.5720796585,
         "llm_requests": 6,
         "input_tokens": 3848,
         "output_tokens": 135,

@@ -248,21 +248,70 @@ def has_top_level_order_by(sql, dialect="sqlite"):
         # Safer fallback: treat ordering as non-significant
         return False
 
-def execution_accuracy(df_gt, df_inf, order_sensitive=False):
-    """Compute execution accuracy based on the Spider 2.0-lite definition.
-
-    A predicted result is considered correct (indicator = 1) if and only if
-    every column in the ground-truth result is present as an identical column
-    (same values in the same order after normalization) in the predicted
-    result. Extra columns in the predicted result are allowed.
-
-    Args:
-        df_gt: Ground truth result (DataFrame, list, or Spark DataFrame).
-        df_inf: Predicted result (DataFrame, list, or Spark DataFrame).
-
-    Returns:
-        float: 1.0 if all gold columns are present in inferred, 0.0 otherwise.
+def _row_equal(row_a, row_b):
     """
+    Compare two result rows while preserving the relationship
+    between values across columns.
+    """
+    if len(row_a) != len(row_b):
+        return False
+
+    return all(
+        _values_equal(a, b)
+        for a, b in zip(row_a, row_b)
+    )
+
+
+def _rows_equal(rows_a, rows_b, ignore_order=False):
+    """
+    Compare two collections of rows.
+
+    If ignore_order=True, rows are compared as multisets:
+    row order is ignored but duplicates and value associations
+    across columns are preserved.
+    """
+    if len(rows_a) != len(rows_b):
+        return False
+
+    if not ignore_order:
+        return all(
+            _row_equal(a, b)
+            for a, b in zip(rows_a, rows_b)
+        )
+
+    unmatched = list(rows_b)
+
+    for row_a in rows_a:
+        match_index = None
+
+        for i, row_b in enumerate(unmatched):
+            if _row_equal(row_a, row_b):
+                match_index = i
+                break
+
+        if match_index is None:
+            return False
+
+        unmatched.pop(match_index)
+
+    return True
+
+def execution_accuracy(df_gt, df_inf, order_sensitive=False):
+    """
+    Compute study-specific execution accuracy.
+
+    A generated result is considered correct when the complete
+    ground-truth result can be matched to a projection of the
+    generated result.
+
+    Column names and column positions do not need to match, and
+    additional generated columns are permitted. However, value
+    associations across columns are preserved.
+
+    When the reference query has no top-level ORDER BY, rows are
+    compared as an unordered multiset while preserving duplicates.
+    """
+
     df_gt = convert_to_dataframe(df_gt)
     df_inf = convert_to_dataframe(df_inf)
 
@@ -272,24 +321,96 @@ def execution_accuracy(df_gt, df_inf, order_sensitive=False):
     if df_gt.empty or df_inf.empty:
         return 0.0
 
-    # Build a list of inferred columns (as tuples of normalized values)
-    inf_cols = [_get_column_values(df_inf, col_idx)
-                for col_idx in range(df_inf.shape[1])]
+    n_gt_cols = df_gt.shape[1]
+    n_inf_cols = df_inf.shape[1]
 
-    # For each gold column, find a matching inferred column (multiset semantics)
-    used = [False] * len(inf_cols)
-    for col_idx in range(df_gt.shape[1]):
-        gt_col_values = _get_column_values(df_gt, col_idx)
-        found = False
-        for i in range(len(inf_cols)):
-            if not used[i] and _columns_equal(inf_cols[i], gt_col_values, ignore_order=not order_sensitive):
-                used[i] = True
-                found = True
-                break
-        if not found:
+    # Generated result cannot contain all gold columns
+    # if it has fewer columns than the reference result.
+    if n_inf_cols < n_gt_cols:
+        return 0.0
+
+    # Normalize inferred columns once.
+    inf_cols = [
+        _get_column_values(df_inf, col_idx)
+        for col_idx in range(n_inf_cols)
+    ]
+
+    # Candidate inferred columns for each gold column.
+    # This is used only to reduce the number of possible mappings.
+    candidates = {}
+
+    for gt_idx in range(n_gt_cols):
+        gt_col = _get_column_values(df_gt, gt_idx)
+
+        candidates[gt_idx] = [
+            inf_idx
+            for inf_idx in range(n_inf_cols)
+            if _columns_equal(
+                gt_col,
+                inf_cols[inf_idx],
+                ignore_order=not order_sensitive
+            )
+        ]
+
+        if not candidates[gt_idx]:
             return 0.0
 
-    return 1.0
+    # Try the most constrained gold columns first.
+    search_order = sorted(
+        range(n_gt_cols),
+        key=lambda idx: len(candidates[idx])
+    )
+
+    mapping = {}
+    used_inf_cols = set()
+
+    def mapping_is_correct():
+        gold_rows = [
+            tuple(
+                _normalize_value(df_gt.iloc[row_idx, gt_idx])
+                for gt_idx in range(n_gt_cols)
+            )
+            for row_idx in range(len(df_gt))
+        ]
+
+        inferred_rows = [
+            tuple(
+                _normalize_value(
+                    df_inf.iloc[row_idx, mapping[gt_idx]]
+                )
+                for gt_idx in range(n_gt_cols)
+            )
+            for row_idx in range(len(df_inf))
+        ]
+
+        return _rows_equal(
+            gold_rows,
+            inferred_rows,
+            ignore_order=not order_sensitive
+        )
+
+    def search(position):
+        if position == len(search_order):
+            return mapping_is_correct()
+
+        gt_idx = search_order[position]
+
+        for inf_idx in candidates[gt_idx]:
+            if inf_idx in used_inf_cols:
+                continue
+
+            mapping[gt_idx] = inf_idx
+            used_inf_cols.add(inf_idx)
+
+            if search(position + 1):
+                return True
+
+            used_inf_cols.remove(inf_idx)
+            del mapping[gt_idx]
+
+        return False
+
+    return 1.0 if search(0) else 0.0
 
 def normalize_sql(sql, dialect="sqlite"):
     """

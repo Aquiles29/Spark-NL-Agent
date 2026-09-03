@@ -131,7 +131,7 @@ def detect_iteration_limit(message):
         or "stopped due to iteration" in message
     )
 
-def recalculate_baseline_results():
+def recalculate_results(experiment_mode):
     """
     Recalculate baseline Execution Accuracy offline.
 
@@ -142,9 +142,9 @@ def recalculate_baseline_results():
     - EA is recalculated using the corrected order handling.
     """
 
-    input_json = "baseline_bird_results.json"
-    output_csv = "baseline_bird_results.csv"
-    checkpoint_file = "baseline_bird_results_checkpoint.json"
+    input_json = f"{experiment_mode}_bird_results.json"
+    output_csv = f"{experiment_mode}_bird_results.csv"
+    checkpoint_file = f"{experiment_mode}_bird_results_checkpoint.json"
 
     if not os.path.exists(input_json):
         raise FileNotFoundError(
@@ -159,7 +159,7 @@ def recalculate_baseline_results():
         results = json.load(f)
 
     print(
-        f"Loaded {len(results)} baseline results."
+        f"Loaded {len(results)} {experiment_mode} results."
     )
     print(
         "OFFLINE recalculation only -- no LLM will be called."
@@ -367,7 +367,7 @@ def recalculate_baseline_results():
     )
 
     print("\n" + "=" * 60)
-    print("RECALCULATED BASELINE SUMMARY")
+    print(f"RECALCULATED {experiment_mode.upper()} SUMMARY")
     print("=" * 60)
 
     print(
@@ -807,12 +807,23 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, help="Specific model name (e.g., o1, o3-mini, gpt-4)")
     parser.add_argument("--force-thoughts", action="store_true", help="Force text thought generation before tool calls")
     parser.add_argument("--recalculate-baseline",action="store_true",help="Recalculate baseline EA offline without calling the LLM")
+    parser.add_argument("--recalculate-guided",action="store_true",help="Recalculate guided EA offline without calling the LLM")
     args = parser.parse_args()
 
 if args.recalculate_baseline:
 
-    recalculate_baseline_results()
+    recalculate_results("baseline")
+
+elif args.recalculate_guided:
+
+    recalculate_results("guided")
 
 else:
+
     provider = args.provider
-    main(provider,force_thoughts=args.force_thoughts,model=args.model)
+
+    main(
+        provider,
+        force_thoughts=args.force_thoughts,
+        model=args.model
+    )
