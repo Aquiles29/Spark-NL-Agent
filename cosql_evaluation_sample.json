@@ -1,0 +1,110 @@
+[
+    {
+        "dialogue_index": 142,
+        "db_id": "employee_hire_evaluation",
+        "question": "what is the age of George Chuter?",
+        "gold_sql": "SELECT Age from employee where Name = 'George Chuter'",
+        "gold": {
+            "JOIN": false,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "predicted": {
+            "JOIN": true,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "gold_signature": "NONE",
+        "predicted_signature": "JOIN"
+    },
+    {
+        "dialogue_index": 148,
+        "db_id": "dog_kennels",
+        "question": "LIST THE DOG NAMES WITH TREATMENT COST",
+        "gold_sql": "SELECT name,cost_of_treatment  FROM Dogs join Treatments",
+        "gold": {
+            "JOIN": true,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "predicted": {
+            "JOIN": false,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "gold_signature": "JOIN",
+        "predicted_signature": "NONE"
+    },
+    {
+        "dialogue_index": 181,
+        "db_id": "tvshow",
+        "question": "Can you please tell me the language used on the least number of TV Channels?",
+        "gold_sql": "SELECT LANGUAGE FROM TV_Channel GROUP BY LANGUAGE ORDER BY count ( * )  ASC LIMIT 1",
+        "gold": {
+            "JOIN": false,
+            "GROUP_BY": true,
+            "HAVING": false
+        },
+        "predicted": {
+            "JOIN": true,
+            "GROUP_BY": true,
+            "HAVING": false
+        },
+        "gold_signature": "GROUP_BY",
+        "predicted_signature": "JOIN + GROUP_BY"
+    },
+    {
+        "dialogue_index": 202,
+        "db_id": "student_transcripts_tracking",
+        "question": "Can you list the semester names and their enrollments?",
+        "gold_sql": "SELECT T1.semester_name, count ( * )  from semesters as T1 join student_enrolment as T2 on T1.semester_id  =  T2.semester_id group by T2.semester_id",
+        "gold": {
+            "JOIN": true,
+            "GROUP_BY": true,
+            "HAVING": false
+        },
+        "predicted": {
+            "JOIN": true,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "gold_signature": "JOIN + GROUP_BY",
+        "predicted_signature": "JOIN"
+    },
+    {
+        "dialogue_index": 95,
+        "db_id": "employee_hire_evaluation",
+        "question": "Which cities do more than one employee under age 30 come from?",
+        "gold_sql": "SELECT city FROM employee WHERE age  <  30 GROUP BY city HAVING count ( * )   >  1",
+        "gold": {
+            "JOIN": false,
+            "GROUP_BY": true,
+            "HAVING": true
+        },
+        "predicted": {
+            "JOIN": true,
+            "GROUP_BY": false,
+            "HAVING": false
+        },
+        "gold_signature": "GROUP_BY + HAVING",
+        "predicted_signature": "JOIN"
+    },
+    {
+        "dialogue_index": 87,
+        "db_id": "pets_1",
+        "question": "How many students have more than one pet?",
+        "gold_sql": "SELECT count ( * )  FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid   =   T2.stuid GROUP BY T1.stuid HAVING count ( * )   >  1",
+        "gold": {
+            "JOIN": true,
+            "GROUP_BY": true,
+            "HAVING": true
+        },
+        "predicted": {
+            "JOIN": false,
+            "GROUP_BY": false,
+            "HAVING": true
+        },
+        "gold_signature": "JOIN + GROUP_BY + HAVING",
+        "predicted_signature": "HAVING"
+    }
+]

@@ -9,3 +9,6 @@ AGENTS.md
 *.DS_Store
 
 *.jar
+
+# CoSQL dataset
+db/cosql_dataset/

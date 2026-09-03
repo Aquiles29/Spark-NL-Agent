@@ -1,0 +1,5251 @@
+{
+    "evaluation": "CoSQL first-turn transfer",
+    "number_of_examples": 290,
+    "parse_errors": 3,
+    "missing_databases": 0,
+    "invalid_examples": 0,
+    "metrics": {
+        "JOIN": {
+            "precision": 0.4883720930232558,
+            "recall": 0.49411764705882355,
+            "f1": 0.49122807017543857,
+            "support": 85
+        },
+        "GROUP_BY": {
+            "precision": 0.6190476190476191,
+            "recall": 0.37142857142857144,
+            "f1": 0.4642857142857143,
+            "support": 35
+        },
+        "HAVING": {
+            "precision": 0.6,
+            "recall": 0.3,
+            "f1": 0.4,
+            "support": 10
+        }
+    },
+    "macro_f1": 0.45183792815371765,
+    "exact_category_set_accuracy": 0.6344827586206897,
+    "records": [
+        {
+            "dialogue_index": 0,
+            "db_id": "car_1",
+            "question": "How many car models are produced by each maker? List the count and the maker full name.",
+            "gold_sql": "SELECT Count ( * )  ,  T2.FullName  FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker   =   T2.Id GROUP BY T2.id",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 1,
+            "db_id": "concert_singer",
+            "question": "please list the singers | did you mean list their names? | yes",
+            "gold_sql": "SELECT name FROM singer",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 2,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Hi!  Can you tell me how many unique template IDs there are?",
+            "gold_sql": "SELECT count ( distinct template_id )  FROM Documents",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 3,
+            "db_id": "student_transcripts_tracking",
+            "question": "Find the first name of the students who permanently live in the country Haiti.",
+            "gold_sql": "SELECT T1.first_name FROM Students AS T1 JOIN Addresses AS T2 ON T1.permanent_address_id   =   T2.address_id WHERE T2.country   =   'Haiti'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 4,
+            "db_id": "concert_singer",
+            "question": "what is the name of the stadium that does not have a concert in year 2014?",
+            "gold_sql": "SELECT name FROM stadium EXCEPT SELECT T2.name FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id   =   T2.stadium_id WHERE T1.year   =   2014",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 5,
+            "db_id": "dog_kennels",
+            "question": "how many female dogs have gone through treatment",
+            "gold_sql": "SELECT count ( * )  FROM Dogs WHERE dog_id IN  (  SELECT dog_id FROM Treatments  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 6,
+            "db_id": "course_teach",
+            "question": "How many teachers are there?",
+            "gold_sql": "SELECT COUNT ( * )  FROM teacher",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 7,
+            "db_id": "battle_death",
+            "question": "What is the Latin commander of Battle of Serres?",
+            "gold_sql": "SELECT latin_commander FROM battle WHERE name  =  \"Battle of Serres\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 8,
+            "db_id": "tvshow",
+            "question": "how many TV Channels there",
+            "gold_sql": "SELECT count ( * )  FROM TV_Channel",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 9,
+            "db_id": "car_1",
+            "question": "what is the highest horsepower on the table?",
+            "gold_sql": "SELECT Horsepower FROM CARS_DATA ORDER BY Horsepower DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 10,
+            "db_id": "employee_hire_evaluation",
+            "question": "Which district has the largest number of products?",
+            "gold_sql": "SELECT district FROM shop ORDER BY number_products DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 11,
+            "db_id": "world_1",
+            "question": "I want to know the average population of all cities please",
+            "gold_sql": "SELECT avg ( Population )  FROM city",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 12,
+            "db_id": "world_1",
+            "question": "Can you list all nations whose government is US territory?",
+            "gold_sql": "SELECT Name FROM country WHERE GovernmentForm   =   \"US Territory\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 13,
+            "db_id": "world_1",
+            "question": "give me the total surface area of the continent\n Asia",
+            "gold_sql": "SELECT sum ( SurfaceArea )  FROM country WHERE Continent  =  \"Asia\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 14,
+            "db_id": "employee_hire_evaluation",
+            "question": "How many shops do we have data for?",
+            "gold_sql": "SELECT count ( * )  FROM shop",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 15,
+            "db_id": "concert_singer",
+            "question": "what are the singers name on this list?",
+            "gold_sql": "SELECT name from singer",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 16,
+            "db_id": "car_1",
+            "question": "Can you list all the continents?",
+            "gold_sql": "SELECT Continent FROM CONTINENTS",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 17,
+            "db_id": "car_1",
+            "question": "which models are lighter than 3500?",
+            "gold_sql": "SELECT DISTINCT T1.model FROM MODEL_LIST AS T1 JOIN CAR_NAMES AS T2 ON T1.Model   =   T2.Model JOIN CARS_DATA AS T3 ON T2.MakeId   =   T3.Id JOIN CAR_MAKERS AS T4 ON T1.Maker   =   T4.Id WHERE T3.weight  <  3500",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 18,
+            "db_id": "world_1",
+            "question": "Hi. How many countries are listed in total?",
+            "gold_sql": "SELECT count ( * )  from country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 19,
+            "db_id": "flight_2",
+            "question": "how many airline's there",
+            "gold_sql": "SELECT count ( * )  FROM AIRLINES",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 20,
+            "db_id": "singer",
+            "question": "how many  singer there",
+            "gold_sql": "SELECT count ( * )  from singer",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 21,
+            "db_id": "flight_2",
+            "question": "delta airline is from which country?",
+            "gold_sql": "SELECT country FROM AIRLINES where Airline  =  'Delta Airlines'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 22,
+            "db_id": "student_transcripts_tracking",
+            "question": "How many courses in this table? | Do you mean the number of the courses with different course ids? | Yes.",
+            "gold_sql": "SELECT  count ( distinct course_id )  from courses",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 23,
+            "db_id": "concert_singer",
+            "question": "how many concert are presented on the table",
+            "gold_sql": "SELECT  count ( * )  FROM concert",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 24,
+            "db_id": "dog_kennels",
+            "question": "How many different treatments are there?",
+            "gold_sql": "select count ( * )  from  ( SELECT distinct treatment_type_code from treatments ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 25,
+            "db_id": "flight_2",
+            "question": "Find all airlines that have fewer than 200 flights.",
+            "gold_sql": "SELECT T1.Airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid   =   T2.Airline GROUP BY T1.Airline HAVING count ( * )   <  200",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY + HAVING",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 26,
+            "db_id": "poker_player",
+            "question": "Hello!  Which nationalities are shared by more than one person?",
+            "gold_sql": "SELECT Nationality FROM people GROUP BY Nationality HAVING COUNT ( * )   >  1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY + HAVING",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 27,
+            "db_id": "wta_1",
+            "question": "What's the average age of all losers of all matches?",
+            "gold_sql": "SELECT avg ( loser_age )  FROM matches",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 28,
+            "db_id": "flight_2",
+            "question": "how many flights are landing in the city of aberdeen or abilene",
+            "gold_sql": "SELECT count ( * )  FROM Flights AS T1 JOIN Airports AS T2 ON T1.DestAirport   =   T2.AirportCode WHERE T2.city  like  \"%Aberdeen%\" OR T2.city  like  \"%Abilene%\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 29,
+            "db_id": "museum_visit",
+            "question": "what are the name of the museums?",
+            "gold_sql": "SELECT name from museum",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 30,
+            "db_id": "tvshow",
+            "question": "Which titles were directed by Ben Jones or Brandon Vietti?",
+            "gold_sql": "SELECT Title FROM Cartoon WHERE Directed_by  =  \"Ben Jones\" OR Directed_by  =  \"Brandon Vietti\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 31,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Can I get all the documents with 'w' in them | Do you want documents with 'w' in the name or description? | Description pls",
+            "gold_sql": "SELECT * from Documents WHERE Document_Description LIKE \"%w%\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 32,
+            "db_id": "wta_1",
+            "question": "What is the average age of the losers from all matches?",
+            "gold_sql": "SELECT avg ( loser_age )   FROM matches",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 33,
+            "db_id": "dog_kennels",
+            "question": "Show me all the dogs | do you want to show all the attributes of the dogs? | just show me the names of the dogs",
+            "gold_sql": "SELECT name FROM Dogs",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 34,
+            "db_id": "pets_1",
+            "question": "How many students have a cat pet?",
+            "gold_sql": "SELECT count ( * )  FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 35,
+            "db_id": "museum_visit",
+            "question": "What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",
+            "gold_sql": "SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id   =   t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID   =   t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id   =   t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID   =   t2.Museum_ID WHERE t3.open_year  >  2011",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 36,
+            "db_id": "flight_2",
+            "question": "what is the source airport for United Airlines?",
+            "gold_sql": "SELECT T1.SourceAirport FROM FLIGHTS AS T1 JOIN AIRLINES AS T2 ON T2.uid   =   T1.Airline WHERE T2.Airline   =   \"United Airlines\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 37,
+            "db_id": "wta_1",
+            "question": "hi, what are the names of the players?",
+            "gold_sql": "SELECT first_name,  last_name FROM players",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 38,
+            "db_id": "flight_2",
+            "question": "How many United Airlines flights go to the city called Aberdeen?",
+            "gold_sql": "SELECT count ( * )  FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport   =   T2.AirportCode JOIN AIRLINES AS T3 ON T3.uid   =   T1.Airline WHERE T2.City   =   \"Aberdeen\" AND T3.Airline   =   \"United Airlines\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 39,
+            "db_id": "course_teach",
+            "question": "Show the name of the teacher for the math course please?",
+            "gold_sql": "SELECT T3.Name FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID   =   T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID   =   T3.Teacher_ID WHERE T2.Course   =   \"Math\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 40,
+            "db_id": "poker_player",
+            "question": "What is the birth date of the poker player with the lowest earnings?",
+            "gold_sql": "SELECT T1.Birth_Date FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID   =   T2.People_ID ORDER BY T2.Earnings ASC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 41,
+            "db_id": "poker_player",
+            "question": "how many poker players are on the table",
+            "gold_sql": "SELECT count ( * )  FROM poker_player",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 42,
+            "db_id": "pets_1",
+            "question": "Can you show me a list of all of the students IDs for students who have dogs as their pet type?",
+            "gold_sql": "SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'dog'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 43,
+            "db_id": "world_1",
+            "question": "how many country there",
+            "gold_sql": "SELECT count ( * )  from country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 44,
+            "db_id": "tvshow",
+            "question": "find id of the tv channels that are from countries with more than two tv channels",
+            "gold_sql": "select id from tv_channel where country in  ( SELECT country FROM tv_channel GROUP BY country HAVING count ( * )   >  2 ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": true
+            },
+            "gold_signature": "GROUP_BY + HAVING",
+            "predicted_signature": "JOIN + HAVING"
+        },
+        {
+            "dialogue_index": 45,
+            "db_id": "dog_kennels",
+            "question": "Hello, how many dogs have gone through treatments?",
+            "gold_sql": "SELECT count ( * )  FROM Dogs WHERE dog_id IN  (  SELECT dog_id FROM Treatments  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 46,
+            "db_id": "world_1",
+            "question": "LIST THE NATIONS WHICH DO NOT USE ENGLISH",
+            "gold_sql": "SELECT Name FROM country WHERE Name NOT IN  ( SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Language   =   \"English\" ) ",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 47,
+            "db_id": "car_1",
+            "question": "What is the weight of make id 1? | Did you mean to ask for the weight of the car with make id 1? | Yes",
+            "gold_sql": "SELECT T2.Weight FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId   =   T2.Id WHERE T1.MakeID  =  1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 48,
+            "db_id": "car_1",
+            "question": "How many different cars on this list were produced in 1974?",
+            "gold_sql": "select count ( * )  from cars_data where year = '1974'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 49,
+            "db_id": "employee_hire_evaluation",
+            "question": "I'd like to see Shop names.",
+            "gold_sql": "select name from shop",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 50,
+            "db_id": "singer",
+            "question": "how many singers are on the table?",
+            "gold_sql": "select count ( distinct Singer_ID )  from Singer",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 51,
+            "db_id": "voter_1",
+            "question": "who all are the contest | Did you mean  to ask for the names of all contestants? | yes.",
+            "gold_sql": "SELECT contestant_name FROM CONTESTANTS",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 52,
+            "db_id": "flight_2",
+            "question": "hi, list out all airport name",
+            "gold_sql": "SELECT airportname FROM airports",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 53,
+            "db_id": "dog_kennels",
+            "question": "How many dog breeds are there?",
+            "gold_sql": "SELECT count ( * )  from Breeds",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 54,
+            "db_id": "orchestra",
+            "question": "List the name of the conductor with the most years of work.",
+            "gold_sql": "SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 55,
+            "db_id": "dog_kennels",
+            "question": "which professional has done  the most treatments?",
+            "gold_sql": "SELECT * FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id   =   T2.professional_id GROUP BY T1.professional_id order by COUNT ( * )   desc limit 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 56,
+            "db_id": "world_1",
+            "question": "The given codes of country is not speak in English please tell | Did you mean the codes of countries that do not speak English? | Thanks! Which countries do not speak English please tell country names",
+            "gold_sql": "select name from country where code not in  ( SELECT CountryCode FROM countrylanguage WHERE LANGUAGE   =   \"English\" ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 57,
+            "db_id": "voter_1",
+            "question": "Can you tell me what the total number of votes are for the states of \"NY\" and \"CA\"?",
+            "gold_sql": "SELECT count ( * )  FROM votes WHERE state   =   'NY' or  state   =   'CA'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 58,
+            "db_id": "poker_player",
+            "question": "List all the nationalities in the table with no duplicate records",
+            "gold_sql": "SELECT distinct Nationality FROM people",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 59,
+            "db_id": "car_1",
+            "question": "list the makers who designed more than 3 car models",
+            "gold_sql": "SELECT * FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id   =   T2.Maker GROUP BY T1.Id HAVING count ( * )   >  3",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY + HAVING",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 60,
+            "db_id": "car_1",
+            "question": "What is the average horsepower?",
+            "gold_sql": "SELECT avg ( Horsepower )  FROM cars_data",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 61,
+            "db_id": "concert_singer",
+            "question": "When was the Auditions concert?",
+            "gold_sql": "SELECT year from concert where concert_name  =  \"Auditions\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 62,
+            "db_id": "wta_1",
+            "question": "what are the names of the tourneys?",
+            "gold_sql": "SELECT distinct tourney_name FROM matches",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 63,
+            "db_id": "student_transcripts_tracking",
+            "question": "How many graduates of the school are there?",
+            "gold_sql": "SELECT count ( * )   from students",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 64,
+            "db_id": "flight_2",
+            "question": "Can you show the SourceAirport FlightNo 28?",
+            "gold_sql": "SELECT SourceAirport FROM Flights WHERE FlightNo = '28'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 65,
+            "db_id": "student_transcripts_tracking",
+            "question": "when is the first transcript released?",
+            "gold_sql": "SELECT * FROM Transcripts ORDER BY transcript_date ASC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 66,
+            "db_id": "wta_1",
+            "question": "Find the names of the 3 youngest winners across all matches",
+            "gold_sql": "SELECT DISTINCT winner_name  FROM matches ORDER BY winner_age LIMIT 3",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 67,
+            "db_id": "network_1",
+            "question": "How many friends in this table?",
+            "gold_sql": "SELECT count ( * )  FROM Friend",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 68,
+            "db_id": "poker_player",
+            "question": "How many poker players are there ?",
+            "gold_sql": "select count ( * )  from poker_player",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 69,
+            "db_id": "museum_visit",
+            "question": "How many museums do you have?",
+            "gold_sql": "SELECT count ( * )  from museum",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 70,
+            "db_id": "student_transcripts_tracking",
+            "question": "Hello!  Can you tell me how many students in total there are on this list?",
+            "gold_sql": "SELECT count ( * )  FROM Students",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 71,
+            "db_id": "pets_1",
+            "question": "How many students are there?",
+            "gold_sql": "SELECT count ( StuID )  FROM student",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 72,
+            "db_id": "pets_1",
+            "question": "Hello!  Can you show me a list of all of the student IDs for students who have pets?",
+            "gold_sql": "SELECT distinct T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid   =   T2.stuid",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 73,
+            "db_id": "dog_kennels",
+            "question": "how many dogs on the table",
+            "gold_sql": "SELECT count ( * )  FROM Dogs",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 74,
+            "db_id": "world_1",
+            "question": "What are the names of the nations with the 3 lowest populations?",
+            "gold_sql": "SELECT Name FROM country ORDER BY Population ASC LIMIT 3",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 75,
+            "db_id": "network_1",
+            "question": "what is the average of friend id?",
+            "gold_sql": "SELECT AVG ( friend_id )  FROM friend",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 76,
+            "db_id": "student_transcripts_tracking",
+            "question": "how many students are enrolled in a bachelor degree program?",
+            "gold_sql": "SELECT count ( * )  FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id   =   T2.student_id JOIN Degree_Programs AS T3 ON T2.degree_program_id   =   T3.degree_program_id WHERE T3.degree_summary_name   =   'Bachelor'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 77,
+            "db_id": "car_1",
+            "question": "How many makes are there for Chevrolet?",
+            "gold_sql": "SELECT count ( DISTINCT Make )  FROM CAR_NAMES WHERE Model  =  'chevrolet'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 78,
+            "db_id": "course_teach",
+            "question": "Can you show me the names of teachers with the course id for the courses they teach?",
+            "gold_sql": "SELECT T2.Name, T1.course_id FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID   =   T2.Teacher_ID",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 79,
+            "db_id": "orchestra",
+            "question": "When are the auditions? | Would you like to know the dates of all performances with the type audition? | Yes that's exactly it",
+            "gold_sql": "SELECT date FROM performance WHERE TYPE LIKE \"%audition%\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 80,
+            "db_id": "wta_1",
+            "question": "Can you show the birth date of player id 200002?",
+            "gold_sql": "SELECT birth_date FROM players where player_id = 200002",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 81,
+            "db_id": "world_1",
+            "question": "which region is the city kabul located",
+            "gold_sql": "SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Name   =   \"Kabul\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 82,
+            "db_id": "wta_1",
+            "question": "What year has the most number of matches, please?",
+            "gold_sql": "SELECT YEAR FROM matches GROUP BY YEAR ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 83,
+            "db_id": "car_1",
+            "question": "How many models does each car maker make? | Here is the result table of the full name of car makers and the number of models they made. For example, the car maker \"American Motor Company\" made 1 model. | What are all the ids of car makers?",
+            "gold_sql": "SELECT  Id  FROM CAR_MAKERS",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 84,
+            "db_id": "world_1",
+            "question": "What is the average percent?",
+            "gold_sql": "select avg ( percentage )  from countrylanguage",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 85,
+            "db_id": "museum_visit",
+            "question": "What is the membership level of Gonzalo Higuaín ?",
+            "gold_sql": "SELECT Level_of_membership FROM visitor WHERE name  =   \"Gonzalo Higuaín \"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 86,
+            "db_id": "world_1",
+            "question": "Which country speaks the largest number of languages?",
+            "gold_sql": "SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode GROUP BY T1.Name ORDER BY COUNT ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 87,
+            "db_id": "pets_1",
+            "question": "How many students have more than one pet?",
+            "gold_sql": "SELECT count ( * )  FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid   =   T2.stuid GROUP BY T1.stuid HAVING count ( * )   >  1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": true
+            },
+            "gold_signature": "JOIN + GROUP_BY + HAVING",
+            "predicted_signature": "HAVING"
+        },
+        {
+            "dialogue_index": 88,
+            "db_id": "world_1",
+            "question": "HOw many regions are there in ASia?",
+            "gold_sql": "select count ( * )  from  ( SELECT region FROM country WHERE Continent   =   \"Asia\" group by region ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 89,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Hello!  How many template IDs have the description of \"Presentation\"?",
+            "gold_sql": "SELECT count ( * )  FROM Ref_template_types AS T1 JOIN Templates AS T2 ON T1.template_type_code   =  T2.template_type_code WHERE T1.template_type_description   =   \"Presentation\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 90,
+            "db_id": "student_transcripts_tracking",
+            "question": "How many times at most can a course enrollment result show in different transcripts?",
+            "gold_sql": "SELECT count ( * )   FROM Transcript_Contents GROUP BY student_course_id ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 91,
+            "db_id": "real_estate_properties",
+            "question": "What are the names of the properties with more that one room?",
+            "gold_sql": "SELECT property_name FROM Properties WHERE room_count  >  1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 92,
+            "db_id": "flight_2",
+            "question": "How many airports are there?",
+            "gold_sql": "SELECT count ( * )  from airports",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 93,
+            "db_id": "car_1",
+            "question": "how many car makers are their in germany",
+            "gold_sql": "SELECT count ( * )  FROM CAR_MAKERS AS T1 JOIN COUNTRIES AS T2 ON T1.Country   =   T2.CountryId WHERE T2.CountryName   =   'germany'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 94,
+            "db_id": "dog_kennels",
+            "question": "Can you show the names of owners and the states they live in? | Do you want the first and last names of owners and the states they live in? | Yes please.",
+            "gold_sql": "SELECT first_name ,  last_name, state FROM Owners",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 95,
+            "db_id": "employee_hire_evaluation",
+            "question": "Which cities do more than one employee under age 30 come from?",
+            "gold_sql": "SELECT city FROM employee WHERE age  <  30 GROUP BY city HAVING count ( * )   >  1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY + HAVING",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 96,
+            "db_id": "dog_kennels",
+            "question": "How many dog owner's are there?",
+            "gold_sql": "SELECT count ( * )  FROM Owners",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 97,
+            "db_id": "singer",
+            "question": "Can you list all the singer ids that aren't present in the song table?",
+            "gold_sql": "SELECT Name FROM singer WHERE Singer_ID NOT IN  ( SELECT Singer_ID FROM song ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 98,
+            "db_id": "singer",
+            "question": "What are the names of the singers who were born in either 1948 or 1949?",
+            "gold_sql": "SELECT Name FROM singer WHERE Birth_Year   =   1948 OR Birth_Year   =   1949",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 99,
+            "db_id": "battle_death",
+            "question": "How many battles did not lose any ship with tonnage 225?",
+            "gold_sql": "SELECT count ( * )  FROM battle WHERE id NOT IN  (  SELECT lost_in_battle FROM ship WHERE tonnage   =   '225'  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 100,
+            "db_id": "car_1",
+            "question": "tell me the FullName of the maker amc",
+            "gold_sql": "SELECT Fullname FROM car_makers WHERE maker  =  \"amc\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 101,
+            "db_id": "poker_player",
+            "question": "What is the money rank of the poker player with the highest earnings?",
+            "gold_sql": "SELECT Money_Rank FROM poker_player ORDER BY Earnings DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 102,
+            "db_id": "orchestra",
+            "question": "How many orchestras are there?",
+            "gold_sql": "SELECT COUNT ( DISTINCT Orchestra )  FROM orchestra",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 103,
+            "db_id": "concert_singer",
+            "question": "Find the name and location of the stadiums which some concerts happened in the years of both 2014 and 2015.",
+            "gold_sql": "SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id   =   T2.stadium_id WHERE T1.Year   =   2014 INTERSECT SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id   =   T2.stadium_id WHERE T1.Year   =   2015",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 104,
+            "db_id": "flight_2",
+            "question": "how many flights does United Airlines operate in USA? | What do you mean by operate in USA? | how many flights does United Airlines have?",
+            "gold_sql": "SELECT count ( * )  FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T2.Airline   =   T1.uid WHERE T1.Airline   =   \"United Airlines\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 105,
+            "db_id": "student_transcripts_tracking",
+            "question": "what are the degree_program_id in the Table Name: Student_Enrolment?",
+            "gold_sql": "SELECT degree_program_id from Student_Enrolment",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 106,
+            "db_id": "world_1",
+            "question": "What is the average life expectancy for each government form?",
+            "gold_sql": "SELECT GovernmentForm, avg ( LifeExpectancy )  FROM country GROUP BY GovernmentForm",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 107,
+            "db_id": "tvshow",
+            "question": "Which TV channels do not play any cartoons by Ben Jones?  List the ids.",
+            "gold_sql": "SELECT id FROM TV_Channel EXCEPT SELECT channel FROM cartoon WHERE directed_by   =   'Ben Jones'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 108,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Can you show me document ids?",
+            "gold_sql": "SELECT document_id FROM Paragraphs",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 109,
+            "db_id": "dog_kennels",
+            "question": "Can you show me a list of owner ids and zip codes? | can  you  give more infor  about  this question? | I want you to extract just the owner ids and zip codes from the table. Does it make sense?",
+            "gold_sql": "SELECT  \nowner_id,zip_code from Owners",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 110,
+            "db_id": "flight_2",
+            "question": "Howdy!  Can you show me a list of all flight numbers?",
+            "gold_sql": "SELECT FlightNo FROM Flights",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 111,
+            "db_id": "flight_2",
+            "question": "How many flights are arriving in the city called Aberdeen?",
+            "gold_sql": "SELECT count ( * )  FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport   =   T2.AirportCode WHERE T2.City   =   \"Aberdeen\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 112,
+            "db_id": "world_1",
+            "question": "WHAT ARE THE AFRICAN COUNTRIES THAT HAVE POPULATION LESS THAN ANY COUNTRY IN ASIA",
+            "gold_sql": "SELECT Name FROM country WHERE Continent   =   \"Africa\"  AND population  <   ( SELECT max ( population )  FROM country WHERE Continent   =   \"Asia\" ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 113,
+            "db_id": "dog_kennels",
+            "question": "kindly give me the names that might be used for professionals or owners but cannot be use for dog names",
+            "gold_sql": "SELECT first_name FROM Professionals UNION SELECT first_name FROM Owners EXCEPT SELECT name FROM Dogs",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 114,
+            "db_id": "car_1",
+            "question": "What are the names of the makers who produced some cars in the year 1970?",
+            "gold_sql": "SELECT DISTINCT T1.Maker FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id   =   T2.Maker JOIN CAR_NAMES AS T3 ON T2.model   =   T3.model JOIN CARS_DATA AS T4 ON T3.MakeId   =   T4.id WHERE T4.year   =   '1970'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 115,
+            "db_id": "tvshow",
+            "question": "List the cartoons that are directed by Ben Jones. | Here are the titles of cartoons that are directed by Ben Jones | List all tv channels with their id's.....",
+            "gold_sql": "SELECT channel, id FROM cartoon",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 116,
+            "db_id": "employee_hire_evaluation",
+            "question": "What is the average number of products of all stores?",
+            "gold_sql": "select avg ( Number_products )  from shop",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 117,
+            "db_id": "flight_2",
+            "question": "How many flights in this table?",
+            "gold_sql": "SELECT count ( * )  FROM flights",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 118,
+            "db_id": "world_1",
+            "question": "What are the countries where either English or Dutch is the official language?",
+            "gold_sql": "SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Language   =   \"English\" AND IsOfficial   =   \"T\" UNION SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Language   =   \"Dutch\" AND IsOfficial   =   \"T\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 119,
+            "db_id": "world_1",
+            "question": "What are the populations of every country in Africa?",
+            "gold_sql": "SELECT name,population FROM country WHERE Continent   =   \"Africa\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 120,
+            "db_id": "world_1",
+            "question": "What is the name of the country with the shortest life expectancy in Asia?",
+            "gold_sql": "SELECT Name FROM country WHERE Continent   =   \"Asia\" ORDER BY LifeExpectancy LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 121,
+            "db_id": "poker_player",
+            "question": "How much did the winning poker player make?",
+            "gold_sql": "SELECT Earnings FROM poker_player",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 122,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Hello there!  Can you please list all the template IDs and which document IDs they are associated with?",
+            "gold_sql": "SELECT template_id FROM Documents",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 123,
+            "db_id": "dog_kennels",
+            "question": "Tell me how many dogs have gone through any treatments.",
+            "gold_sql": "SELECT count ( * )  FROM Dogs WHERE dog_id IN  (  SELECT dog_id FROM Treatments  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 124,
+            "db_id": "student_transcripts_tracking",
+            "question": "Hi there! How many different semesters does this list have? | Do  you  mean  the type of  semester name？ | Yes!  My apologies for being unclear.  How many different semester name types are on this list?",
+            "gold_sql": "SELECT distinct semester_name FROM Semesters",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 125,
+            "db_id": "pets_1",
+            "question": "How many female students are on the list?",
+            "gold_sql": "SELECT count ( * ) FROM student WHERE Sex = \"F\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 126,
+            "db_id": "tvshow",
+            "question": "Which country tv channels some cartoon written by todd casey?",
+            "gold_sql": "SELECT T1.country FROM TV_Channel AS T1 JOIN cartoon AS T2 ON T1.id  =  T2.Channel WHERE T2.written_by   =   'Todd Casey'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 127,
+            "db_id": "world_1",
+            "question": "HOW MANY LANGUAGE ARE THERE?",
+            "gold_sql": "SELECT count ( distinct language )  from countrylanguage",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 128,
+            "db_id": "wta_1",
+            "question": "What are the codes of countries that have more than 50 players?",
+            "gold_sql": "SELECT country_code FROM players GROUP BY country_code HAVING count ( * )   >  50",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": true
+            },
+            "gold_signature": "GROUP_BY + HAVING",
+            "predicted_signature": "JOIN + HAVING"
+        },
+        {
+            "dialogue_index": 129,
+            "db_id": "battle_death",
+            "question": "Can you please show the names of the battles that had no ships lost in the 'English Channel'?",
+            "gold_sql": "SELECT name FROM battle EXCEPT SELECT T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id   =   T2.lost_in_battle WHERE T2.location   =   'English Channel'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 130,
+            "db_id": "employee_hire_evaluation",
+            "question": "How many stores are there? | Did you mean to ask for the number of shops? | Yes",
+            "gold_sql": "SELECT COUNT ( * )  FROM shop",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 131,
+            "db_id": "dog_kennels",
+            "question": "which breed is the top ranked?",
+            "gold_sql": "SELECT T1.breed_name FROM Breeds AS T1 JOIN Dogs AS T2 ON T1.breed_code   =   T2.breed_code GROUP BY T1.breed_name ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 132,
+            "db_id": "pets_1",
+            "question": "What are the names of all students who have cat pets? | Linda is the first name of the student who has a cat pet. | What are the first names of all students who have dog pets?",
+            "gold_sql": "SELECT T1.Fname FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid   =   T2.stuid JOIN pets AS T3 ON T3.petid   =   T2.petid WHERE T3.pettype   =   'dog'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 133,
+            "db_id": "museum_visit",
+            "question": "What are the names who have a membership level higher than 4?",
+            "gold_sql": "SELECT name FROM visitor WHERE Level_of_membership  >  4",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 134,
+            "db_id": "student_transcripts_tracking",
+            "question": "who are the students enrolled in 2 degree programs in one semester? | did you want to return their first, middle and last names? | yes",
+            "gold_sql": "SELECT T1.first_name ,  T1.middle_name ,  T1.last_name ,  T1.student_id FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id   =   T2.student_id GROUP BY T1.student_id HAVING count ( * )    =   2",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY + HAVING",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 135,
+            "db_id": "dog_kennels",
+            "question": "How many dog owners live in Virginia?",
+            "gold_sql": "SELECT count ( * )  FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id   =   T2.owner_id WHERE T1.state   =   'Virginia'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 136,
+            "db_id": "orchestra",
+            "question": "How many record companies are there?",
+            "gold_sql": "SELECT count ( Record_Company )  FROM orchestra",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 137,
+            "db_id": "flight_2",
+            "question": "How many 'United Airlines' flights go to the Airport 'ASY'?",
+            "gold_sql": "SELECT count ( * )  FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T2.Airline   =   T1.uid WHERE T1.Airline   =   \"United Airlines\" AND T2.DestAirport   =   \"ASY\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 138,
+            "db_id": "car_1",
+            "question": "How many Volvo cars are there?",
+            "gold_sql": "SELECT count ( * )  FROM CAR_names where model  =  \"volvo\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 139,
+            "db_id": "network_1",
+            "question": "How many students are there?",
+            "gold_sql": "SELECT count ( * )  FROM Highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 140,
+            "db_id": "student_transcripts_tracking",
+            "question": "Which semester did bachelor students enroll? List the id.",
+            "gold_sql": "SELECT DISTINCT T2.semester_id FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id   =   T2.degree_program_id WHERE degree_summary_name   =   'Master'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 141,
+            "db_id": "car_1",
+            "question": "Which model saves the most gasoline? That is to say, have the maximum miles per gallon?",
+            "gold_sql": "SELECT T1.Model FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId   =   T2.Id ORDER BY T2.mpg DESC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 142,
+            "db_id": "employee_hire_evaluation",
+            "question": "what is the age of George Chuter?",
+            "gold_sql": "SELECT Age from employee where Name = 'George Chuter'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 143,
+            "db_id": "poker_player",
+            "question": "What are the names of non poker players?",
+            "gold_sql": "SELECT Name FROM people WHERE People_ID NOT IN  ( SELECT People_ID FROM poker_player ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 144,
+            "db_id": "wta_1",
+            "question": "how many players are presented on the table",
+            "gold_sql": "SELECT count ( * )  FROM players",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 145,
+            "db_id": "car_1",
+            "question": "what models are produced by the make General Motors?",
+            "gold_sql": "SELECT DISTINCT T2.Model FROM CAR_NAMES AS T1 JOIN MODEL_LIST AS T2 ON T1.Model   =   T2.Model JOIN CAR_MAKERS AS T3 ON T2.Maker   =   T3.Id JOIN CARS_DATA AS T4 ON T1.MakeId   =   T4.Id WHERE T3.FullName   =   'General Motors'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 146,
+            "db_id": "poker_player",
+            "question": "Which height of Aleksey Ostapenko?",
+            "gold_sql": "SELECT height FROM people where name  =  \"Aleksey Ostapenko\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 147,
+            "db_id": "world_1",
+            "question": "What is the population of Afghanistan?",
+            "gold_sql": "SELECT Population FROM country where Name   =   \"Afghanistan\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 148,
+            "db_id": "dog_kennels",
+            "question": "LIST THE DOG NAMES WITH TREATMENT COST",
+            "gold_sql": "SELECT name,cost_of_treatment  FROM Dogs join Treatments",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 149,
+            "db_id": "museum_visit",
+            "question": "What age of Gonzalo Higuaín?",
+            "gold_sql": "SELECT age FROM visitor where name  =  \"Gonzalo Higuaín\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 150,
+            "db_id": "world_1",
+            "question": "What are the regions that use English, please?",
+            "gold_sql": "SELECT DISTINCT T1.Region FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Language   =   \"English\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 151,
+            "db_id": "wta_1",
+            "question": "What are the names of the 3 youngest winners across all matches?",
+            "gold_sql": "SELECT winner_name  FROM matches ORDER BY winner_age LIMIT 3",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 152,
+            "db_id": "dog_kennels",
+            "question": "List the names of all the professionals.",
+            "gold_sql": "SELECT first_name, last_name FROM professionals",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 153,
+            "db_id": "battle_death",
+            "question": "How many death events are there?",
+            "gold_sql": "SELECT count ( * )  FROM death",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 154,
+            "db_id": "battle_death",
+            "question": "What are the death situations caused by the ship with tonnage 't' ?",
+            "gold_sql": "SELECT T1.killed FROM death AS T1 JOIN ship AS t2 ON T1.caused_by_ship_id  =  T2.id WHERE T2.tonnage  =  't'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 155,
+            "db_id": "car_1",
+            "question": "Can you list the number of car makers on each continent?",
+            "gold_sql": "SELECT T1.Continent ,  count ( * )  FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId   =   T2.continent JOIN car_makers AS T3 ON T2.CountryId   =   T3.Country GROUP BY T1.Continent",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 156,
+            "db_id": "world_1",
+            "question": "What is the total number of countries?",
+            "gold_sql": "SELECT count ( * )  FROM country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 157,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "How many documents have template type code BK?",
+            "gold_sql": "SELECT count ( * )  FROM Templates AS T1 JOIN Documents AS T2 ON T1.template_id   =   T2.template_id WHERE T1.template_type_code   =   \"BK\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 158,
+            "db_id": "world_1",
+            "question": "What are the codes of the countries that do not speak English?",
+            "gold_sql": "SELECT CountryCode FROM countrylanguage WHERE LANGUAGE  ! =   \"English\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 159,
+            "db_id": "dog_kennels",
+            "question": "which professionals live in state of indiana? | What information do you want to know about these professionals? | I would like to know all the information about professionals?",
+            "gold_sql": "SELECT * FROM Professionals WHERE state   =   'Indiana'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 160,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "how many templates there",
+            "gold_sql": "SELECT count ( * )  FROM Templates",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 161,
+            "db_id": "concert_singer",
+            "question": "Can you tell me which countries a singer above age 40 are from please?",
+            "gold_sql": "SELECT country FROM singer WHERE age  >  40",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 162,
+            "db_id": "car_1",
+            "question": "WHAT IS THE ACCELERATE OF THE CAR MAKE AMC HORNET SPORTABOUT(SW)",
+            "gold_sql": "SELECT T1.Accelerate FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id   =   T2.MakeId WHERE T2.Make   =   'amc hornet sportabout  ( sw ) '",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 163,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "what are all of the template ids?",
+            "gold_sql": "SELECT template_id FROM Templates",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 164,
+            "db_id": "concert_singer",
+            "question": "show the name and theme for all concerts and the number of singers in each concert.",
+            "gold_sql": "SELECT T2.concert_name , T2.theme , count ( * )  FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 165,
+            "db_id": "world_1",
+            "question": "What is the population in Asian continent?",
+            "gold_sql": "SELECT sum ( Population )  FROM country where Continent  =  'Asia'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 166,
+            "db_id": "concert_singer",
+            "question": "What are the names of the singers whose song release year is greater than the average song release year",
+            "gold_sql": "SELECT song_name FROM singer WHERE song_release_year  >   ( SELECT avg ( song_release_year )  FROM singer ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 167,
+            "db_id": "orchestra",
+            "question": "Please answer the question.what is the orchestra of conductor? | Do you want all the orchestras of all conductors? | yes",
+            "gold_sql": "SELECT T2.Orchestra FROM conductor AS T1 JOIN orchestra AS T2 ON T1.Conductor_ID   =   T2.Conductor_ID",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 168,
+            "db_id": "student_transcripts_tracking",
+            "question": "how many students there",
+            "gold_sql": "SELECT count ( * )  FROM Students",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 169,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "What are the templates ever used by any document?",
+            "gold_sql": "SELECT * FROM Templates AS T1 JOIN Documents AS T2 ON T1.Template_ID   =   T2.template_ID",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 170,
+            "db_id": "world_1",
+            "question": "Which country has the largest area? | Russian Federation is the name of the country with the largest area. | And what is the population of this country?",
+            "gold_sql": "SELECT Population FROM country ORDER BY SurfaceArea DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 171,
+            "db_id": "poker_player",
+            "question": "Name players whose earnings are more than 300000. | Do you mean the names of the poker players whose earnings is more than 300000? | yes names",
+            "gold_sql": "SELECT T1.Name FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID   =   T2.People_ID WHERE T2.Earnings  >  300000",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": true
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN + HAVING"
+        },
+        {
+            "dialogue_index": 172,
+            "db_id": "student_transcripts_tracking",
+            "question": "how many students live in North Carolina?",
+            "gold_sql": "SELECT count ( * )  FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id   =   T2.address_id WHERE T2.state_province_county   =   'NorthCarolina'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 173,
+            "db_id": "voter_1",
+            "question": "What are all the area codes?",
+            "gold_sql": "select area_code from AREA_CODE_STATE",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 174,
+            "db_id": "employee_hire_evaluation",
+            "question": "how many shop are presented on the table",
+            "gold_sql": "SELECT count ( * )  FROM shop",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 175,
+            "db_id": "student_transcripts_tracking",
+            "question": "Hello!  Can you list all of the deparatment names and department IDs?",
+            "gold_sql": "select department_id,department_name from Departments",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 176,
+            "db_id": "dog_kennels",
+            "question": "What are the ids of the professionals?",
+            "gold_sql": "SELECT professional_id  FROM Professionals",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 177,
+            "db_id": "car_1",
+            "question": "Can you tell me the ID of the american motor company ?",
+            "gold_sql": "SELECT Id FROM CAR_MAKERS AS T1 JOIN MODEL_LIST AS T2 ON T1.Id   =   T2.Maker WHERE T1.FullName   =   'American Motor Company'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 178,
+            "db_id": "course_teach",
+            "question": "list the name of the teachers and the courses assigned for them to teach",
+            "gold_sql": "SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID   =   T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID   =   T3.Teacher_ID",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 179,
+            "db_id": "world_1",
+            "question": "can you show countries name?",
+            "gold_sql": "SELECT Name FROM country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 180,
+            "db_id": "tvshow",
+            "question": "IN WHAT LANGUAGE SKY MUSIC AVAILABLE?",
+            "gold_sql": "SELECT Language FROM TV_Channel where series_name = 'Sky Music'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 181,
+            "db_id": "tvshow",
+            "question": "Can you please tell me the language used on the least number of TV Channels?",
+            "gold_sql": "SELECT LANGUAGE FROM TV_Channel GROUP BY LANGUAGE ORDER BY count ( * )  ASC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 182,
+            "db_id": "dog_kennels",
+            "question": "Which first names are used for professionals or owners?",
+            "gold_sql": "SELECT first_name FROM Professionals UNION SELECT first_name FROM Owners",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 183,
+            "db_id": "pets_1",
+            "question": "Can you tell me the last names of students who have pets?",
+            "gold_sql": "select lname from Student AS T1 JOIN Has_Pet AS T2 ON T2.stuid = T1.stuid",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 184,
+            "db_id": "orchestra",
+            "question": "Can you show me orchestra names and the major record formats?",
+            "gold_sql": "SELECT orchestra, Major_Record_Format  FROM orchestra",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 185,
+            "db_id": "museum_visit",
+            "question": "how many museum id in the list?",
+            "gold_sql": "SELECT count ( Museum_ID  )  FROM museum",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 186,
+            "db_id": "museum_visit",
+            "question": "List the names of all visitors who visited some museums more than once, please.",
+            "gold_sql": "SELECT  t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id   =   t2.visitor_id GROUP BY t1.id HAVING count ( * )   >  1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY + HAVING",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 187,
+            "db_id": "world_1",
+            "question": "How many government forms are in the table?",
+            "gold_sql": "SELECT count ( GovernmentForm )  FROM country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 188,
+            "db_id": "museum_visit",
+            "question": "Whats the level of membership customer id 1 has?",
+            "gold_sql": "SELECT Level_of_membership FROM visitor WHERE ID  =  1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 189,
+            "db_id": "flight_2",
+            "question": "Hi, What Airline has the largest number of flights?",
+            "gold_sql": "SELECT T1.airline FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid   =   T2.Airline GROUP BY T1.Airline ORDER BY count ( * )  desc LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 190,
+            "db_id": "battle_death",
+            "question": "Hi there!  Can you show me a list of all of the battle ids and the corresponding battle names?",
+            "gold_sql": "SELECT T1.id ,  T1.name FROM battle AS T1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 191,
+            "db_id": "pets_1",
+            "question": "Hey can you tell me the average age for cats?",
+            "gold_sql": "SELECT avg ( pet_age )  FROM pets WHERE PetType  =  'cat'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 192,
+            "db_id": "car_1",
+            "question": "What are the full name of amc? | Did you mean the full name of the car maker amc? | Yes",
+            "gold_sql": "select fullname from car_makers where maker  =  \"amc\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 193,
+            "db_id": "dog_kennels",
+            "question": "What is the phone number of the professional who has done the most treatment.",
+            "gold_sql": "SELECT T1.cell_number FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id   =   T2.professional_id GROUP BY T1.professional_id order by count ( * )   desc limit 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 194,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "WHAT IS THE DOCUMENT ID WITH 1 TO 2 PARAGRAPH?",
+            "gold_sql": "SELECT document_id FROM Paragraphs GROUP BY document_id HAVING count ( * )  BETWEEN 1 AND 2",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": true
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY + HAVING",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 195,
+            "db_id": "course_teach",
+            "question": "Who is the youngest teacher?",
+            "gold_sql": "select name from teacher order by Age asc limit 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 196,
+            "db_id": "pets_1",
+            "question": "That are available",
+            "gold_sql": "SELECT fname, lname FROM student WHERE sex   =   'F'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 197,
+            "db_id": "car_1",
+            "question": "What are the cars with the lowest horsepower? | Do you mean the id of the car with the lowest horsepower? | Yes please.",
+            "gold_sql": "SELECT id from cars_data order by horsepower limit 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 198,
+            "db_id": "student_transcripts_tracking",
+            "question": "Hi what is the latest transcript?",
+            "gold_sql": "SELECT transcript_id FROM Transcripts ORDER BY transcript_date DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 200,
+            "db_id": "network_1",
+            "question": "Hello!  Can you see all of the ids of the high school students?",
+            "gold_sql": "select student_id from Friend",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 201,
+            "db_id": "dog_kennels",
+            "question": "Please list the emails of all the professionals who live in the state of Hawaii?",
+            "gold_sql": "SELECT email_address FROM Professionals WHERE state   =   'Hawaii'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 202,
+            "db_id": "student_transcripts_tracking",
+            "question": "Can you list the semester names and their enrollments?",
+            "gold_sql": "SELECT T1.semester_name, count ( * )  from semesters as T1 join student_enrolment as T2 on T1.semester_id  =  T2.semester_id group by T2.semester_id",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 203,
+            "db_id": "world_1",
+            "question": "What are all of the countries where English isn't the official language?",
+            "gold_sql": "SELECT name FROM country WHERE Name NOT IN  ( SELECT T1.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE T2.Language   =   \"English\" AND T2.IsOfficial   =   \"T\" ) ",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 204,
+            "db_id": "flight_2",
+            "question": "Find Flight from CVO to SNA",
+            "gold_sql": "SELECT FlightNo FROM flights where SourceAirport = \"CVO\" and DestAirport = \"SNA\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 205,
+            "db_id": "tvshow",
+            "question": "What is the TV Channel of TV series \"A love of a lifetime\"?",
+            "gold_sql": "SELECT T1.series_name FROM TV_Channel AS T1 JOIN TV_series AS T2 ON T1.id  =  T2.Channel WHERE T2.Episode  =  \"A Love of a Lifetime\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 206,
+            "db_id": "wta_1",
+            "question": "What is the player id for the youngest player?",
+            "gold_sql": "SELECT player_id FROM players ORDER BY birth_date desc LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 208,
+            "db_id": "museum_visit",
+            "question": "List the number of tickets bought in all visits | the total number of tickets bought in all visits is 63. | what is the maximum number of tickets bought in all visits",
+            "gold_sql": "SELECT max ( num_of_ticket )  FROM visit",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 209,
+            "db_id": "battle_death",
+            "question": "how many ships are there?",
+            "gold_sql": "SELECT   count ( * )   from ship",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 210,
+            "db_id": "concert_singer",
+            "question": "What is the name of the youngest singer?",
+            "gold_sql": "SELECT Name FROM singer ORDER BY age LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 211,
+            "db_id": "world_1",
+            "question": "Can you please list all the names of the countries that are in the continent of Europe?",
+            "gold_sql": "SELECT Name FROM country WHERE continent   =   \"Europe\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 212,
+            "db_id": "singer",
+            "question": "who is the singers name? | did you mean List the names of all singers | yes tell me singers name?",
+            "gold_sql": "SELECT Name FROM singer",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 213,
+            "db_id": "student_transcripts_tracking",
+            "question": "What is the full name of the department that has the substring computer in its name?",
+            "gold_sql": "SELECT department_name FROM Departments WHERE department_name LIKE '%computer%'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 214,
+            "db_id": "car_1",
+            "question": "how many cylinders in the cars_data table",
+            "gold_sql": "SELECT sum ( Cylinders )  FROM cars_data",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 215,
+            "db_id": "concert_singer",
+            "question": "what is the age of Joe sharp",
+            "gold_sql": "SELECT age from singer where name  =  \"Joe Sharp\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 216,
+            "db_id": "car_1",
+            "question": "Which models are manufactured by the maker with the name \"General Motors\"?",
+            "gold_sql": "SELECT DISTINCT T2.Model FROM CAR_NAMES AS T1 JOIN MODEL_LIST AS T2 ON T1.Model   =   T2.Model JOIN CAR_MAKERS AS T3 ON T2.Maker   =   T3.Id JOIN CARS_DATA AS T4 ON T1.MakeId   =   T4.Id WHERE T3.FullName   =   'General Motors'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 217,
+            "db_id": "network_1",
+            "question": "How many students in this table?",
+            "gold_sql": "SELECT count ( * )  FROM Highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 218,
+            "db_id": "car_1",
+            "question": "What countries produced cars?",
+            "gold_sql": "SELECT T1.CountryName FROM countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.countryId   =   T2.Country",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 219,
+            "db_id": "network_1",
+            "question": "Can you show me a list of student IDs and their friends IDs?",
+            "gold_sql": "SELECT student_id, friend_id FROM Friend",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 220,
+            "db_id": "employee_hire_evaluation",
+            "question": "Hello!  Can you please provide me with a list of all of the cities in this database?",
+            "gold_sql": "SELECT city FROM employee",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 221,
+            "db_id": "pets_1",
+            "question": "How many students in the \"Student\" table are over the age of 20?",
+            "gold_sql": "SELECT count ( * )  FROM student WHERE age  >  20",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 222,
+            "db_id": "wta_1",
+            "question": "Tell me the loser_name whose age is 24.626967830300003",
+            "gold_sql": "SELECT distinct loser_name from matches where loser_age  =  24.626967830300003",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 223,
+            "db_id": "network_1",
+            "question": "What are the names of all of the high schoolers?",
+            "gold_sql": "SELECT name FROM Highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 224,
+            "db_id": "real_estate_properties",
+            "question": "What is the feature type name of the feature AirCon?",
+            "gold_sql": "SELECT T2.feature_type_name FROM Other_Available_Features AS T1 JOIN Ref_Feature_Types AS T2 ON T1.feature_type_code   =   T2.feature_type_code WHERE T1.feature_name   =   \"AirCon\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 225,
+            "db_id": "student_transcripts_tracking",
+            "question": "Can you list the transcript date that appears least often?",
+            "gold_sql": "SELECT transcript_date FROM Transcripts group by transcript_date order by count ( * )  asc limit 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 226,
+            "db_id": "flight_2",
+            "question": "What is the destination airport of  United Airlines?",
+            "gold_sql": "SELECT T2.DestAirport FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline WHERE T1.Airline  =  \"United Airlines\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 227,
+            "db_id": "car_1",
+            "question": "how many car models are produced in the USA?",
+            "gold_sql": "SELECT count ( * )  FROM MODEL_LIST AS T1 JOIN CAR_MAKERS AS T2 ON T1.Maker   =   T2.Id JOIN COUNTRIES AS T3 ON T2.Country   =   T3.CountryId WHERE T3.CountryName   =   'usa'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 229,
+            "db_id": "flight_2",
+            "question": "what is the dest airport of airline 1",
+            "gold_sql": "SELECT DestAirport FROM flights WHERE airline   =   \"1\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 230,
+            "db_id": "network_1",
+            "question": "what is the average of grades?",
+            "gold_sql": "SELECT AVG ( grade )  FROM Highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 231,
+            "db_id": "poker_player",
+            "question": "Can you list all the names of the poker players ordered by the final tables in ascending order please?",
+            "gold_sql": "SELECT T1.Name FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID   =   T2.People_ID ORDER BY T2.Final_Table_Made",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 232,
+            "db_id": "student_transcripts_tracking",
+            "question": "What are the release dates for transcripts?",
+            "gold_sql": "select transcript_date from Transcripts",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 233,
+            "db_id": "tvshow",
+            "question": "which is the most recently aired cartoon?",
+            "gold_sql": "SELECT Title FROM cartoon ORDER BY original_air_date LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 234,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "What is the version number of template id 3?",
+            "gold_sql": "SELECT Version_Number from Templates where Template_ID  =  3",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 235,
+            "db_id": "flight_2",
+            "question": "Can you list all the flight numbers that have a source airport value of AHD?",
+            "gold_sql": "SELECT FlightNo FROM FLIGHTS WHERE SourceAirport   =  \"AHD\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 236,
+            "db_id": "concert_singer",
+            "question": "How many stadiums can accommodate more than 1000 people in average.?",
+            "gold_sql": "SELECT count ( * )  FROM stadium WHERE average > 1000",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": true
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN + HAVING"
+        },
+        {
+            "dialogue_index": 237,
+            "db_id": "world_1",
+            "question": "Which African countries have a smaller population than that of any Asian country?",
+            "gold_sql": "SELECT Name FROM country WHERE Continent   =   \"Africa\"  AND population  <   ( SELECT min ( population )  FROM country WHERE Continent   =   \"Asia\" ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 238,
+            "db_id": "dog_kennels",
+            "question": "Hello!  Can you tell me how many dogs have not gone through any treatment?",
+            "gold_sql": "SELECT count ( * )  FROM Dogs WHERE dog_id NOT IN  (  SELECT dog_id FROM Treatments  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 239,
+            "db_id": "employee_hire_evaluation",
+            "question": "how old is George Chuter?",
+            "gold_sql": "select age from employee where name  =  \"George Chuter\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 240,
+            "db_id": "student_transcripts_tracking",
+            "question": "Find the program which most number of students are enrolled in. List both the id and the summary.",
+            "gold_sql": "SELECT T1.degree_program_id ,  T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id   =   T2.degree_program_id GROUP BY T1.degree_program_id ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 241,
+            "db_id": "dog_kennels",
+            "question": "whats is total cost of treatment?",
+            "gold_sql": "SELECT sum ( cost_of_treatment )  from treatments",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 242,
+            "db_id": "car_1",
+            "question": "Show me continent IDs of each continent",
+            "gold_sql": "SELECT ContId ,  Continent  FROM CONTINENTS",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 243,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Hello!  How are you?  First, I'll start with a straightforward request...  Can you show me all document IDs and their corresponding document names and number of paragraphs?",
+            "gold_sql": "SELECT T1.document_id ,  T2.document_name ,  count ( * )  FROM Paragraphs AS T1 JOIN Documents AS T2 ON T1.document_id   =   T2.document_id GROUP BY T1.document_id",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 244,
+            "db_id": "tvshow",
+            "question": "Hello!  Can you provide me with a list of all cartoons written by Todd Casey?",
+            "gold_sql": "select * from Cartoon where Written_by  =  'Todd Casey'",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 245,
+            "db_id": "museum_visit",
+            "question": "Can you tell me the total amount spent on tickets by visitors with membership level 1?",
+            "gold_sql": "SELECT sum ( t2.Total_spent )  FROM visitor AS t1 JOIN visit AS t2 ON t1.id   =   t2.visitor_id WHERE t1.Level_of_membership   =   1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 246,
+            "db_id": "wta_1",
+            "question": "what is the first name of player id 200001?",
+            "gold_sql": "SELECT first_name FROM players WHERE player_id  =  200001",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 247,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "How many ids are in document 'Welcome to NY'? | Do you mean how many paragraphs are associated with document 'Welcome to NY'? | yes",
+            "gold_sql": "SELECT count ( * )  FROM Paragraphs AS T1 JOIN Documents AS T2 ON T1.document_id   =   T2.document_id WHERE T2.Document_Name   =   'Welcome to NY'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 248,
+            "db_id": "wta_1",
+            "question": "find the total ranking point for each player and their first name",
+            "gold_sql": "SELECT sum ( ranking_points )  ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id   =   T2.player_id GROUP BY T1.first_name",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 249,
+            "db_id": "world_1",
+            "question": "What African country has the largest population?",
+            "gold_sql": "SELECT Name FROM country WHERE Continent  =  \"Africa\" order by population desc limit 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 250,
+            "db_id": "world_1",
+            "question": "Which unique cities are in Asian countries?",
+            "gold_sql": "SELECT DISTINCT T3.Name FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode JOIN city AS T3 ON T1.Code   =   T3.CountryCode WHERE T1.Continent   =   \"Asia\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 251,
+            "db_id": "museum_visit",
+            "question": "How many visitors are ther?",
+            "gold_sql": "SELECT count ( * )  from visitor",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 252,
+            "db_id": "wta_1",
+            "question": "Could you list the average ranking for each player with their first name?",
+            "gold_sql": "SELECT avg ( ranking )  ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id   =   T2.player_id GROUP BY T1.player_id",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN + GROUP_BY"
+        },
+        {
+            "dialogue_index": 253,
+            "db_id": "network_1",
+            "question": "What is the average grade of all students who have some friends, please?",
+            "gold_sql": "SELECT avg ( grade )  FROM Highschooler WHERE id IN  ( SELECT T1.student_id FROM Friend AS T1 JOIN Highschooler AS T2 ON T1.student_id   =   T2.id ) ",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 254,
+            "db_id": "network_1",
+            "question": "How many students are there?",
+            "gold_sql": "select count ( * )  from highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 255,
+            "db_id": "concert_singer",
+            "question": "show the stadium names without any concern",
+            "gold_sql": "SELECT name FROM stadium WHERE stadium_id NOT IN  ( SELECT stadium_id FROM concert ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 256,
+            "db_id": "singer",
+            "question": "What is the most common citizenship of singers, please?",
+            "gold_sql": "SELECT Citizenship FROM singer GROUP BY Citizenship ORDER BY COUNT ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 257,
+            "db_id": "poker_player",
+            "question": "To which nationality does the people_id 1 belongs to ?",
+            "gold_sql": "SELECT Nationality FROM people where People_ID = 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 258,
+            "db_id": "student_transcripts_tracking",
+            "question": "Which program had the least number of students enrolled?",
+            "gold_sql": "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id   =   T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 259,
+            "db_id": "student_transcripts_tracking",
+            "question": "Which programs has the student by the first name Timmothy enrolled?",
+            "gold_sql": "SELECT T2.degree_program_id FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id WHERE T1.first_name  =  \"Timmothy\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 260,
+            "db_id": "pets_1",
+            "question": "Hi. What are the different types of pets?",
+            "gold_sql": "SELECT distinct PetType from Pets",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 261,
+            "db_id": "student_transcripts_tracking",
+            "question": "Could you tell me the last names of all the students who live in the state of North Carolina?",
+            "gold_sql": "SELECT T1.last_name FROM Students AS T1 JOIN Addresses AS T2 ON T1.current_address_id   =   T2.address_id WHERE T2.state_province_county   =   'NorthCarolina'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 262,
+            "db_id": "wta_1",
+            "question": "find the name of loser and winner who played in the match with the greatest number of minutes",
+            "gold_sql": "SELECT winner_name ,  loser_name FROM matches ORDER BY minutes DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 263,
+            "db_id": "car_1",
+            "question": "What are all the car models available?",
+            "gold_sql": "select distinct Model from car_names",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 264,
+            "db_id": "network_1",
+            "question": "which grade has the \nmost high schoolers",
+            "gold_sql": "SELECT grade FROM Highschooler GROUP BY grade ORDER BY count ( * )  DESC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 265,
+            "db_id": "dog_kennels",
+            "question": "Show  me the first and last name whose id number 1 | Do you mean the owner id is 1 or dog id is 1? | owner id please.",
+            "gold_sql": "SELECT T1.first_name , T1.last_name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id   =   T2.owner_id WHERE T1.owner_id   =  1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 266,
+            "db_id": "student_transcripts_tracking",
+            "question": "Which cause has the least enrollment? | Do you want the course id or course name? | the course name",
+            "gold_sql": "SELECT  T1.course_name FROM Courses AS T1 JOIN Student_Enrolment_Courses AS T2 ON T1.course_id   =   T2.course_id GROUP BY T1.course_name ORDER BY count ( * )  LIMIT 1",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 267,
+            "db_id": "world_1",
+            "question": "how many country code in the city table | Do  you  want  to  know  the distinct country code? | how many language in the countrylanguage table",
+            "gold_sql": "SELECT count ( distinct  Language )  from countrylanguage",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 268,
+            "db_id": "network_1",
+            "question": "Show the names of all of the high schoolers.",
+            "gold_sql": "select name from highschooler",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 269,
+            "db_id": "car_1",
+            "question": "Hi! which countries are in europe?",
+            "gold_sql": "SELECT distinct T1.CountryName FROM COUNTRIES AS T1 JOIN CONTINENTS AS T2 ON T1.Continent   =   T2.ContId JOIN CAR_MAKERS AS T3 ON T1.CountryId   =   T3.Country WHERE T2.Continent   =   'europe'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 270,
+            "db_id": "museum_visit",
+            "question": "Hello there!  Can you tell me the total number of visitors who did not visit any museum that was opened after 2010?",
+            "gold_sql": "SELECT count ( * )  FROM visitor WHERE id NOT IN  ( SELECT t2.visitor_id FROM museum AS t1 JOIN visit AS t2 ON t1.Museum_ID   =   t2.Museum_ID WHERE t1.open_year  >  2010 ) ",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 271,
+            "db_id": "dog_kennels",
+            "question": "Hi! How many owners temporarily do not have dogs?",
+            "gold_sql": "SELECT count ( * )  FROM Owners WHERE owner_id NOT IN  (  SELECT owner_id FROM Dogs  ) ",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 272,
+            "db_id": "tvshow",
+            "question": "Which cartoon aired first?",
+            "gold_sql": "SELECT title  FROM cartoon ORDER BY original_air_date LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 273,
+            "db_id": "singer",
+            "question": "which singers were born before 1945?",
+            "gold_sql": "SELECT * FROM singer WHERE Birth_Year  <  1945",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 274,
+            "db_id": "world_1",
+            "question": "how many country there",
+            "gold_sql": "select count ( * )  from Country",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 275,
+            "db_id": "world_1",
+            "question": "Hi, what is the population of the Caribbean?",
+            "gold_sql": "SELECT sum ( Population )  FROM country WHERE Region  =  \"Caribbean\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 276,
+            "db_id": "dog_kennels",
+            "question": "Which street does  Nora Haley live?",
+            "gold_sql": "SELECT street FROM Owners WHERE first_name  =  \"Nora\" and last_name  =  \"Haley\"",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 277,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "What is the document id with least number of paragraphs?",
+            "gold_sql": "SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count ( * )  ASC LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "gold_signature": "GROUP_BY",
+            "predicted_signature": "GROUP_BY"
+        },
+        {
+            "dialogue_index": 278,
+            "db_id": "dog_kennels",
+            "question": "can you tell me the email id of the owner id ? | Do you mean all owner id and all email address? | owner id 1",
+            "gold_sql": "SELECT email_address from owners where owner_id  =  1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 279,
+            "db_id": "wta_1",
+            "question": "How many matches played in 2013?",
+            "gold_sql": "SELECT count ( * )  FROM matches WHERE YEAR   =   2013",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 280,
+            "db_id": "tvshow",
+            "question": "which countries tv channels are not playing any cartoon written todd casey",
+            "gold_sql": "SELECT country FROM TV_Channel EXCEPT SELECT T1.country FROM TV_Channel AS T1 JOIN cartoon AS T2 ON T1.id  =  T2.Channel WHERE T2.written_by   =   'Todd Casey'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 281,
+            "db_id": "concert_singer",
+            "question": "Show the name and the release year of the song by the youngest singer",
+            "gold_sql": "SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 282,
+            "db_id": "pets_1",
+            "question": "hi, what number of students have a dog as a pet?",
+            "gold_sql": "SELECT count ( * )  FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid   =   T2.stuid JOIN pets AS T3 ON T3.petid   =   T2.petid WHERE T3.pettype   =   'dog'",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 283,
+            "db_id": "dog_kennels",
+            "question": "Which states have professionals living there?",
+            "gold_sql": "SELECT state FROM Professionals",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 284,
+            "db_id": "dog_kennels",
+            "question": "List the first name of professionals",
+            "gold_sql": "SELECT DISTINCT first_name FROM professionals",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 285,
+            "db_id": "course_teach",
+            "question": "how many course id numbers",
+            "gold_sql": "SELECT count ( Course_ID )  FROM course",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 286,
+            "db_id": "car_1",
+            "question": "Can you list how many car makers are on each continent please? | Do you want the name of the continent and the count of car makers on each of them? | Yes please, in a table if possible?",
+            "gold_sql": "SELECT T1.Continent ,  count ( * )  FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId   =   T2.continent JOIN car_makers AS T3 ON T2.CountryId   =   T3.Country GROUP BY T1.Continent",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": true,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN + GROUP_BY",
+            "predicted_signature": "JOIN"
+        },
+        {
+            "dialogue_index": 287,
+            "db_id": "dog_kennels",
+            "question": "Hi there! Can you tell me how many different professional IDs are on this list?",
+            "gold_sql": "SELECT count ( distinct professional_id )  from professionals",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 288,
+            "db_id": "battle_death",
+            "question": "Show the names of all the battles.",
+            "gold_sql": "SELECT name  FROM battle",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 289,
+            "db_id": "network_1",
+            "question": "how many Likes there",
+            "gold_sql": "SELECT count ( * )  FROM Likes",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 290,
+            "db_id": "cre_Doc_Template_Mgt",
+            "question": "Show me the documents",
+            "gold_sql": "SELECT * FROM Documents",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 291,
+            "db_id": "car_1",
+            "question": "whats the average acceleration",
+            "gold_sql": "SELECT AVG ( Accelerate )  FROM cars_data",
+            "gold": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "NONE",
+            "predicted_signature": "NONE"
+        },
+        {
+            "dialogue_index": 292,
+            "db_id": "world_1",
+            "question": "what are the official unique official language spoken in the country | In which country? | what are the unique official languages spoken that are found before 1930",
+            "gold_sql": "SELECT count ( DISTINCT T2.Language )  FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code   =   T2.CountryCode WHERE  IndepYear  <  1930 AND T2.IsOfficial   =   \"T\"",
+            "gold": {
+                "JOIN": true,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "predicted": {
+                "JOIN": false,
+                "GROUP_BY": false,
+                "HAVING": false
+            },
+            "gold_signature": "JOIN",
+            "predicted_signature": "NONE"
+        }
+    ]
+}

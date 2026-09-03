@@ -143,3 +143,8 @@ llm = get_llm(provider=Provider.OPENAI.value)  # or CLAUDE, CLOUDFLARE
 ## License
 
 MIT
+
+CoSQL is not included in this repository.
+Download the official CoSQL dataset and extract it to:
+
+db/cosql_dataset/cosql_dataset/
